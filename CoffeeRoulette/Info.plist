@@ -4,6 +4,10 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Coffee Roulette needs your location information to display venues in your area</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Coffee Roulette needs your location information to display venues in your area</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
