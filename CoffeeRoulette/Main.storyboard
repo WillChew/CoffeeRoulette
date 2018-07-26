@@ -14,7 +14,7 @@
         <!--Coffee Roulette-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="TestLayout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -69,10 +69,10 @@
             </objects>
             <point key="canvasLocation" x="1076" y="133.5832083958021"/>
         </scene>
-        <!--View Controller-->
+        <!--Event Confirmation View Controller-->
         <scene sceneID="2Zf-22-zUN">
             <objects>
-                <viewController id="VH7-h1-AbX" sceneMemberID="viewController">
+                <viewController id="VH7-h1-AbX" customClass="EventConfirmationViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1rr-eX-3HN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="133.5832083958021"/>
         </scene>
-        <!--Random View Controller-->
+        <!--Event Details View Controller-->
         <scene sceneID="uht-yx-pBJ">
             <objects>
-                <viewController id="XuD-oS-AJY" customClass="RandomViewController" customModule="TestLayout" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rk7-nm-JmO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -261,10 +261,10 @@
             </objects>
             <point key="canvasLocation" x="2871" y="-145"/>
         </scene>
-        <!--View Controller-->
+        <!--New Event View Controller-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
-                <viewController id="fNL-rD-Uxt" sceneMemberID="viewController">
+                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ue3-cv-qeN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

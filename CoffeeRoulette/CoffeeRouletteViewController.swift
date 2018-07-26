@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  CoffeeRouletteViewController.swift
 //  CoffeeRoulette
 //
 //  Created by Will Chew on 2018-07-26.
