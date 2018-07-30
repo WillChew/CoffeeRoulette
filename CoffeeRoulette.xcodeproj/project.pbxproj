@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0305C523210A7129005A4AA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0305C522210A7129005A4AA4 /* Main.storyboard */; };
+		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
+		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
+		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
 		21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C4210A3B7200B9F654 /* AppDelegate.swift */; };
 		21ED40C7210A3B7200B9F654 /* CoffeeRouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */; };
 		21ED40CC210A3B7500B9F654 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21ED40CB210A3B7500B9F654 /* Assets.xcassets */; };
@@ -19,6 +22,9 @@
 
 /* Begin PBXFileReference section */
 		0305C522210A7129005A4AA4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
+		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
+		211FAD3A210F99010043C6C5 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
 		21ED40C1210A3B7200B9F654 /* CoffeeRoulette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRoulette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21ED40C4210A3B7200B9F654 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeRouletteViewController.swift; sourceTree = "<group>"; };
@@ -62,6 +68,9 @@
 			children = (
 				21ED40C4210A3B7200B9F654 /* AppDelegate.swift */,
 				21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */,
+				211FAD38210F88210043C6C5 /* Cafe.swift */,
+				211FAD3A210F99010043C6C5 /* Annotations.swift */,
+				211FAD36210F85E50043C6C5 /* MapRequestManager.swift */,
 				0305C522210A7129005A4AA4 /* Main.storyboard */,
 				21ED40D8210A7C4600B9F654 /* EventConfirmationViewController.swift */,
 				21ED40DA210A7C5E00B9F654 /* EventDetailsViewController.swift */,
@@ -146,9 +155,12 @@
 			files = (
 				21ED40C7210A3B7200B9F654 /* CoffeeRouletteViewController.swift in Sources */,
 				21ED40DB210A7C5E00B9F654 /* EventDetailsViewController.swift in Sources */,
+				211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */,
+				211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */,
 				21ED40D7210A7A9400B9F654 /* NewEventViewController.swift in Sources */,
 				21ED40D9210A7C4600B9F654 /* EventConfirmationViewController.swift in Sources */,
 				21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */,
+				211FAD39210F88210043C6C5 /* Cafe.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

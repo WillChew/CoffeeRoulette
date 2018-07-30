@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -25,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="350" id="ZYf-pE-Oh3"/>
                                 </constraints>
                             </mapView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1000" minValue="0.0" maxValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-vh-x4G">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-vh-x4G">
                                 <rect key="frame" x="14" y="577" width="347" height="31"/>
                                 <connections>
                                     <action selector="sliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ccd-f6-hfm"/>
@@ -79,7 +78,7 @@
         <!--Event Confirmation View Controller-->
         <scene sceneID="2Zf-22-zUN">
             <objects>
-                <viewController id="VH7-h1-AbX" customClass="EventConfirmationViewController" sceneMemberID="viewController">
+                <viewController id="VH7-h1-AbX" customClass="EventConfirmationViewController" customModule="CoffeeRoulette" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1rr-eX-3HN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,24 +98,18 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue8-gX-8H7">
-                                <rect key="frame" x="0.0" y="583" width="188" height="84"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue8-gX-8H7">
+                                <rect key="frame" x="0.0" y="583" width="188" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="31A-21-IL9"/>
-                                    <constraint firstAttribute="width" constant="187.5" id="dpW-0l-pi1"/>
-                                </constraints>
                                 <state key="normal" title="Try again">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULg-GT-AXT">
-                                <rect key="frame" x="188" y="583" width="187" height="84"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULg-GT-AXT">
+                                <rect key="frame" x="188" y="583" width="187" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="187" id="DsF-Fg-KVn"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="184.5" id="E3q-37-vW9"/>
-                                </constraints>
                                 <state key="normal" title="Confirm">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -127,31 +120,29 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ULg-GT-AXT" firstAttribute="leading" secondItem="yQn-aB-Wvg" secondAttribute="trailing" constant="-171" id="G21-PF-nuT"/>
+                            <constraint firstItem="s8P-nr-YOT" firstAttribute="bottom" secondItem="yQn-aB-Wvg" secondAttribute="bottom" constant="104" id="J2a-pi-f0k"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="top" secondItem="s8P-nr-YOT" secondAttribute="top" constant="20" id="N9w-Nx-QeY"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="5NJ-Y6-jVO" secondAttribute="trailing" constant="16" id="PfR-id-SL6"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="centerX" secondItem="1rr-eX-3HN" secondAttribute="centerX" id="PkX-Ze-gvx"/>
                             <constraint firstItem="5NJ-Y6-jVO" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="QOL-ni-Lyr"/>
-                            <constraint firstItem="ULg-GT-AXT" firstAttribute="leading" secondItem="ue8-gX-8H7" secondAttribute="trailing" id="RN7-HW-ySf"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="yQn-aB-Wvg" secondAttribute="trailing" constant="16" id="Sif-Jh-xxe"/>
-                            <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="ULg-GT-AXT" secondAttribute="trailing" id="W0z-F5-xw1"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="bottom" secondItem="s8P-nr-YOT" secondAttribute="bottom" id="XU6-6W-f9P"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="baseline" secondItem="ULg-GT-AXT" secondAttribute="firstBaseline" id="aRU-HI-Dbj"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="top" secondItem="yQn-aB-Wvg" secondAttribute="bottom" constant="20" id="gTo-dV-FBr"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="top" secondItem="ULg-GT-AXT" secondAttribute="top" id="hw3-8o-Mv4"/>
                             <constraint firstItem="yQn-aB-Wvg" firstAttribute="top" secondItem="5NJ-Y6-jVO" secondAttribute="bottom" constant="92" id="hzE-nn-2gP"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="j7H-mA-KTC"/>
                             <constraint firstItem="yQn-aB-Wvg" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="mm9-Vk-cpd"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="wxl-9n-h2Q" secondAttribute="trailing" constant="16" id="q2p-iq-du4"/>
                             <constraint firstItem="5NJ-Y6-jVO" firstAttribute="top" secondItem="wxl-9n-h2Q" secondAttribute="bottom" constant="8" id="tlj-U8-XNH"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" id="zPZ-MY-Xfn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s8P-nr-YOT"/>
                     </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="ULg-GT-AXT" id="LT6-ad-Hus"/>
+                        <outlet property="mapView" destination="yQn-aB-Wvg" id="3NX-D0-25J"/>
+                        <outlet property="tryAgainButton" destination="ue8-gX-8H7" id="2tf-Rb-0jL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwI-Yj-whR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2022" y="216"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mmK-n2-nJe">
@@ -174,7 +165,7 @@
         <!--Event Details View Controller-->
         <scene sceneID="uht-yx-pBJ">
             <objects>
-                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" sceneMemberID="viewController">
+                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rk7-nm-JmO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -271,7 +262,7 @@
         <!--New Event View Controller-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
-                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" sceneMemberID="viewController">
+                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ue3-cv-qeN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

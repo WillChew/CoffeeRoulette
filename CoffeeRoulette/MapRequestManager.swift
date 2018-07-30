@@ -1,0 +1,74 @@
+//
+//  MapRequestManager.swift
+//  CoffeeRoulette
+//
+//  Created by Will Chew on 2018-07-30.
+//  Copyright © 2018 Will Chew. All rights reserved.
+//
+
+import Foundation
+import CoreLocation
+
+enum Constants {
+    static let key = "key"
+    static let api = "AIzaSyDBkRECsxw7TPdZn3QiJbxX2ImmwedX1lc"
+    static let location = "location"
+    static let radius = "radius"
+    static let keyword = "keyword"
+    static let coffee = "coffee"
+}
+class MapRequestManager {
+    
+    
+    func getLocations(_ currentLocation: CLLocationCoordinate2D, completion: @escaping([Cafe]) -> () ) {
+        var cafeArray = [Cafe]()
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let url = URL(string: "https://maps.googleapis.com")!
+        
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.path = "/maps/api/place/nearbysearch/json"
+        let keyQueryItem = URLQueryItem(name: Constants.key, value: Constants.api)
+        let locationQueryItem = URLQueryItem(name: Constants.location, value: "\(currentLocation.latitude),\(currentLocation.longitude)")
+        let radiusQueryItem = URLQueryItem(name: Constants.radius, value: "500")
+        let keywordQueryItem = URLQueryItem(name: Constants.keyword, value: Constants.coffee)
+        components.queryItems = [keyQueryItem, locationQueryItem, radiusQueryItem, keywordQueryItem]
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        
+        let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            if (error == nil) {
+                //success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                print(#line, "Success: \(statusCode)")
+            } else if let error = error {
+                //error
+                print(#line, error.localizedDescription)
+            }
+            
+            guard let data = data else { return }
+            guard let jsonResult = try! JSONSerialization.jsonObject(with: data) as? Dictionary<String,Any?> else { return }
+            let cafes = jsonResult["results"] as! Array<Dictionary<String,Any?>>
+            
+            for cafe in cafes {
+                guard let geometry = cafe["geometry"] as? Dictionary<String,Any?>, let location = geometry["location"] as? Dictionary<String,Any?>, let name = cafe["name"] else { return }
+                
+                let latitude = location["lat"] as! CLLocationDegrees
+                let longitude = location["lng"] as! CLLocationDegrees
+                let newCafe = Cafe(cafeName: name as! String, location:CLLocationCoordinate2DMake(latitude, longitude))
+                cafeArray.append(newCafe)
+                
+                
+            }
+            completion(cafeArray)
+        })
+        
+        
+        task.resume()
+        session.finishTasksAndInvalidate()
+        
+    }
+    
+}
+
