@@ -7,29 +7,109 @@
 //
 
 import UIKit
+import MapKit
+import CoreLocation
 
-class NewEventViewController: UIViewController {
+class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
+    
+    var locationManager: CLLocationManager!
+    var cafes = [Cafe]()
+    var currentLocation: CLLocationCoordinate2D!
+    var delta: CLLocationDegrees = 0.01
+    var mapRequestManager: MapRequestManager!
+    var selectedAnnotation: Annotations?
+    var cafeSelectedCoordinates: CLLocationCoordinate2D!
+    var datePickerView: UIDatePicker!
+    var time: TimeInterval!
 
+    
+    @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var timeTextField: UITextField!
+    @IBOutlet weak var titleTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        timeTextField.delegate = self
 
+        mapView.delegate = self
+        mapRequestManager = MapRequestManager()
+        locationManager = CLLocationManager()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+            
+            
+        }
         // Do any additional setup after loading the view.
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        mapView.removeFromSuperview()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = manager.location?.coordinate
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
+        self.mapView.setRegion(coordinateRegion, animated: true)
+        self.mapView.showsUserLocation = true
+        
+        mapRequestManager.getLocations(currentLocation, radius: 500){ (cafeArray) in
+            
+            for point in cafeArray {
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+                self.mapView.addAnnotation(annotation)
+            }
+        }
 
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        self.selectedAnnotation = view.annotation as? Annotations
+        cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
+        print(cafeSelectedCoordinates.latitude)
+        print(cafeSelectedCoordinates.longitude)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func timeTextFieldSelected(_ sender: UITextField) {
+        
+        
+        let calendar = Calendar.current
+        let todayNow = Date()
+        let todayEnd = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: todayNow)
+        
+        datePickerView = UIDatePicker()
+        datePickerView.maximumDate = todayEnd
+        datePickerView.minimumDate = todayNow
+        datePickerView.datePickerMode = .time
+        datePickerView.minuteInterval = 5
+        sender.inputView = datePickerView
+        datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        mapView.isHidden = true
     }
-    */
-
+    
+    
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
+        let formatter = DateFormatter()
+        formatter.timeStyle = .short
+        timeTextField.text = formatter.string(from: sender.date)
+        time = sender.date.timeIntervalSince1970
+        print(#line, time)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.resignFirstResponder()
+    }
+    
+    
+    
+    
 }

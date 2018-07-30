@@ -14,6 +14,7 @@ class Cafe {
     var cafeName: String
     var location: CLLocationCoordinate2D
     var photo: UIImage?
+    var photoRef: String?
     
     init(cafeName: String, location: CLLocationCoordinate2D ) {
         self.cafeName = cafeName

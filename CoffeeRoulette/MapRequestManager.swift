@@ -20,7 +20,7 @@ enum Constants {
 class MapRequestManager {
     
     
-    func getLocations(_ currentLocation: CLLocationCoordinate2D, completion: @escaping([Cafe]) -> () ) {
+    func getLocations(_ currentLocation: CLLocationCoordinate2D, radius: Float, completion: @escaping([Cafe]) -> () ) {
         var cafeArray = [Cafe]()
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -31,7 +31,7 @@ class MapRequestManager {
         components.path = "/maps/api/place/nearbysearch/json"
         let keyQueryItem = URLQueryItem(name: Constants.key, value: Constants.api)
         let locationQueryItem = URLQueryItem(name: Constants.location, value: "\(currentLocation.latitude),\(currentLocation.longitude)")
-        let radiusQueryItem = URLQueryItem(name: Constants.radius, value: "500")
+        let radiusQueryItem = URLQueryItem(name: Constants.radius, value: "\(radius)")
         let keywordQueryItem = URLQueryItem(name: Constants.keyword, value: Constants.coffee)
         components.queryItems = [keyQueryItem, locationQueryItem, radiusQueryItem, keywordQueryItem]
         var request = URLRequest(url: components.url!)
@@ -52,14 +52,16 @@ class MapRequestManager {
             let cafes = jsonResult["results"] as! Array<Dictionary<String,Any?>>
             
             for cafe in cafes {
-                guard let geometry = cafe["geometry"] as? Dictionary<String,Any?>, let location = geometry["location"] as? Dictionary<String,Any?>, let name = cafe["name"] else { return }
+                guard let geometry = cafe["geometry"] as? Dictionary<String,Any?>, let location = geometry["location"] as? Dictionary<String,Any?>, let name = cafe["name"], let photosArray = cafe["photos"] as? Array<Dictionary<String,Any?>> else { return }
                 
+                let photoDict = photosArray[0]
+                let photoRef = photoDict["photo_reference"] as? String
                 let latitude = location["lat"] as! CLLocationDegrees
                 let longitude = location["lng"] as! CLLocationDegrees
                 let newCafe = Cafe(cafeName: name as! String, location:CLLocationCoordinate2DMake(latitude, longitude))
+                newCafe.photoRef = photoRef
                 cafeArray.append(newCafe)
-                
-                
+
             }
             completion(cafeArray)
         })

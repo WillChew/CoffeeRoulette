@@ -62,7 +62,7 @@
                     <navigationItem key="navigationItem" title="Coffee Roulette" id="1js-QS-nCf">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="q2Q-eT-Kwz">
                             <connections>
-                                <segue destination="fNL-rD-Uxt" kind="show" id="3yX-Oe-aoA"/>
+                                <segue destination="fNL-rD-Uxt" kind="show" identifier="goToCreateSegue" id="3yX-Oe-aoA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -278,6 +278,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="timeTextFieldSelected:" destination="fNL-rD-Uxt" eventType="editingDidBegin" id="ohA-GZ-IrG"/>
+                                </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
                                 <rect key="frame" x="16" y="226" width="343" height="357"/>
@@ -299,11 +302,12 @@
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="69B-TZ-BGM" secondAttribute="trailing" constant="16" id="1jT-X9-3j5"/>
                             <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="36N-TR-EKK"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="3Aq-A2-UXq"/>
+                            <constraint firstItem="abC-QE-vLT" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="460" id="3Pv-Vt-FAD"/>
                             <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="74" id="6Pv-hR-Llp"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="abC-QE-vLT" secondAttribute="bottom" constant="20" id="9RB-ou-zsM"/>
-                            <constraint firstItem="abC-QE-vLT" firstAttribute="top" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="29" id="ISq-qU-8H3"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="top" secondItem="69B-TZ-BGM" secondAttribute="bottom" constant="8" id="JPU-sM-Vdl"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="top" secondItem="iBL-5x-IhJ" secondAttribute="top" constant="20" id="Uf2-28-kXE"/>
+                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="84" id="We7-Fe-1Mu"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="ZBI-Dl-GMa"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="qDa-RK-1Fw" secondAttribute="trailing" constant="16" id="eFz-Gg-zg9"/>
                             <constraint firstItem="abC-QE-vLT" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="iZt-YA-es6"/>
@@ -312,6 +316,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
+                        <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
+                        <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFV-sW-e27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -322,6 +331,6 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Lp-jw-fQc"/>
+        <segue reference="OSl-hi-mGo"/>
     </inferredMetricsTieBreakers>
 </document>
