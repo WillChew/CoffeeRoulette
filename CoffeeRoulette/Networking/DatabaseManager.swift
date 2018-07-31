@@ -12,13 +12,29 @@ import CloudKit
 class DatabaseManager {
     let db = CKContainer.default().publicCloudDatabase
     
+    func save(eventRecord: CKRecord, completion: @escaping ((CKRecord?, Error?)->()) ) {
+        db.save(eventRecord) { (record, error) in
+            if let error = error { print(#line, error.localizedDescription); return}
+            completion(record, error)
+        }
+    }
+    
     func save(event: Event, completion: @escaping ((CKRecord?, Error?)->()) ) {
         let eventCKRecord = event.createCKRecord()
         db.save(eventCKRecord) { (record, error) in
             if let error = error { print(#line, error.localizedDescription); return}
-            print(#line, (record?["title"] as? NSString) ?? "No title")
             completion(record, error)
         }
+    }
+    
+    func getEvents(completion: @escaping (([CKRecord]?, Error?)->()) ) {
+        let query = CKQuery(recordType: "Event", predicate: NSPredicate(value: true))
+        db.perform(query, inZoneWith: nil) { (records, error) in
+            if let error = error { print(#line, error.localizedDescription); return}
+            completion(records, error)
+        }
+        
+        
     }
 }
 

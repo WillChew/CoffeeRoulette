@@ -8,14 +8,30 @@
 
 import UIKit
 import MapKit
+import CloudKit
 
 class EventConfirmationViewController: UIViewController {
+    
+    var eventRecords : [CKRecord]?
+    var recordIndex = 0
+    let formatter = DateFormatter()
+    let databaseManager = DatabaseManager()
+
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    
     @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
         
         //Button Constraints
         tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
@@ -32,16 +48,46 @@ class EventConfirmationViewController: UIViewController {
         confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
         
         
-
-        // Do any additional setup after loading the view.
+        if eventRecords != nil {
+            for record in eventRecords! {
+                print(record["title"] as! String)
+            }
+            if eventRecords!.count == 0 {
+                titleLabel.text = "No events found at this time. Try again later, or create your own event!"
+                timeLabel.text = ""
+            } else if eventRecords!.count > 0 {
+                eventRecords!.shuffle()
+                let eventRecord = eventRecords![recordIndex]
+                recordIndex = (recordIndex + 1) % eventRecords!.count
+                titleLabel.text = eventRecord["title"] as? String
+                timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
+                // set mapView to be location from EventRecord's location
+                
+            }
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func tryAgainButtonTapped(_ sender: Any) {
+        let eventRecord = eventRecords![recordIndex]
+        recordIndex = (recordIndex + 1) % eventRecords!.count
+        titleLabel.text = eventRecord["title"] as? String
+        timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
+        // set mapView to be location from EventRecord's location
     }
     
-
+    @IBAction func confirmButtonTapped(_ sender: Any) {
+        let eventRecord = eventRecords![recordIndex - 1]
+        eventRecord["guest"] = "ABC" as NSString
+        databaseManager.save(eventRecord: eventRecord) { (record, error) in
+            if (error != nil) && (record != nil) {
+                print(record!["guest"] as! NSString)
+                
+                
+            }
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 

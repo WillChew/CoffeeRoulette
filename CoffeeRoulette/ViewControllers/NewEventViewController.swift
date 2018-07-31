@@ -157,7 +157,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         databaseManager.save(event: event) { [weak self](record, error) in
             if ((error == nil) && (record != nil)) {
-                self?.eventRecord = record
+                self?.eventRecord = record!
 
                 guard let photoRef = self?.selectedCafe.photoRef else { return }
                 

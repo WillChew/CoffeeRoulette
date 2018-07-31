@@ -11,6 +11,7 @@
 		0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A62110C35F007935DE /* DatabaseManager.swift */; };
 		0380E6A92110C373007935DE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A82110C373007935DE /* Event.swift */; };
 		03AB432D2111027900AFD149 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AB432C2111027900AFD149 /* CloudKit.framework */; };
+		03AB432F211117E100AFD149 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB432E211117E100AFD149 /* Extensions.swift */; };
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
 		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
 		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
@@ -29,6 +30,7 @@
 		0380E6A82110C373007935DE /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		03AB432B2111027600AFD149 /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
 		03AB432C2111027900AFD149 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		03AB432E211117E100AFD149 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
 		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		211FAD3A210F99010043C6C5 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 			children = (
 				03AB432B2111027600AFD149 /* CoffeeRoulette.entitlements */,
 				21ED40C4210A3B7200B9F654 /* AppDelegate.swift */,
+				03AB432E211117E100AFD149 /* Extensions.swift */,
 				03A945252110F70B006E3805 /* ViewControllers */,
 				03A945262110F724006E3805 /* Models */,
 				03A945272110F74D006E3805 /* Networking */,
@@ -222,6 +225,7 @@
 				21ED40D9210A7C4600B9F654 /* EventConfirmationViewController.swift in Sources */,
 				21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */,
 				211FAD39210F88210043C6C5 /* Cafe.swift in Sources */,
+				03AB432F211117E100AFD149 /* Extensions.swift in Sources */,
 				0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
