@@ -6,12 +6,11 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Coffee Roulette-->
+        <!--Random-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -25,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="350" id="ZYf-pE-Oh3"/>
                                 </constraints>
                             </mapView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1000" minValue="0.0" maxValue="10000" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-vh-x4G">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="500" minValue="0.0" maxValue="1000" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-vh-x4G">
                                 <rect key="frame" x="14" y="577" width="347" height="31"/>
                                 <connections>
                                     <action selector="sliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ccd-f6-hfm"/>
@@ -60,10 +59,10 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Coffee Roulette" id="1js-QS-nCf">
+                    <navigationItem key="navigationItem" title="Random" id="1js-QS-nCf">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="q2Q-eT-Kwz">
                             <connections>
-                                <segue destination="fNL-rD-Uxt" kind="show" id="3yX-Oe-aoA"/>
+                                <segue destination="fNL-rD-Uxt" kind="show" identifier="goToCreateSegue" id="3yX-Oe-aoA"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -79,7 +78,7 @@
         <!--Event Confirmation View Controller-->
         <scene sceneID="2Zf-22-zUN">
             <objects>
-                <viewController id="VH7-h1-AbX" customClass="EventConfirmationViewController" sceneMemberID="viewController">
+                <viewController id="VH7-h1-AbX" customClass="EventConfirmationViewController" customModule="CoffeeRoulette" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1rr-eX-3HN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -99,59 +98,51 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue8-gX-8H7">
-                                <rect key="frame" x="0.0" y="583" width="188" height="84"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ue8-gX-8H7">
+                                <rect key="frame" x="0.0" y="583" width="188" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="31A-21-IL9"/>
-                                    <constraint firstAttribute="width" constant="187.5" id="dpW-0l-pi1"/>
-                                </constraints>
                                 <state key="normal" title="Try again">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULg-GT-AXT">
-                                <rect key="frame" x="188" y="583" width="187" height="84"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ULg-GT-AXT">
+                                <rect key="frame" x="188" y="583" width="187" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="187" id="DsF-Fg-KVn"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="184.5" id="E3q-37-vW9"/>
-                                </constraints>
                                 <state key="normal" title="Confirm">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XuD-oS-AJY" kind="presentation" id="8Lp-jw-fQc"/>
+                                    <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="8Lp-jw-fQc"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ULg-GT-AXT" firstAttribute="leading" secondItem="yQn-aB-Wvg" secondAttribute="trailing" constant="-171" id="G21-PF-nuT"/>
+                            <constraint firstItem="s8P-nr-YOT" firstAttribute="bottom" secondItem="yQn-aB-Wvg" secondAttribute="bottom" constant="104" id="J2a-pi-f0k"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="top" secondItem="s8P-nr-YOT" secondAttribute="top" constant="20" id="N9w-Nx-QeY"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="5NJ-Y6-jVO" secondAttribute="trailing" constant="16" id="PfR-id-SL6"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="centerX" secondItem="1rr-eX-3HN" secondAttribute="centerX" id="PkX-Ze-gvx"/>
                             <constraint firstItem="5NJ-Y6-jVO" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="QOL-ni-Lyr"/>
-                            <constraint firstItem="ULg-GT-AXT" firstAttribute="leading" secondItem="ue8-gX-8H7" secondAttribute="trailing" id="RN7-HW-ySf"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="yQn-aB-Wvg" secondAttribute="trailing" constant="16" id="Sif-Jh-xxe"/>
-                            <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="ULg-GT-AXT" secondAttribute="trailing" id="W0z-F5-xw1"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="bottom" secondItem="s8P-nr-YOT" secondAttribute="bottom" id="XU6-6W-f9P"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="baseline" secondItem="ULg-GT-AXT" secondAttribute="firstBaseline" id="aRU-HI-Dbj"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="top" secondItem="yQn-aB-Wvg" secondAttribute="bottom" constant="20" id="gTo-dV-FBr"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="top" secondItem="ULg-GT-AXT" secondAttribute="top" id="hw3-8o-Mv4"/>
                             <constraint firstItem="yQn-aB-Wvg" firstAttribute="top" secondItem="5NJ-Y6-jVO" secondAttribute="bottom" constant="92" id="hzE-nn-2gP"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="j7H-mA-KTC"/>
                             <constraint firstItem="yQn-aB-Wvg" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="mm9-Vk-cpd"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="wxl-9n-h2Q" secondAttribute="trailing" constant="16" id="q2p-iq-du4"/>
                             <constraint firstItem="5NJ-Y6-jVO" firstAttribute="top" secondItem="wxl-9n-h2Q" secondAttribute="bottom" constant="8" id="tlj-U8-XNH"/>
-                            <constraint firstItem="ue8-gX-8H7" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" id="zPZ-MY-Xfn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s8P-nr-YOT"/>
                     </view>
+                    <connections>
+                        <outlet property="confirmButton" destination="ULg-GT-AXT" id="LT6-ad-Hus"/>
+                        <outlet property="mapView" destination="yQn-aB-Wvg" id="3NX-D0-25J"/>
+                        <outlet property="tryAgainButton" destination="ue8-gX-8H7" id="2tf-Rb-0jL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwI-Yj-whR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2021.5999999999999" y="133.5832083958021"/>
+            <point key="canvasLocation" x="2022" y="216"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mmK-n2-nJe">
@@ -174,7 +165,7 @@
         <!--Event Details View Controller-->
         <scene sceneID="uht-yx-pBJ">
             <objects>
-                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" sceneMemberID="viewController">
+                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rk7-nm-JmO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +197,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="NT9-8v-cz5" kind="unwind" identifier="unwindSegue" unwindAction="unwindToVC1WithSegue:" id="wZQ-WY-Cha"/>
+                                    <segue destination="NT9-8v-cz5" kind="unwind" identifier="goToMainScreen" unwindAction="unwindToRandomScreenWithSegue:" id="51f-fB-iJc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-Lr-6xN">
@@ -262,16 +253,22 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ezA-Sb-Tps"/>
                     </view>
+                    <connections>
+                        <outlet property="cafeImageView" destination="BaU-94-yij" id="z3t-zj-ih5"/>
+                        <outlet property="locationLabel" destination="8Es-9G-CSb" id="vQx-A7-83B"/>
+                        <outlet property="timeLabel" destination="Pbx-jd-MEu" id="dYi-2E-0mU"/>
+                        <outlet property="titleLabel" destination="NCb-Lr-6xN" id="N4t-1o-A4b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLQ-OY-pNu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NT9-8v-cz5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2871" y="-145"/>
         </scene>
-        <!--New Event View Controller-->
+        <!--New Event-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
-                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" sceneMemberID="viewController">
+                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ue3-cv-qeN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -287,40 +284,42 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="timeTextFieldSelected:" destination="fNL-rD-Uxt" eventType="editingDidBegin" id="ohA-GZ-IrG"/>
+                                </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
-                                <rect key="frame" x="16" y="226" width="343" height="357"/>
+                                <rect key="frame" x="16" y="171" width="343" height="357"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abC-QE-vLT">
-                                <rect key="frame" x="16" y="612" width="343" height="35"/>
-                                <color key="backgroundColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="CREATE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="XuD-oS-AJY" kind="presentation" id="OSl-hi-mGo"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="69B-TZ-BGM" secondAttribute="trailing" constant="16" id="1jT-X9-3j5"/>
                             <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="36N-TR-EKK"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="3Aq-A2-UXq"/>
-                            <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="74" id="6Pv-hR-Llp"/>
-                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="abC-QE-vLT" secondAttribute="bottom" constant="20" id="9RB-ou-zsM"/>
-                            <constraint firstItem="abC-QE-vLT" firstAttribute="top" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="29" id="ISq-qU-8H3"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="top" secondItem="69B-TZ-BGM" secondAttribute="bottom" constant="8" id="JPU-sM-Vdl"/>
+                            <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="19" id="LGP-k9-zId"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="top" secondItem="iBL-5x-IhJ" secondAttribute="top" constant="20" id="Uf2-28-kXE"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="ZBI-Dl-GMa"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="qDa-RK-1Fw" secondAttribute="trailing" constant="16" id="eFz-Gg-zg9"/>
-                            <constraint firstItem="abC-QE-vLT" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="iZt-YA-es6"/>
-                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="abC-QE-vLT" secondAttribute="trailing" constant="16" id="sbO-fY-pzR"/>
+                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="139" id="sYZ-QN-tj6"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="rIQ-Zf-Mw5" secondAttribute="trailing" constant="16" id="vXo-TJ-bzi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n24-PB-Neo">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" id="g7a-9F-U8h"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
+                        <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
+                        <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
+                        <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="r6x-rY-sTD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFV-sW-e27" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
