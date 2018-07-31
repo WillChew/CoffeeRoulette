@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0305C523210A7129005A4AA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0305C522210A7129005A4AA4 /* Main.storyboard */; };
+		0380E6A52110C163007935DE /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0380E6A42110C163007935DE /* CloudKit.framework */; };
+		0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A62110C35F007935DE /* DatabaseManager.swift */; };
+		0380E6A92110C373007935DE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A82110C373007935DE /* Event.swift */; };
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
 		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
 		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
@@ -22,6 +25,10 @@
 
 /* Begin PBXFileReference section */
 		0305C522210A7129005A4AA4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0380E6A32110C15A007935DE /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
+		0380E6A42110C163007935DE /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		0380E6A62110C35F007935DE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
+		0380E6A82110C373007935DE /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
 		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		211FAD3A210F99010043C6C5 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
@@ -41,17 +48,66 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0380E6A52110C163007935DE /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0380E6962110BBEB007935DE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0380E6A42110C163007935DE /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		03A945252110F70B006E3805 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */,
+				21ED40D6210A7A9400B9F654 /* NewEventViewController.swift */,
+				21ED40D8210A7C4600B9F654 /* EventConfirmationViewController.swift */,
+				21ED40DA210A7C5E00B9F654 /* EventDetailsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		03A945262110F724006E3805 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				211FAD3A210F99010043C6C5 /* Annotations.swift */,
+				211FAD38210F88210043C6C5 /* Cafe.swift */,
+				0380E6A82110C373007935DE /* Event.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		03A945272110F74D006E3805 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				0380E6A62110C35F007935DE /* DatabaseManager.swift */,
+				211FAD36210F85E50043C6C5 /* MapRequestManager.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		03A945282110F758006E3805 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				21ED40CD210A3B7500B9F654 /* LaunchScreen.storyboard */,
+				0305C522210A7129005A4AA4 /* Main.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		21ED40B8210A3B7200B9F654 = {
 			isa = PBXGroup;
 			children = (
 				21ED40C3210A3B7200B9F654 /* CoffeeRoulette */,
 				21ED40C2210A3B7200B9F654 /* Products */,
+				0380E6962110BBEB007935DE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,17 +122,13 @@
 		21ED40C3210A3B7200B9F654 /* CoffeeRoulette */ = {
 			isa = PBXGroup;
 			children = (
+				0380E6A32110C15A007935DE /* CoffeeRoulette.entitlements */,
 				21ED40C4210A3B7200B9F654 /* AppDelegate.swift */,
-				21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */,
-				21ED40D6210A7A9400B9F654 /* NewEventViewController.swift */,
-				211FAD38210F88210043C6C5 /* Cafe.swift */,
-				211FAD3A210F99010043C6C5 /* Annotations.swift */,
-				211FAD36210F85E50043C6C5 /* MapRequestManager.swift */,
-				0305C522210A7129005A4AA4 /* Main.storyboard */,
-				21ED40D8210A7C4600B9F654 /* EventConfirmationViewController.swift */,
-				21ED40DA210A7C5E00B9F654 /* EventDetailsViewController.swift */,
+				03A945252110F70B006E3805 /* ViewControllers */,
+				03A945262110F724006E3805 /* Models */,
+				03A945272110F74D006E3805 /* Networking */,
+				03A945282110F758006E3805 /* Storyboards */,
 				21ED40CB210A3B7500B9F654 /* Assets.xcassets */,
-				21ED40CD210A3B7500B9F654 /* LaunchScreen.storyboard */,
 				21ED40D0210A3B7500B9F654 /* Info.plist */,
 			);
 			path = CoffeeRoulette;
@@ -114,6 +166,14 @@
 				TargetAttributes = {
 					21ED40C0210A3B7200B9F654 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -157,10 +217,12 @@
 				21ED40DB210A7C5E00B9F654 /* EventDetailsViewController.swift in Sources */,
 				211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */,
 				211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */,
+				0380E6A92110C373007935DE /* Event.swift in Sources */,
 				21ED40D7210A7A9400B9F654 /* NewEventViewController.swift in Sources */,
 				21ED40D9210A7C4600B9F654 /* EventConfirmationViewController.swift in Sources */,
 				21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */,
 				211FAD39210F88210043C6C5 /* Cafe.swift in Sources */,
+				0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,15 +358,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9XHB48LCU8;
 				INFOPLIST_FILE = CoffeeRoulette/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.williamchew.CoffeeRoulette;
+				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e3b52015-7145-4eaa-952d-1e11ef53fea8";
+				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioning731;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -314,15 +379,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9XHB48LCU8;
 				INFOPLIST_FILE = CoffeeRoulette/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.williamchew.CoffeeRoulette;
+				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e3b52015-7145-4eaa-952d-1e11ef53fea8";
+				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioning731;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

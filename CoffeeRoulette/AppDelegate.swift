@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CloudKit
+import MapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+//        let dm = DatabaseManager()
+//        let event = CKRecord(recordType: "Event")
+//        event["title"] = "A location!" as NSString
+//        event["time"] = Date() as NSDate
+//        event["location"] = CLLocation(latitude: 43.644822, longitude: -79.395212)
+//        dm.save(event: event)
         return true
     }
 

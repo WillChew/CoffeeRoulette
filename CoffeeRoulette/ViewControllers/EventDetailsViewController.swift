@@ -12,7 +12,7 @@ class EventDetailsViewController: UIViewController {
     
     var cafe: Cafe!
     var eventTitle: String?
-    var eventTime: TimeInterval?
+    var eventTime: Date?
     var eventLocation: String?
     var cafePicture: UIImage?
     
@@ -24,7 +24,7 @@ class EventDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         guard let eventTime = eventTime else { return }
-       let date = Date(timeIntervalSince1970: eventTime)
+       let date = eventTime
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
