@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0305C523210A7129005A4AA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0305C522210A7129005A4AA4 /* Main.storyboard */; };
+		03A9452C2110FC88006E3805 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03A9452B2110FC88006E3805 /* CloudKit.framework */; };
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
 		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
 		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
@@ -22,6 +23,8 @@
 
 /* Begin PBXFileReference section */
 		0305C522210A7129005A4AA4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		03A945292110FC85006E3805 /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
+		03A9452B2110FC88006E3805 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
 		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		211FAD3A210F99010043C6C5 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
@@ -41,17 +44,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03A9452C2110FC88006E3805 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03A9452A2110FC88006E3805 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				03A9452B2110FC88006E3805 /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		21ED40B8210A3B7200B9F654 = {
 			isa = PBXGroup;
 			children = (
 				21ED40C3210A3B7200B9F654 /* CoffeeRoulette */,
 				21ED40C2210A3B7200B9F654 /* Products */,
+				03A9452A2110FC88006E3805 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +79,7 @@
 		21ED40C3210A3B7200B9F654 /* CoffeeRoulette */ = {
 			isa = PBXGroup;
 			children = (
+				03A945292110FC85006E3805 /* CoffeeRoulette.entitlements */,
 				21ED40C4210A3B7200B9F654 /* AppDelegate.swift */,
 				21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */,
 				21ED40D6210A7A9400B9F654 /* NewEventViewController.swift */,
@@ -114,6 +128,14 @@
 				TargetAttributes = {
 					21ED40C0210A3B7200B9F654 = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -296,6 +318,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9XHB48LCU8;
@@ -317,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = 9XHB48LCU8;
