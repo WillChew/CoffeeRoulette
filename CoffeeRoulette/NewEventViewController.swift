@@ -15,7 +15,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var locationManager: CLLocationManager!
     var cafes = [Cafe]()
     var currentLocation: CLLocationCoordinate2D!
-    var delta: CLLocationDegrees = 0.005
+    var delta: CLLocationDegrees = 0.006
     var mapRequestManager: MapRequestManager!
     var selectedAnnotation: Annotations?
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
@@ -24,6 +24,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var selectedCafe: Cafe!
     
     
+    @IBOutlet weak var cafeLabel: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var timeTextField: UITextField!
@@ -32,11 +33,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     override func viewDidLoad() {
         super.viewDidLoad()
         timeTextField.delegate = self
+        mapView.delegate = self
         datePickerView = UIDatePicker.init()
         timeTextField.inputView = datePickerView
         datePickerView.datePickerMode = .time
         
-        mapView.delegate = self
         
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
@@ -54,31 +55,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             mapView.addGestureRecognizer(longPressGesture)
             
         }
-        
+        cafeLabel.isHidden = true
         saveButton.isEnabled = false
         
     }
-    
-    
-    // Gestures
-    @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
-        let touchPoint = gestureRecognizer.location(in: mapView)
-        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = newCoordinates
-        
-        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude))
-        mapView.addAnnotation(newAnnotation)
-        
-        mapRequest(newCoordinates)
-        
-    }
-    
-    @objc func backgroundTap(gesture: UITapGestureRecognizer) {
-        timeTextField.resignFirstResponder()
-        titleTextField.resignFirstResponder()
-        mapView.isHidden = false
-    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mapView.removeFromSuperview()
@@ -90,16 +71,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.mapView.setRegion(coordinateRegion, animated: true)
         self.mapView.showsUserLocation = true
         
-                for point in cafes {
-                    let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude))
-                    annotation.photoRef = point.photoRef
-                    annotation.title = title
-                    
-                    self.mapView.addAnnotation(annotation)
-                }
-        
-        
-//        mapRequest(currentLocation)
+        mapRequest(currentLocation)
 
         
     }
@@ -107,14 +79,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
+        
         selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
         selectedCafe.photoRef = self.selectedAnnotation?.photoRef
+        
+        cafeLabel.isHidden = false
+        cafeLabel.text = selectedCafe.cafeName
         changeSaveButton()
     }
     
- 
-    
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -151,6 +125,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         textField.resignFirstResponder()
         return true
     }
+    // Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
@@ -172,6 +147,27 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     
+    // Gestures
+    @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoordinates
+        
+        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude))
+        mapView.addAnnotation(newAnnotation)
+        
+        mapRequest(newCoordinates)
+        
+    }
+    
+    @objc func backgroundTap(gesture: UITapGestureRecognizer) {
+        timeTextField.resignFirstResponder()
+        titleTextField.resignFirstResponder()
+        mapView.isHidden = false
+    }
+    
+    //Other Functions
     func mapRequest(_ coordinates: CLLocationCoordinate2D) {
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
@@ -180,7 +176,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
             }
-            
         }
     }
     

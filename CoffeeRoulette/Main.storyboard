@@ -289,32 +289,44 @@
                                 </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
-                                <rect key="frame" x="16" y="171" width="343" height="357"/>
+                                <rect key="frame" x="16" y="178" width="343" height="350"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="xqq-Yy-IhD"/>
+                                </constraints>
                             </mapView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-qY-LpX">
+                                <rect key="frame" x="0.0" y="570.5" width="375" height="32.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="69B-TZ-BGM" secondAttribute="trailing" constant="16" id="1jT-X9-3j5"/>
                             <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="36N-TR-EKK"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="3Aq-A2-UXq"/>
+                            <constraint firstItem="8UC-qY-LpX" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" id="Gqo-MU-t3s"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="top" secondItem="69B-TZ-BGM" secondAttribute="bottom" constant="8" id="JPU-sM-Vdl"/>
-                            <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="19" id="LGP-k9-zId"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="top" secondItem="iBL-5x-IhJ" secondAttribute="top" constant="20" id="Uf2-28-kXE"/>
+                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="8UC-qY-LpX" secondAttribute="trailing" id="VYO-7d-eqI"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="ZBI-Dl-GMa"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="qDa-RK-1Fw" secondAttribute="trailing" constant="16" id="eFz-Gg-zg9"/>
+                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="8UC-qY-LpX" secondAttribute="bottom" constant="64" id="qRz-Bs-Skw"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="139" id="sYZ-QN-tj6"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="rIQ-Zf-Mw5" secondAttribute="trailing" constant="16" id="vXo-TJ-bzi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n24-PB-Neo">
+                        <barButtonItem key="rightBarButtonItem" title="Create" id="n24-PB-Neo">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" id="g7a-9F-U8h"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="cafeLabel" destination="8UC-qY-LpX" id="qPL-bJ-kRN"/>
                         <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
                         <outlet property="saveButton" destination="n24-PB-Neo" id="GeW-xw-BUa"/>
                         <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
