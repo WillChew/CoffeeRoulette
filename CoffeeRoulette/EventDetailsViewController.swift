@@ -9,9 +9,29 @@
 import UIKit
 
 class EventDetailsViewController: UIViewController {
-
+    
+    var cafe: Cafe!
+    var eventTitle: String?
+    var eventTime: TimeInterval?
+    var eventLocation: String?
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        guard let eventTime = eventTime else { return }
+       let date = Date(timeIntervalSince1970: eventTime)
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        let eventDateTime = formatter.string(from: date)
+        
+        titleLabel.text = eventTitle
+        timeLabel.text = eventDateTime
+        locationLabel.text = eventLocation
+        
 
         // Do any additional setup after loading the view.
     }
@@ -21,6 +41,9 @@ class EventDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        performSegue(withIdentifier: "goToMainScreen", sender: self)
+    }
 
     /*
     // MARK: - Navigation

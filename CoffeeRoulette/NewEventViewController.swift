@@ -21,6 +21,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
     var datePickerView: UIDatePicker!
     var time: TimeInterval!
+    var selectedCafe: Cafe!
 
     
     @IBOutlet weak var mapView: MKMapView!
@@ -80,8 +81,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
-        print(cafeSelectedCoordinates.latitude)
-        print(cafeSelectedCoordinates.longitude)
+        selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+        print(selectedCafe.cafeName)
     }
     
     
@@ -121,6 +122,19 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetailScreenSegue" {
+            let detailViewController = segue.destination as! EventDetailsViewController
+            detailViewController.cafe = selectedCafe
+            detailViewController.eventTitle = titleTextField.text
+            detailViewController.eventTime = time
+            
+        }
+    }
+    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
     }
     
     

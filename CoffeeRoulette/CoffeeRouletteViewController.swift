@@ -23,7 +23,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     
     
-
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
     
@@ -33,24 +33,20 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         locationManager = CLLocationManager()
         mapView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
-            locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             
-            
         }
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-       self.mapView.removeFromSuperview()
-    }
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
-
+        
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
         
@@ -61,12 +57,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
                 self.mapView.addAnnotation(annotation)
             }
         }
-    
+        
         mapView.removeOverlays(mapView.overlays)
         circle = MKCircle(center: currentLocation, radius: CLLocationDistance(slider.value))
         
         mapView.add(circle)
- 
+        
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -83,16 +79,17 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
         mapView.add(circle)
         
-//        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
-//            self.mapView.removeAnnotations(self.mapView.annotations)
-//            for point in cafeArray {
-//
-//                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
-//                self.mapView.addAnnotation(annotation)
-//            }
-//        }
+        //        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
+        //            self.mapView.removeAnnotations(self.mapView.annotations)
+        //            for point in cafeArray {
+        //
+        //                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+        //                self.mapView.addAnnotation(annotation)
+        //            }
+        //        }
     }
     
+    //PRAGMA MARK: Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToCreateSegue" {
             let createViewController = segue.destination as! NewEventViewController
@@ -101,6 +98,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
+    @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
+        
+    }
     
     
     

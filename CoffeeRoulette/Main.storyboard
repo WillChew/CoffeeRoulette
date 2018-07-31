@@ -114,7 +114,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="XuD-oS-AJY" kind="presentation" id="8Lp-jw-fQc"/>
+                                    <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="8Lp-jw-fQc"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -197,7 +197,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="NT9-8v-cz5" kind="unwind" identifier="unwindSegue" unwindAction="unwindToVC1WithSegue:" id="wZQ-WY-Cha"/>
+                                    <segue destination="NT9-8v-cz5" kind="unwind" identifier="goToMainScreen" unwindAction="unwindToRandomScreenWithSegue:" id="51f-fB-iJc"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-Lr-6xN">
@@ -253,6 +253,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ezA-Sb-Tps"/>
                     </view>
+                    <connections>
+                        <outlet property="locationLabel" destination="8Es-9G-CSb" id="vQx-A7-83B"/>
+                        <outlet property="timeLabel" destination="Pbx-jd-MEu" id="dYi-2E-0mU"/>
+                        <outlet property="titleLabel" destination="NCb-Lr-6xN" id="N4t-1o-A4b"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLQ-OY-pNu" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NT9-8v-cz5" userLabel="Exit" sceneMemberID="exit"/>
@@ -302,13 +307,17 @@
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n24-PB-Neo"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n24-PB-Neo">
+                            <connections>
+                                <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" id="g7a-9F-U8h"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
                         <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
                         <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
-                        <segue destination="XuD-oS-AJY" kind="presentation" id="r6x-rY-sTD"/>
+                        <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="r6x-rY-sTD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFV-sW-e27" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -320,6 +329,6 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="r6x-rY-sTD"/>
+        <segue reference="8Lp-jw-fQc"/>
     </inferredMetricsTieBreakers>
 </document>
