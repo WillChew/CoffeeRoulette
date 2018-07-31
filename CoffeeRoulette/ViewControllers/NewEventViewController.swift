@@ -63,18 +63,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
         cafeLabel.isHidden = true
         saveButton.isEnabled = false
-
-
         formatter.timeStyle = .short
         
         // Do any additional setup after loading the view.
     }
-    
-//    @objc func backgroundTap(gesture: UITapGestureRecognizer) {
-//        timeTextField.resignFirstResponder()
-//        titleTextField.resignFirstResponder()
-//        mapView.isHidden = false
-//    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -221,9 +213,25 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     func changeSaveButton() {
-        if timeTextField != nil && titleTextField != nil && selectedCafe != nil {
+        if timeTextField.text != "" && titleTextField.text != "" && selectedCafe != nil {
             saveButton.isEnabled = true
         }
+    }
+    
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        let identifier = "pin"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIButton(type: .contactAdd)
+  
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
     }
     
     
