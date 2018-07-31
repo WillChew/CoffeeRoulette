@@ -43,7 +43,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
         
