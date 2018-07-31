@@ -316,6 +316,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
+                        <outlet property="saveButton" destination="n24-PB-Neo" id="GeW-xw-BUa"/>
                         <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
                         <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
                         <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="r6x-rY-sTD"/>
@@ -330,6 +331,6 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="8Lp-jw-fQc"/>
+        <segue reference="r6x-rY-sTD"/>
     </inferredMetricsTieBreakers>
 </document>
