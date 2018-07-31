@@ -30,6 +30,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     override func viewDidLoad() {
         super.viewDidLoad()
         timeTextField.delegate = self
+        
+        datePickerView = UIDatePicker.init()
+        timeTextField.inputView = datePickerView
+        datePickerView.datePickerMode = .time
 
         mapView.delegate = self
         mapRequestManager = MapRequestManager()
@@ -39,11 +43,19 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             
+            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
+            view.addGestureRecognizer(gestureRecognizer)
             
         }
+
         // Do any additional setup after loading the view.
     }
     
+    @objc func backgroundTap(gesture: UITapGestureRecognizer) {
+        timeTextField.resignFirstResponder()
+        titleTextField.resignFirstResponder()
+        mapView.isHidden = false
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mapView.removeFromSuperview()
@@ -86,10 +98,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let todayNow = Date()
         let todayEnd = calendar.date(bySettingHour: 23, minute: 59, second: 59, of: todayNow)
         
-        datePickerView = UIDatePicker()
+        
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
-        datePickerView.datePickerMode = .time
+        
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
@@ -105,8 +117,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         print(#line, time)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        return true
     }
     
     

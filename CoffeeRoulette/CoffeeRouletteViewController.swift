@@ -43,6 +43,11 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+       self.mapView.removeFromSuperview()
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
 

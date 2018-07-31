@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Coffee Roulette-->
+        <!--Random-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -59,7 +59,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Coffee Roulette" id="1js-QS-nCf">
+                    <navigationItem key="navigationItem" title="Random" id="1js-QS-nCf">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="q2Q-eT-Kwz">
                             <connections>
                                 <segue destination="fNL-rD-Uxt" kind="show" identifier="goToCreateSegue" id="3yX-Oe-aoA"/>
@@ -259,7 +259,7 @@
             </objects>
             <point key="canvasLocation" x="2871" y="-145"/>
         </scene>
-        <!--New Event View Controller-->
+        <!--New Event-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
                 <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -283,43 +283,32 @@
                                 </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
-                                <rect key="frame" x="16" y="226" width="343" height="357"/>
+                                <rect key="frame" x="16" y="171" width="343" height="357"/>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abC-QE-vLT">
-                                <rect key="frame" x="16" y="612" width="343" height="35"/>
-                                <color key="backgroundColor" red="0.57874745130000005" green="0.32151988149999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="CREATE">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="XuD-oS-AJY" kind="presentation" id="OSl-hi-mGo"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="69B-TZ-BGM" secondAttribute="trailing" constant="16" id="1jT-X9-3j5"/>
                             <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="36N-TR-EKK"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="3Aq-A2-UXq"/>
-                            <constraint firstItem="abC-QE-vLT" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="460" id="3Pv-Vt-FAD"/>
-                            <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="74" id="6Pv-hR-Llp"/>
-                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="abC-QE-vLT" secondAttribute="bottom" constant="20" id="9RB-ou-zsM"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="top" secondItem="69B-TZ-BGM" secondAttribute="bottom" constant="8" id="JPU-sM-Vdl"/>
+                            <constraint firstItem="rIQ-Zf-Mw5" firstAttribute="top" secondItem="qDa-RK-1Fw" secondAttribute="bottom" constant="19" id="LGP-k9-zId"/>
                             <constraint firstItem="69B-TZ-BGM" firstAttribute="top" secondItem="iBL-5x-IhJ" secondAttribute="top" constant="20" id="Uf2-28-kXE"/>
-                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="84" id="We7-Fe-1Mu"/>
                             <constraint firstItem="qDa-RK-1Fw" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="ZBI-Dl-GMa"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="qDa-RK-1Fw" secondAttribute="trailing" constant="16" id="eFz-Gg-zg9"/>
-                            <constraint firstItem="abC-QE-vLT" firstAttribute="leading" secondItem="iBL-5x-IhJ" secondAttribute="leading" constant="16" id="iZt-YA-es6"/>
-                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="abC-QE-vLT" secondAttribute="trailing" constant="16" id="sbO-fY-pzR"/>
+                            <constraint firstItem="iBL-5x-IhJ" firstAttribute="bottom" secondItem="rIQ-Zf-Mw5" secondAttribute="bottom" constant="139" id="sYZ-QN-tj6"/>
                             <constraint firstItem="iBL-5x-IhJ" firstAttribute="trailing" secondItem="rIQ-Zf-Mw5" secondAttribute="trailing" constant="16" id="vXo-TJ-bzi"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
+                    <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="n24-PB-Neo"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="rIQ-Zf-Mw5" id="JIZ-oQ-CQj"/>
                         <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
                         <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
+                        <segue destination="XuD-oS-AJY" kind="presentation" id="r6x-rY-sTD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFV-sW-e27" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -331,6 +320,6 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OSl-hi-mGo"/>
+        <segue reference="r6x-rY-sTD"/>
     </inferredMetricsTieBreakers>
 </document>
