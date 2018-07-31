@@ -6,7 +6,7 @@
 //  Copyright © 2018 Will Chew. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CoreLocation
 
 enum Constants {
@@ -70,6 +70,39 @@ class MapRequestManager {
         task.resume()
         session.finishTasksAndInvalidate()
         
+    }
+    
+    func getPictureRequest(_ photoRef: String, completion: @escaping(UIImage) -> ()) {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        let url = URL(string: "https://maps.googleapis.com")!
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
+        components.path = "/maps/api/place/photo"
+        
+        let maxWidthQueryItem = URLQueryItem(name: "maxwidth", value: "400")
+        let photoReferenceQueryItem = URLQueryItem(name: "photoreference", value: photoRef)
+        let keyQueryItem = URLQueryItem(name: "key", value: Constants.api)
+        components.queryItems = [maxWidthQueryItem, photoReferenceQueryItem, keyQueryItem]
+        var request = URLRequest(url: components.url!)
+        request.httpMethod = "GET"
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if error == nil {
+                //success
+                let statusCode = (response as! HTTPURLResponse).statusCode
+                print(#line, "Get photo request success: \(statusCode)")
+            } else if let error = error {
+                //fail
+                print(error.localizedDescription)
+            }
+            guard let data = data, let image = UIImage(data: data, scale: 1.0) else { return }
+            
+            
+            
+            completion(image)
+        }
+        task.resume()
+        session.finishTasksAndInvalidate()
     }
     
 }

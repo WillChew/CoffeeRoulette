@@ -254,6 +254,7 @@
                         <viewLayoutGuide key="safeArea" id="ezA-Sb-Tps"/>
                     </view>
                     <connections>
+                        <outlet property="cafeImageView" destination="BaU-94-yij" id="z3t-zj-ih5"/>
                         <outlet property="locationLabel" destination="8Es-9G-CSb" id="vQx-A7-83B"/>
                         <outlet property="timeLabel" destination="Pbx-jd-MEu" id="dYi-2E-0mU"/>
                         <outlet property="titleLabel" destination="NCb-Lr-6xN" id="N4t-1o-A4b"/>

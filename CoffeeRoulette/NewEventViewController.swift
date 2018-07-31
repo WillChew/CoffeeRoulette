@@ -71,7 +71,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapRequestManager.getLocations(currentLocation, radius: 500){ (cafeArray) in
             
             for point in cafeArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude))
+                annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
             }
         }
@@ -82,7 +83,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
-        print(selectedCafe.cafeName)
+        selectedCafe.photoRef = self.selectedAnnotation?.photoRef
     }
     
     
@@ -134,7 +135,14 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+        guard let photoRef = selectedCafe.photoRef else { return }
+        mapRequestManager.getPictureRequest(photoRef){ (photo) in
+            self.selectedCafe.photo = photo
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                
+            }
+        }
     }
     
     

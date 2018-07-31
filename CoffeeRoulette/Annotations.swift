@@ -13,6 +13,7 @@ import CoreLocation
 class Annotations: NSObject, MKAnnotation {
     var title: String?
     var coordinate: CLLocationCoordinate2D
+    var photoRef: String?
     
     init(title: String, coordinate: CLLocationCoordinate2D) {
         self.title = title
