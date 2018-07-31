@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CoreLocation
+import CloudKit
 
 class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
     
@@ -20,9 +21,14 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var selectedAnnotation: Annotations?
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
     var datePickerView: UIDatePicker!
-    var time: TimeInterval!
+    var time: Date!
+//    var eventTitle: String!
     var selectedCafe: Cafe!
+    let formatter = DateFormatter()
+    let databaseManager = DatabaseManager()
+    var eventRecord: CKRecord?
     
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     @IBOutlet weak var cafeLabel: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
@@ -57,8 +63,18 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
         cafeLabel.isHidden = true
         saveButton.isEnabled = false
+
+
+        formatter.timeStyle = .short
         
+        // Do any additional setup after loading the view.
     }
+    
+//    @objc func backgroundTap(gesture: UITapGestureRecognizer) {
+//        timeTextField.resignFirstResponder()
+//        titleTextField.resignFirstResponder()
+//        mapView.isHidden = false
+//    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -108,15 +124,13 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
-        
+//        mapView.isHidden = true
     }
     
     
     @objc func datePickerValueChanged(sender:UIDatePicker) {
-        let formatter = DateFormatter()
-        formatter.timeStyle = .short
         timeTextField.text = formatter.string(from: sender.date)
-        time = sender.date.timeIntervalSince1970
+        time = sender.date
         print(#line, time)
     }
     
@@ -137,14 +151,41 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-        guard let photoRef = selectedCafe.photoRef else { return }
-        mapRequestManager.getPictureRequest(photoRef){ (photo) in
-            self.selectedCafe.photo = photo
-            DispatchQueue.main.async {
-                self.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+
+        // Create Event instance and assign the values of the text fields to that object
+        // Take the selected location from the map and save the 2D coordinates to the Event object as a CLLocation
+        
+        view.addSubview(activityIndicator)
+        activityIndicator.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 100, height: 100))
+        activityIndicator.center = view.center
+        
+        activityIndicator.startAnimating()
+        
+        let event = Event(title: titleTextField.text!, time: time, location: CLLocation(latitude: selectedCafe.location.latitude, longitude: selectedCafe.location.longitude))
+        
+        databaseManager.save(event: event) { [weak self](record, error) in
+            if ((error == nil) && (record != nil)) {
+                self?.eventRecord = record
+
+                guard let photoRef = self?.selectedCafe.photoRef else { return }
                 
+                self?.mapRequestManager.getPictureRequest(photoRef){ [weak self] (photo) in
+                    self?.selectedCafe.photo = photo
+                    DispatchQueue.main.async {
+                        self?.activityIndicator.stopAnimating()
+                        self?.activityIndicator.removeFromSuperview()
+                        self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                    }
+                }
             }
         }
+        
+        
+        //takes complet
+        //get callback and don't proceed until successful
+        
+
+        
     }
     
     // Gestures
