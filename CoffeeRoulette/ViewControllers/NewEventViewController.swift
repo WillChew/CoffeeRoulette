@@ -187,7 +187,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
         
-        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude))
+        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
         mapView.addAnnotation(newAnnotation)
         
         mapRequest(newCoordinates)
@@ -205,7 +205,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude))
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
             }
@@ -226,7 +226,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         if annotationView == nil {
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
-            annotationView?.rightCalloutAccessoryView = UIButton(type: .contactAdd)
+            annotationView?.rightCalloutAccessoryView = UIView()
   
         } else {
             annotationView?.annotation = annotation

@@ -15,6 +15,10 @@
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
 		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
 		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
+		218B5CE221120E9400FF4362 /* SecondOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE121120E9400FF4362 /* SecondOnboardingScreen.swift */; };
+		218B5CE421120EA000FF4362 /* ThirdOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE321120EA000FF4362 /* ThirdOnboardingScreen.swift */; };
+		218B5CE721120EE200FF4362 /* FirstOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE621120EE200FF4362 /* FirstOnboardingScreen.swift */; };
+		218B5CE921120F6E00FF4362 /* OnboardingPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE821120F6E00FF4362 /* OnboardingPager.swift */; };
 		21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C4210A3B7200B9F654 /* AppDelegate.swift */; };
 		21ED40C7210A3B7200B9F654 /* CoffeeRouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */; };
 		21ED40CC210A3B7500B9F654 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21ED40CB210A3B7500B9F654 /* Assets.xcassets */; };
@@ -34,6 +38,10 @@
 		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
 		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
 		211FAD3A210F99010043C6C5 /* Annotations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotations.swift; sourceTree = "<group>"; };
+		218B5CE121120E9400FF4362 /* SecondOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondOnboardingScreen.swift; sourceTree = "<group>"; };
+		218B5CE321120EA000FF4362 /* ThirdOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingScreen.swift; sourceTree = "<group>"; };
+		218B5CE621120EE200FF4362 /* FirstOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirstOnboardingScreen.swift; path = ../../ViewControllers/FirstOnboardingScreen.swift; sourceTree = "<group>"; };
+		218B5CE821120F6E00FF4362 /* OnboardingPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPager.swift; sourceTree = "<group>"; };
 		21ED40C1210A3B7200B9F654 /* CoffeeRoulette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRoulette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21ED40C4210A3B7200B9F654 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeRouletteViewController.swift; sourceTree = "<group>"; };
@@ -72,6 +80,7 @@
 				21ED40D6210A7A9400B9F654 /* NewEventViewController.swift */,
 				21ED40D8210A7C4600B9F654 /* EventConfirmationViewController.swift */,
 				21ED40DA210A7C5E00B9F654 /* EventDetailsViewController.swift */,
+				218B5CE521120EA900FF4362 /* OnboardingScreens */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -102,6 +111,17 @@
 				0305C522210A7129005A4AA4 /* Main.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		218B5CE521120EA900FF4362 /* OnboardingScreens */ = {
+			isa = PBXGroup;
+			children = (
+				218B5CE621120EE200FF4362 /* FirstOnboardingScreen.swift */,
+				218B5CE121120E9400FF4362 /* SecondOnboardingScreen.swift */,
+				218B5CE321120EA000FF4362 /* ThirdOnboardingScreen.swift */,
+				218B5CE821120F6E00FF4362 /* OnboardingPager.swift */,
+			);
+			path = OnboardingScreens;
 			sourceTree = "<group>";
 		};
 		21ED40B8210A3B7200B9F654 = {
@@ -217,7 +237,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				21ED40C7210A3B7200B9F654 /* CoffeeRouletteViewController.swift in Sources */,
+				218B5CE721120EE200FF4362 /* FirstOnboardingScreen.swift in Sources */,
+				218B5CE921120F6E00FF4362 /* OnboardingPager.swift in Sources */,
+				218B5CE421120EA000FF4362 /* ThirdOnboardingScreen.swift in Sources */,
 				21ED40DB210A7C5E00B9F654 /* EventDetailsViewController.swift in Sources */,
+				218B5CE221120E9400FF4362 /* SecondOnboardingScreen.swift in Sources */,
 				211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */,
 				211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */,
 				0380E6A92110C373007935DE /* Event.swift in Sources */,

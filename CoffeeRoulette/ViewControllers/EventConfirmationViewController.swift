@@ -103,7 +103,7 @@ class EventConfirmationViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
-            //detailViewController.cafe = selectedCafe
+//            detailViewController.cafe = selectedCafe
             
             let eventRecord: CKRecord
             
