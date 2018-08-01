@@ -55,7 +55,15 @@ class EventDetailsViewController: UIViewController {
     @IBAction func cancelButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "goToMainScreen", sender: self)
     }
-
+    @IBAction func directionsButtonPressed(_ sender: UIButton) {
+        guard let latitude = cafe?.location.latitude, let longitude = cafe?.location.longitude else { return }
+        if (UIApplication.shared.canOpenURL(URL(string:"http://maps.apple.com")!)) {
+            UIApplication.shared.open(NSURL(string:"http://maps.apple.com/?ll=\(latitude),\(longitude)")! as URL, options: [:], completionHandler: nil)
+        } else {
+            print("Can't open")
+        }
+    }
+    
     /*
     // MARK: - Navigation
 
