@@ -28,10 +28,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if hasLaunched == true {
           
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            
             let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as UIViewController
             let navigationController = UINavigationController(rootViewController: rootVC)
-            
             self.window?.rootViewController = navigationController
             
         } else {
@@ -41,8 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let rootVC = walkthroughVC.instantiateViewController(withIdentifier: "OnboardingPager")
             self.window?.rootViewController = rootVC
         }
-        
-        //        UIPageViewController
         
         //        databaseManager.getUserID { (recordID, error) in
         //            if error == nil && recordID != nil {
@@ -56,6 +52,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        } else {
         //            print("Account status: unavailable")
         //        }
+        
         window?.makeKeyAndVisible()
         return true
     }
