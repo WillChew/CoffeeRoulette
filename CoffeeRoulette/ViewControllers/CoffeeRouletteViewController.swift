@@ -55,7 +55,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapRequestManager.getLocations(currentLocation, radius: slider.value){ (cafeArray) in
             
             for point in cafeArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))") as MKAnnotation
                 self.mapView.addAnnotation(annotation)
                 self.cafes = cafeArray
             }
@@ -125,15 +125,30 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
     }
-}
-
-
-extension CoffeeRouletteViewController {
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
-        let circleRenderer = MKCircleRenderer(circle: circleOverlay)
-        circleRenderer.fillColor = .red
-        circleRenderer.alpha = 0.1
-        return circleRenderer
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        let identifier = "pin"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIView()
+            
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
     }
 }
+
+
+//extension CoffeeRouletteViewController {
+//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+//        guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
+//        let circleRenderer = MKCircleRenderer(circle: circleOverlay)
+//        circleRenderer.fillColor = .red
+//        circleRenderer.alpha = 0.1
+//        return circleRenderer
+//    }
+//}
