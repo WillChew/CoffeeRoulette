@@ -108,13 +108,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                 DispatchQueue.main.async {
                     self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
                 }
-                
-                
             }
         }
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
