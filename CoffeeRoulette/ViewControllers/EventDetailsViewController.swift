@@ -51,18 +51,18 @@ class EventDetailsViewController: UIViewController {
         locationLabel.text = eventLocation
         cafeImageView.image = cafe?.photo
         
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         performSegue(withIdentifier: "goToMainScreen", sender: self)
     }
+    
+    //Get directions
     @IBAction func directionsButtonPressed(_ sender: UIButton) {
         
         let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
@@ -74,17 +74,5 @@ class EventDetailsViewController: UIViewController {
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
             ] as [String : Any])
         
-        
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -155,6 +155,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         if segue.identifier == "goToEventConfirmation" {
             let eventConfirmationViewController = segue.destination as! EventConfirmationViewController
             eventConfirmationViewController.eventRecords = eventRecords
+            eventConfirmationViewController.locationManager = locationManager
             
         }
     }
