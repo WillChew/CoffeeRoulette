@@ -44,6 +44,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         
         }
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
+        longPressGesture.minimumPressDuration = 1.0
+        mapView.addGestureRecognizer(longPressGesture)
     }
     
     
@@ -53,22 +56,16 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
         
-        mapRequestManager.getLocations(currentLocation, radius: slider.value){ (cafeArray) in
-            
-            for point in cafeArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))") as MKAnnotation
-                self.mapView.addAnnotation(annotation)
-                self.cafes = cafeArray
-            }
-        }
-        
-/*CIRCLE STUFF
-         mapView.removeOverlays(mapView.overlays)
-//        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(slider.value))
-//
-//        mapView.add(circle)
-        */
+        mapRequest(currentLocation)
     }
+    
+    /*CIRCLE STUFF
+     mapView.removeOverlays(mapView.overlays)
+     //        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(slider.value))
+     //
+     //        mapView.add(circle)
+     */
+    
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? Annotations
@@ -91,40 +88,21 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBAction func sliderChanged(_ sender: UISlider) {
         
         /* CIRCLE STUFF
-//        mapView.remove(circle)
-//        let newRadius = sender.value
-//        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
-//        mapView.add(circle)
-
-        
-        //        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
-        //            self.mapView.removeAnnotations(self.mapView.annotations)
-        //            for point in cafeArray {
-        //
-        //                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
-        //                self.mapView.addAnnotation(annotation)
-        //            }
-        //        }
- */
-    }
-    
-    //PRAGMA MARK: Segues
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToCreateSegue" {
-            let createViewController = segue.destination as! NewEventViewController
-            createViewController.locationManager = locationManager
-            createViewController.cafes = self.cafes
-        }
-        if segue.identifier == "goToEventConfirmation" {
-            let eventConfirmationViewController = segue.destination as! EventConfirmationViewController
-            eventConfirmationViewController.eventRecords = eventRecords
-            
-        }
-    }
-    
-    
-    
-    @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
+         //        mapView.remove(circle)
+         //        let newRadius = sender.value
+         //        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
+         //        mapView.add(circle)
+         
+         
+         //        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
+         //            self.mapView.removeAnnotations(self.mapView.annotations)
+         //            for point in cafeArray {
+         //
+         //                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+         //                self.mapView.addAnnotation(annotation)
+         //            }
+         //        }
+         */
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -141,6 +119,51 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
         return annotationView
     }
+    
+    @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
+        let touchPoint = gestureRecognizer.location(in: mapView)
+        let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = newCoordinates
+        
+        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
+        mapView.addAnnotation(newAnnotation)
+        
+        mapRequest(newCoordinates)
+        
+    }
+    
+    func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+        mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
+            
+            for point in mapArray {
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
+                annotation.photoRef = point.photoRef
+                self.mapView.addAnnotation(annotation)
+            }
+        }
+    }
+    
+    
+    //PRAGMA MARK: Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToCreateSegue" {
+            let createViewController = segue.destination as! NewEventViewController
+            createViewController.locationManager = locationManager
+            createViewController.cafes = self.cafes
+        }
+        if segue.identifier == "goToEventConfirmation" {
+            let eventConfirmationViewController = segue.destination as! EventConfirmationViewController
+            eventConfirmationViewController.eventRecords = eventRecords
+            
+        }
+    }
+    
+    
+    @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
+    }
+    
+    
 }
 
 

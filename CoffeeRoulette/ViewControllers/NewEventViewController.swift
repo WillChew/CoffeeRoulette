@@ -51,16 +51,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
-            
-            let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
-            view.addGestureRecognizer(gestureRecognizer)
-            
-            let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
-            longPressGesture.minimumPressDuration = 1.0
-            
-            mapView.addGestureRecognizer(longPressGesture)
-            
+
         }
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
+        view.addGestureRecognizer(gestureRecognizer)
+        
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
+        longPressGesture.minimumPressDuration = 1.0
+        mapView.addGestureRecognizer(longPressGesture)
+        
         cafeLabel.isHidden = true
         saveButton.isEnabled = false
         formatter.timeStyle = .short
