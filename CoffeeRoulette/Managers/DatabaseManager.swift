@@ -63,22 +63,26 @@ class DatabaseManager {
     }
     
     private func getAccountStatus() {
-        // Request Account Status
         container.accountStatus { [unowned self] (accountStatus, error) in
-            // Print Errors
-            if let error = error { print(error) }
             
-            // Update Account Status
-            self.accountStatus = accountStatus
-            
+            if let error = error {
+                print(error)
+            } else {
+                self.accountStatus = accountStatus
+            }
         }
     }
     
     private func getUserID() {
         if (accountStatus == .available) {
+            
             container.fetchUserRecordID { [unowned self] (recordID, error) in
-                if let error = error { print(error) }
-                self.userID = recordID
+                
+                if let error = error {
+                    print(error)
+                } else {
+                    self.userID = recordID
+                }
             }
         }
     }

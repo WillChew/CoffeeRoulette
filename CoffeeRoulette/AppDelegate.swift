@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if databaseManager.accountStatus == .available {
             print("Account status: available")
-            print(databaseManager.userID!)
+            
         } else {
             print("Account status: unavailable")
         }
