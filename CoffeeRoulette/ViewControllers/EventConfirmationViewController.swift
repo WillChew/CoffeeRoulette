@@ -18,6 +18,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     let databaseManager = DatabaseManager()
     var currentLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
+    let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2DMake(43.6456, -79.3954)
 
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -38,8 +39,9 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
-            
         }
+        
+        createAnnotations(coordinates)
         
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
@@ -84,6 +86,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
         // set mapView to be location from EventRecord's location
+        
+        createAnnotations(coordinates)
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
@@ -145,6 +149,14 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         confirmButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
         confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
+    }
+    
+    
+    func createAnnotations(_ coordinates:CLLocationCoordinate2D){
+       mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinates
+        mapView.addAnnotation(annotation)
     }
 
 }
