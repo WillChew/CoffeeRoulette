@@ -14,16 +14,25 @@ import MapKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    
+    var databaseManager = DatabaseManager()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        let dm = DatabaseManager()
-//        let event = CKRecord(recordType: "Event")
-//        event["title"] = "A location!" as NSString
-//        event["time"] = Date() as NSDate
-//        event["location"] = CLLocation(latitude: 43.644822, longitude: -79.395212)
-//        dm.save(event: event)
+//        databaseManager.getUserID { (recordID, error) in
+//            if error == nil && recordID != nil {
+//                print(recordID!)
+//            }
+//        }
+        
+        if databaseManager.accountStatus == .available {
+            print("Account status: available")
+            print(databaseManager.userID!)
+        } else {
+            print("Account status: unavailable")
+        }
+        
         return true
     }
 

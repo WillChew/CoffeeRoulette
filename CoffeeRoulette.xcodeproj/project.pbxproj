@@ -86,13 +86,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		03A945272110F74D006E3805 /* Networking */ = {
+		03A945272110F74D006E3805 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				0380E6A62110C35F007935DE /* DatabaseManager.swift */,
 				211FAD36210F85E50043C6C5 /* MapRequestManager.swift */,
 			);
-			path = Networking;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		03A945282110F758006E3805 /* Storyboards */ = {
@@ -129,7 +129,7 @@
 				03AB432E211117E100AFD149 /* Extensions.swift */,
 				03A945252110F70B006E3805 /* ViewControllers */,
 				03A945262110F724006E3805 /* Models */,
-				03A945272110F74D006E3805 /* Networking */,
+				03A945272110F74D006E3805 /* Managers */,
 				03A945282110F758006E3805 /* Storyboards */,
 				21ED40CB210A3B7500B9F654 /* Assets.xcassets */,
 				21ED40D0210A3B7500B9F654 /* Info.plist */,
