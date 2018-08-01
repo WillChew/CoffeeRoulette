@@ -84,6 +84,11 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
+        delta = Double(slider.value)
+        var currentRegion = self.mapView.region
+        currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
+        print(delta)
+        self.mapView.region = currentRegion
         
         /* CIRCLE STUFF
          //        mapView.remove(circle)
