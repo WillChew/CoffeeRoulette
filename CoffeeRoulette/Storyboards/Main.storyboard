@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zCC-1z-nkY">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l2V-aT-dWv">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -151,6 +151,79 @@
             </objects>
             <point key="canvasLocation" x="2022" y="216"/>
         </scene>
+        <!--firstPage-->
+        <scene sceneID="Ht1-Vf-Lle">
+            <objects>
+                <viewController storyboardIdentifier="FirstOnboardingScreen" title="firstPage" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s5M-Nb-hAh" customClass="FirstOnboardingScreen" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZJb-K6-PCJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="0.22949634569999999" blue="0.032463684030000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="foL-cG-LRz"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ap-ue-Ik6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2084" y="-145"/>
+        </scene>
+        <!--Onboarding Pager-->
+        <scene sceneID="3A4-3k-DPq">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="l2V-aT-dWv" customClass="OnboardingPager" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Psf-rP-S9c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2830" y="-145"/>
+        </scene>
+        <!--Second Onboarding Screen-->
+        <scene sceneID="IFd-gG-KVc">
+            <objects>
+                <viewController storyboardIdentifier="SecondOnbordingScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BcD-fg-ieg" customClass="SecondOnboardingScreen" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="usa-R1-gj2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.015686274510000001" green="0.20000000000000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="F9E-bT-7Rs"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8rZ-Zv-OZD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1428" y="-145"/>
+        </scene>
+        <!--Third Onboarding Screen-->
+        <scene sceneID="QK1-0m-6oL">
+            <objects>
+                <viewController storyboardIdentifier="ThirdOnboardingScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ne3-o3-rpz" customClass="ThirdOnboardingScreen" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="E3y-my-yGn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUN-Sj-tSE">
+                                <rect key="frame" x="0.0" y="582" width="375" height="85"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="xLm-jV-Qdk"/>
+                                </constraints>
+                                <state key="normal" title="Get Started!">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="zCC-1z-nkY" kind="show" identifier="goToMainAppSegue" id="6bI-P6-sFh"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="VUN-Sj-tSE" secondAttribute="trailing" id="92r-f9-Ax0"/>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" id="fTi-lz-ElN"/>
+                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" id="iZv-Yk-0Ok"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Lxo-cP-MdO"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SfI-YC-wrn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-746.39999999999998" y="-145.27736131934034"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="mmK-n2-nJe">
             <objects>
@@ -192,6 +265,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aS-Et-O5q">
                                 <rect key="frame" x="262" y="428" width="97" height="30"/>
                                 <state key="normal" title="Get directions"/>
+                                <connections>
+                                    <action selector="directionsButtonPressed:" destination="XuD-oS-AJY" eventType="touchUpInside" id="r77-wR-BOj"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyQ-3S-azH">
                                 <rect key="frame" x="16" y="612" width="343" height="35"/>
