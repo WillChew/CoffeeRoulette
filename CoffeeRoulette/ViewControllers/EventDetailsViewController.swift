@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 class EventDetailsViewController: UIViewController {
     
@@ -18,6 +19,13 @@ class EventDetailsViewController: UIViewController {
     
     var guestStatus: String?
     var catchPhrase: String?
+    
+    
+    //placeholder values
+    let latitude = 43.6456
+    let longitude = -79.3954
+    let name = "Quantum"
+    
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -56,12 +64,17 @@ class EventDetailsViewController: UIViewController {
         performSegue(withIdentifier: "goToMainScreen", sender: self)
     }
     @IBAction func directionsButtonPressed(_ sender: UIButton) {
-        guard let latitude = cafe?.location.latitude, let longitude = cafe?.location.longitude else { return }
-        if (UIApplication.shared.canOpenURL(URL(string:"http://maps.apple.com")!)) {
-            UIApplication.shared.open(NSURL(string:"http://maps.apple.com/?ll=\(latitude),\(longitude)")! as URL, options: [:], completionHandler: nil)
-        } else {
-            print("Can't open")
-        }
+        
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, 1000, 1000)
+        let placeMarker = MKPlacemark(coordinate: coordinates)
+        let mapItem = MKMapItem(placemark: placeMarker)
+        mapItem.name = name
+        mapItem.openInMaps(launchOptions:[
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
+            ] as [String : Any])
+        
+        
     }
     
     /*

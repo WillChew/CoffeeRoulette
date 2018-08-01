@@ -16,7 +16,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var locationManager: CLLocationManager!
     var cafes = [Cafe]()
     var currentLocation: CLLocationCoordinate2D!
-    var delta: CLLocationDegrees = 0.006
+    var delta: CLLocationDegrees = 0.005
     var mapRequestManager: MapRequestManager!
     var selectedAnnotation: Annotations?
     var cafeSelectedCoordinates: CLLocationCoordinate2D!

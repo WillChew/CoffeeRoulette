@@ -23,22 +23,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var eventRecords = [CKRecord]()
     var databaseManager = DatabaseManager()
     
-    
-    
-    
-    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        
-        
-        
-        
+
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
         mapView.delegate = self
