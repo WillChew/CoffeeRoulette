@@ -15,13 +15,9 @@ class DatabaseManager {
     let db = CKContainer.default().publicCloudDatabase
     
     private(set) var accountStatus: CKAccountStatus = .couldNotDetermine
-    private(set) var userID: CKRecordID?
     
     init() {
         getAccountStatus()
-        if (self.accountStatus == .available) {
-            getUserID()
-        }
     }
     
 //    func getUserID( completion: @escaping ((CKRecordID?, Error?)->()) ) {
@@ -73,16 +69,10 @@ class DatabaseManager {
         }
     }
     
-    private func getUserID() {
+    func getUserID(completion: @escaping ((CKRecordID?, Error?)->Void)) {
         if (accountStatus == .available) {
-            
-            container.fetchUserRecordID { [unowned self] (recordID, error) in
-                
-                if let error = error {
-                    print(error)
-                } else {
-                    self.userID = recordID
-                }
+            container.fetchUserRecordID() { (recordID, error) in
+                completion(recordID, error)
             }
         }
     }
@@ -91,8 +81,13 @@ class DatabaseManager {
 
 
 
-
-
+// alert view upon errors saving to cloud database
+/*
+ else {
+ let ac = UIAlertController(title: "Error", message: "There was a problem submitting your suggestion: \(error!.localizedDescription)", preferredStyle: .alert)
+ ac.addAction(UIAlertAction(title: "OK", style: .default))
+ self.present(ac, animated: true)
+ */
 
 
 

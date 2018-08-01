@@ -20,15 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        databaseManager.getUserID { (recordID, error) in
-//            if error == nil && recordID != nil {
-//                print(recordID!)
-//            }
-//        }
         
         if databaseManager.accountStatus == .available {
             print("Account status: available")
-            
+            databaseManager.getUserID { (recordID, error) in
+                if error == nil && recordID != nil {
+                    print(recordID!.recordName)
+                }
+            }
+
         } else {
             print("Account status: unavailable")
         }
