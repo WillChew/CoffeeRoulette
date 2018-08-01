@@ -32,6 +32,13 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
+        
+        
+        
+        
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
         mapView.delegate = self

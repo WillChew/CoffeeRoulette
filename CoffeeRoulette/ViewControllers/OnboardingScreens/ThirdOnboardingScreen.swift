@@ -21,8 +21,12 @@ class ThirdOnboardingScreen: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+
+    @IBAction func getStartedButtonPressed(_ sender: UIButton) {
+        UserDefaults.standard.set(true, forKey: "hasLaunched")
+    }
     
-//    func goToMainApp() -> CoffeeRouletteViewController {
+    //    func goToMainApp() -> CoffeeRouletteViewController {
 //        return storyboard!.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
 //    }
 
