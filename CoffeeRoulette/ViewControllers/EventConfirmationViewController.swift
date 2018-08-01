@@ -76,11 +76,23 @@ class EventConfirmationViewController: UIViewController {
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
-        let eventRecord = eventRecords![recordIndex - 1]
-        eventRecord["guest"] = "ABC" as NSString
-        databaseManager.save(eventRecord: eventRecord) { (record, error) in
-            if (error != nil) && (record != nil) {
+        
+        let eventRecord: CKRecord
+        
+        if (recordIndex == 0) {
+            eventRecord = eventRecords![eventRecords!.count - 1]
+        } else {
+            eventRecord = eventRecords![recordIndex - 1]
+        }
+        
+        eventRecord["guest"] = "DEF" as NSString
+        databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
+            if (error == nil) && (record != nil) {
                 print(record!["guest"] as! NSString)
+                
+                DispatchQueue.main.async {
+                    self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                }
                 
                 
             }
@@ -88,15 +100,26 @@ class EventConfirmationViewController: UIViewController {
     }
     
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "goToDetailScreenSegue" {
+            let detailViewController = segue.destination as! EventDetailsViewController
+            //detailViewController.cafe = selectedCafe
+            
+            let eventRecord: CKRecord
+            
+            if (recordIndex == 0) {
+                eventRecord = eventRecords![eventRecords!.count - 1]
+            } else {
+                eventRecord = eventRecords![recordIndex - 1]
+            }
+        
+            detailViewController.eventTitle = eventRecord["title"] as? String
+            detailViewController.eventTime = eventRecord["time"] as? Date
+            detailViewController.guestStatus = "There is a guest!"
+            detailViewController.catchPhrase = "Your catchphrase is: petunia"
+            
+        }
     }
-    */
 
 }
 
