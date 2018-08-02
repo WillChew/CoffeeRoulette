@@ -19,18 +19,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-        UserDefaults.standard.set(false, forKey: "hasLaunched")
+//        UserDefaults.standard.set(false, forKey: "hasLaunched")
         
         window = UIWindow()
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
         print(hasLaunched)
+        
+        
+        
+        
+       
+        
         
         if hasLaunched == true {
           
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as UIViewController
             let navigationController = UINavigationController(rootViewController: rootVC)
+            let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
+            
+            let navAppearance = UINavigationBar.appearance()
+            navAppearance.titleTextAttributes = attributes
+            navAppearance.backgroundColor = .brown
+            navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
+            
             self.window?.rootViewController = navigationController
+            
             
         } else {
           
@@ -57,7 +71,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let pageControllerAppearance = UIPageControl.appearance()
-        pageControllerAppearance.backgroundColor = .clear
+        pageControllerAppearance.backgroundColor = .brown
+        
+
+        
         
         return true
     }

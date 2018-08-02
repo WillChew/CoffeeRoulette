@@ -32,6 +32,11 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
+        confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
+        
+        
         mapView.delegate = self
         locationManager = CLLocationManager()
 
