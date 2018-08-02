@@ -8,6 +8,7 @@
 
 import UIKit
 import CloudKit
+import MapKit
 
 class EventDetailsViewController: UIViewController {
     
@@ -72,15 +73,6 @@ class EventDetailsViewController: UIViewController {
             }
         }
         
-    }
-    
-    @IBAction func directionsButtonPressed(_ sender: UIButton) {
-        guard let latitude = cafe?.location.latitude, let longitude = cafe?.location.longitude else { return }
-        if (UIApplication.shared.canOpenURL(URL(string:"http://maps.apple.com")!)) {
-            UIApplication.shared.open(NSURL(string:"http://maps.apple.com/?ll=\(latitude),\(longitude)")! as URL, options: [:], completionHandler: nil)
-        } else {
-            print("Can't open")
-        }
     }
     
     //Get directions
