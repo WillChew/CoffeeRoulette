@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import CloudKit
 
 class EventDetailsViewController: UIViewController {
+    
+    let databaseManager = DatabaseManager()
+    
+    var event: CKRecord?
     
     var cafe: Cafe?
     var eventTitle: String?
@@ -43,7 +48,6 @@ class EventDetailsViewController: UIViewController {
         locationLabel.text = eventLocation
         cafeImageView.image = cafe?.photo
         
-
         // Do any additional setup after loading the view.
     }
 
@@ -53,8 +57,16 @@ class EventDetailsViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        performSegue(withIdentifier: "goToMainScreen", sender: self)
+        databaseManager.delete(event: event!) { (recordID, error) in
+            if ((error == nil) && (recordID != nil)) {
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "goToMainScreen", sender: self)
+                }
+            }
+        }
+        
     }
+    
     @IBAction func directionsButtonPressed(_ sender: UIButton) {
         guard let latitude = cafe?.location.latitude, let longitude = cafe?.location.longitude else { return }
         if (UIApplication.shared.canOpenURL(URL(string:"http://maps.apple.com")!)) {

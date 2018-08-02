@@ -397,8 +397,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e3b52015-7145-4eaa-952d-1e11ef53fea8";
-				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioning731;
+				PROVISIONING_PROFILE = "ae8773e7-19d4-4a41-9b86-85dbf6c6d69e";
+				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioningAugust2;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -419,8 +419,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "e3b52015-7145-4eaa-952d-1e11ef53fea8";
-				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioning731;
+				PROVISIONING_PROFILE = "ae8773e7-19d4-4a41-9b86-85dbf6c6d69e";
+				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioningAugust2;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

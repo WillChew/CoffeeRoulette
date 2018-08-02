@@ -24,9 +24,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var databaseManager = DatabaseManager()
     
     
-    
-    
-    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
     
@@ -41,12 +38,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
-        
-        
+
         }
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
+
     }
     
     
@@ -57,6 +54,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapView.setRegion(coordinateRegion, animated: true)
         
         mapRequest(currentLocation)
+
     }
     
     /*CIRCLE STUFF
@@ -74,15 +72,25 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @IBAction func goButtonTapped(_ sender: Any) {
         print(#line, "Go button was tapped")
-        databaseManager.getEvents { [weak self](records, error) in
-            if ((error == nil) && (records != nil)) {
-                self?.eventRecords = records!
-                DispatchQueue.main.async {
-                    self?.performSegue(withIdentifier: "goToEventConfirmation", sender: self)
-                }
+        
+        /*
+        databaseManager.getEvents { [weak self] (records, error) in
+            self?.eventRecords = records!
+            DispatchQueue.main.async {
+                self?.performSegue(withIdentifier: "goToEventConfirmation", sender: self)
             }
         }
+        */
         
+        let location = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let radius = 0.5 // in kilometers
+
+        databaseManager.getEventsNearMe(location: location, radius: radius) { [weak self] (records, error) in
+            self?.eventRecords = records!
+            DispatchQueue.main.async {
+                self?.performSegue(withIdentifier: "goToEventConfirmation", sender: self)
+            }
+        }
     }
     
     @IBAction func sliderChanged(_ sender: UISlider) {
@@ -164,8 +172,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
-    
     @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
+        
     }
     
     

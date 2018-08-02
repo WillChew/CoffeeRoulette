@@ -22,11 +22,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
     var datePickerView: UIDatePicker!
     var time: Date!
-//    var eventTitle: String!
+    //    var eventTitle: String!
     var selectedCafe: Cafe!
     let formatter = DateFormatter()
     let databaseManager = DatabaseManager()
     var eventRecord: CKRecord?
+    var userID: String?
     
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
@@ -51,7 +52,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
-
+            
         }
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
@@ -65,9 +66,14 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         saveButton.isEnabled = false
         formatter.timeStyle = .short
         
-        // Do any additional setup after loading the view.
+        databaseManager.getUserID { (recordID, error) in
+            if (error == nil), let recordID = recordID {
+                self.userID = recordID.recordName
+            }
+        }
+        
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         mapView.removeFromSuperview()
@@ -80,7 +86,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.mapView.showsUserLocation = true
         
         mapRequest(currentLocation)
-
+        
         
     }
     
@@ -96,13 +102,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         changeSaveButton()
     }
     
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    
     @IBAction func timeTextFieldSelected(_ sender: UITextField) {
         
         let calendar = Calendar.current
@@ -116,7 +115,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
-//        mapView.isHidden = true
+        //        mapView.isHidden = true
     }
     
     
@@ -143,7 +142,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
-
+        print("create button clicked")
         // Create Event instance and assign the values of the text fields to that object
         // Take the selected location from the map and save the 2D coordinates to the Event object as a CLLocation
         
@@ -155,28 +154,45 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let event = Event(title: titleTextField.text!, time: time, location: CLLocation(latitude: selectedCafe.location.latitude, longitude: selectedCafe.location.longitude))
         
-        databaseManager.save(event: event) { [weak self](record, error) in
-            if ((error == nil) && (record != nil)) {
-                self?.eventRecord = record!
-
-                guard let photoRef = self?.selectedCafe.photoRef else { return }
+        databaseManager.save(event: event) { [weak self] (record, error) in
+            
+            // move to datamanager
+            
+            if (error == nil), let record = record, let creatorUserRecordID = record.creatorUserRecordID {
+                self?.eventRecord = record
                 
-                self?.mapRequestManager.getPictureRequest(photoRef){ [weak self] (photo) in
-                    self?.selectedCafe.photo = photo
-                    DispatchQueue.main.async {
-                        self?.activityIndicator.stopAnimating()
-                        self?.activityIndicator.removeFromSuperview()
-                        self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                
+                // SAVE SUBSCRIPTION FOR CHANGES ON MY EVENT
+                print(creatorUserRecordID.recordName)
+                print(self?.userID!)
+                
+                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID == %@", record.recordID), subscriptionID: "x" + (self?.userID)!, options: [.firesOnRecordUpdate])
+                let info = CKNotificationInfo()
+                info.alertBody = "Guest confirmed" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
+                let title = record["title"] as! String
+                info.title = title
+                subscription.notificationInfo = info
+                
+                self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
+                    if ((error == nil) && (subscription != nil)) {
+                        print("subscription saved")
+                        
+                        guard let photoRef = self?.selectedCafe.photoRef else { return }
+                        
+                        self?.mapRequestManager.getPictureRequest(photoRef){ [weak self] (photo) in
+                            self?.selectedCafe.photo = photo
+                            DispatchQueue.main.async {
+                                self?.activityIndicator.stopAnimating()
+                                self?.activityIndicator.removeFromSuperview()
+                                self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                            }
+                        }
                     }
-                }
+                })
+                
+                
             }
         }
-        
-        
-        //takes complet
-        //get callback and don't proceed until successful
-        
-
         
     }
     
@@ -218,7 +234,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     
-    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
         let identifier = "pin"
@@ -227,7 +242,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
-  
+            
         } else {
             annotationView?.annotation = annotation
         }

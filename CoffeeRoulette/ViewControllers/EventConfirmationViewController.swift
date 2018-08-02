@@ -85,25 +85,45 @@ class EventConfirmationViewController: UIViewController {
             eventRecord = eventRecords![recordIndex - 1]
         }
         
-        eventRecord["guest"] = "DEF" as NSString
-        databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
-            if (error == nil) && (record != nil) {
-                print(record!["guest"] as! NSString)
+        databaseManager.getUserID { (recordID, error) in
+            if (error == nil) && (recordID != nil) {
                 
-                DispatchQueue.main.async {
-                    self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                let guest = CKReference(recordID: recordID!, action: .none)
+                
+                //eventRecord["guest"] = guest as CKRecordValue
+                
+                self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
+                    if (error == nil) && (record != nil) {
+                        //print(record!["guest"] as! NSString)
+                        
+                        // SAVE SUBSCRIPTION FOR CHANGES ON THE EVENT
+                        let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID = %@", record!.recordID), subscriptionID: "guestEvent", options: [.firesOnRecordUpdate])
+                        let info = CKNotificationInfo()
+                        info.alertBody = "Host Canceled"
+                        info.title = "Your Event"
+                        subscription.notificationInfo = info
+                        
+                        self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
+                            if ((error == nil) && (subscription != nil)) {
+                                print("subscription saved")
+                        
+                                DispatchQueue.main.async {
+                                    self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                                }
+                            }
+                        })
+
+                    }
                 }
-                
-                
             }
         }
+        
     }
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
-//            detailViewController.cafe = selectedCafe
             
             let eventRecord: CKRecord
             
@@ -113,11 +133,16 @@ class EventConfirmationViewController: UIViewController {
                 eventRecord = eventRecords![recordIndex - 1]
             }
         
+            detailViewController.event = eventRecord
+            
+            // MAYBE REMOVE THESE AND HAVE THE VC SET ITS OWN OUTLETS WITH EVENT FIELDS
             detailViewController.eventTitle = eventRecord["title"] as? String
             detailViewController.eventTime = eventRecord["time"] as? Date
+            // detailViewController.cafe = selectedCafe
+            
             detailViewController.guestStatus = "There is a guest!"
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
-            
+
         }
     }
 
