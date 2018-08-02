@@ -39,6 +39,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         timeTextField.delegate = self
         mapView.delegate = self
         datePickerView = UIDatePicker.init()
@@ -52,6 +56,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
+            currentLocation = locationManager.location?.coordinate
+            mapRequest(currentLocation)
+            locationManager.stopUpdatingLocation()
             
         }
         
@@ -84,8 +91,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         self.mapView.setRegion(coordinateRegion, animated: true)
         self.mapView.showsUserLocation = true
-        
-        mapRequest(currentLocation)
         
         
     }
@@ -166,9 +171,13 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 print(creatorUserRecordID.recordName)
                 print(self?.userID!)
                 
-                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID == %@", record.recordID), subscriptionID: "x" + (self?.userID)!, options: [.firesOnRecordUpdate])
+                let randomNumber = arc4random_uniform(10)
+
+                //let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
+                
+                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID == %@", record.recordID), subscriptionID: "700" + (self?.userID)!, options: [.firesOnRecordUpdate])
                 let info = CKNotificationInfo()
-                info.alertBody = "Guest confirmed" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
+                info.alertBody = "This is fun" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
                 let title = record["title"] as! String
                 info.title = title
                 subscription.notificationInfo = info

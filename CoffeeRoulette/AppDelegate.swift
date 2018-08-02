@@ -12,7 +12,7 @@ import MapKit
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
     var userID: String?
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
-        print(hasLaunched)
+        let navigationController: UINavigationController!
         
         
         
@@ -50,6 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let walkthroughVC = UIStoryboard(name: "Main", bundle: nil)
             let rootVC = walkthroughVC.instantiateViewController(withIdentifier: "OnboardingPager")
             self.window?.rootViewController = rootVC
+            
+            let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
+            
+            let navAppearance = UINavigationBar.appearance()
+            navAppearance.titleTextAttributes = attributes
+            navAppearance.backgroundColor = .brown
+            navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
+            
+            
         }
         
         //        databaseManager.getUserID { (recordID, error) in
@@ -73,6 +82,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 
         
+        
+        // PUSH NOTIFICATIONS STUFF
+        UIApplication.shared.registerForRemoteNotifications()
+        
+        UNUserNotificationCenter.current().delegate = self
+        
+        UNUserNotificationCenter.current().requestAuthorization(options:[.alert, .sound]) {(success, error) in
+            if let error = error { print(#line, error.localizedDescription); return}
+        }
         
         
         return true
