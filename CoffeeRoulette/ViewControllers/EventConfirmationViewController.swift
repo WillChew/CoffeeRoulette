@@ -18,7 +18,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     let databaseManager = DatabaseManager()
     var currentLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
-    let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2DMake(43.6456, -79.3954)
+    var coordinates:CLLocation!
 
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -46,7 +46,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             locationManager.startUpdatingLocation()
         }
         
-        createAnnotations(coordinates)
+       
         
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
@@ -71,8 +71,9 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                 recordIndex = (recordIndex + 1) % eventRecords!.count
                 titleLabel.text = eventRecord["title"] as? String
                 timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
+               coordinates = eventRecord["location"] as! CLLocation
                 // set mapView to be location from EventRecord's location
-                
+                createAnnotations(coordinates.coordinate)
             }
         }
     }
@@ -86,13 +87,14 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     }
 
     @IBAction func tryAgainButtonTapped(_ sender: Any) {
+        mapView.removeAnnotations(mapView.annotations)
         let eventRecord = eventRecords![recordIndex]
         recordIndex = (recordIndex + 1) % eventRecords!.count
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
         // set mapView to be location from EventRecord's location
-        
-        createAnnotations(coordinates)
+        coordinates = eventRecord["location"] as! CLLocation
+        createAnnotations(coordinates.coordinate)
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
@@ -157,7 +159,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             // MAYBE REMOVE THESE AND HAVE THE VC SET ITS OWN OUTLETS WITH EVENT FIELDS
             detailViewController.eventTitle = eventRecord["title"] as? String
             detailViewController.eventTime = eventRecord["time"] as? Date
-            // detailViewController.cafe = selectedCafe
+            
             
             detailViewController.guestStatus = "There is a guest!"
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
