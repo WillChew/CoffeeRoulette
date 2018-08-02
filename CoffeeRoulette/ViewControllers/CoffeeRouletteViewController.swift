@@ -26,8 +26,18 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
     
+    @IBOutlet weak var goButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //check if user is in an event
+        UserDefaults.standard.set(false, forKey: "isInEvent")
+        let inEvent = UserDefaults.standard.bool(forKey: "isInEvent")
+        if inEvent {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailsViewController")
+            self.present(eventDetailViewController, animated: false, completion: nil)
+        }
 
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
@@ -166,8 +176,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
     }
     
-    
+
 }
+
+
 
 
 //extension CoffeeRouletteViewController {

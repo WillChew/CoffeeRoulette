@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var databaseManager = DatabaseManager()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-//        UserDefaults.standard.set(false, forKey: "hasLaunched")
+    
+        UserDefaults.standard.set(false, forKey: "hasLaunched")
         
         window = UIWindow()
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
@@ -54,6 +54,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //        }
         
         window?.makeKeyAndVisible()
+        
+        
+        let pageControllerAppearance = UIPageControl.appearance()
+        pageControllerAppearance.backgroundColor = .clear
+        
         return true
     }
     

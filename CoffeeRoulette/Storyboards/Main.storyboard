@@ -47,6 +47,7 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="0.84313725490000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="7RV-BP-4AY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4dO-zG-0wS"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4d1-gQ-hrH" secondAttribute="bottom" constant="100" id="92G-F5-0Qz"/>
@@ -67,6 +68,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="goButton" destination="7RV-BP-4AY" id="rHq-jV-shZ"/>
                         <outlet property="mapView" destination="4d1-gQ-hrH" id="FJa-FY-mpx"/>
                         <outlet property="slider" destination="X1v-vh-x4G" id="l5I-OZ-tVv"/>
                         <segue destination="VH7-h1-AbX" kind="show" identifier="goToEventConfirmation" id="anJ-Ji-l7v"/>
@@ -86,6 +88,7 @@
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="yQn-aB-Wvg">
                                 <rect key="frame" x="16" y="184" width="343" height="379"/>
+                                <color key="tintColor" red="1" green="0.84313725490000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wxl-9n-h2Q">
                                 <rect key="frame" x="16" y="84" width="343" height="0.0"/>
@@ -158,7 +161,8 @@
                     <view key="view" contentMode="scaleToFill" id="ZJb-K6-PCJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="0.22949634569999999" blue="0.032463684030000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.55686274509803924" green="0.34901960784313724" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="tintColor" red="1" green="0.84313725490196079" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="foL-cG-LRz"/>
                     </view>
                 </viewController>
@@ -181,7 +185,7 @@
                     <view key="view" contentMode="scaleToFill" id="usa-R1-gj2">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.015686274510000001" green="0.20000000000000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.55686274509803924" green="0.34901960784313724" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="F9E-bT-7Rs"/>
                     </view>
                 </viewController>
@@ -197,9 +201,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUN-Sj-tSE">
+                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUN-Sj-tSE">
                                 <rect key="frame" x="0.0" y="582" width="375" height="85"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="85" id="xLm-jV-Qdk"/>
                                 </constraints>
@@ -212,7 +216,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.5568627451" green="0.34901960780000002" blue="0.23529411759999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="VUN-Sj-tSE" secondAttribute="trailing" id="92r-f9-Ax0"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" id="fTi-lz-ElN"/>
@@ -220,6 +224,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lxo-cP-MdO"/>
                     </view>
+                    <connections>
+                        <outlet property="getStartedButton" destination="VUN-Sj-tSE" id="Zwo-cY-UTA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SfI-YC-wrn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -246,7 +253,7 @@
         <!--Event Details View Controller-->
         <scene sceneID="uht-yx-pBJ">
             <objects>
-                <viewController id="XuD-oS-AJY" customClass="EventDetailsViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventDetailsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XuD-oS-AJY" customClass="EventDetailsViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rk7-nm-JmO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -376,6 +383,7 @@
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
                                 <rect key="frame" x="16" y="178" width="343" height="350"/>
+                                <color key="tintColor" red="1" green="0.84313725490000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="xqq-Yy-IhD"/>
                                 </constraints>
@@ -429,6 +437,7 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-Xq-pp7"/>
+        <segue reference="r6x-rY-sTD"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

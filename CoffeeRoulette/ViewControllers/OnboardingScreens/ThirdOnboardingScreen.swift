@@ -10,10 +10,11 @@ import UIKit
 
 class ThirdOnboardingScreen: UIViewController {
 
+    @IBOutlet weak var getStartedButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        getStartedButton.backgroundColor?.withAlphaComponent(0.1)
     }
 
     override func didReceiveMemoryWarning() {
