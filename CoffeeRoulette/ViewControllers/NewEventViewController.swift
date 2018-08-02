@@ -52,6 +52,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
+            mapRequest(currentLocation)
+            locationManager.stopUpdatingLocation()
             
         }
         
@@ -85,7 +87,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.mapView.setRegion(coordinateRegion, animated: true)
         self.mapView.showsUserLocation = true
         
-        mapRequest(currentLocation)
         
         
     }
