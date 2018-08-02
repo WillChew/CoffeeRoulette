@@ -30,8 +30,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
         goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         goButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)

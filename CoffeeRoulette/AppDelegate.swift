@@ -27,10 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         
-        
-       
-        
-        
         if hasLaunched == true {
           
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
