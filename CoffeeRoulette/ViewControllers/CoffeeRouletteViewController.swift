@@ -27,8 +27,24 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
     
+    @IBOutlet weak var goButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
+        
+        goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        goButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        goButton.layer.cornerRadius = goButton.frame.height / 2
+        
+        //check if user is in an event
+        UserDefaults.standard.set(false, forKey: "isInEvent")
+        let inEvent = UserDefaults.standard.bool(forKey: "isInEvent")
+        if inEvent {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailsViewController")
+            self.present(eventDetailViewController, animated: false, completion: nil)
+        }
 
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
@@ -98,7 +114,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         delta = Double(slider.value)
         var currentRegion = self.mapView.region
         currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
-        print(delta)
         self.mapView.region = currentRegion
         
         /* CIRCLE STUFF
@@ -178,8 +193,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
     }
     
-    
+
 }
+
+
 
 
 //extension CoffeeRouletteViewController {
