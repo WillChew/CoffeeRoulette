@@ -51,7 +51,7 @@ class DatabaseManager {
     }
     
     func getEventsNearMe(location: CLLocation, radius: Double, completion: @escaping (([CKRecord]?, Error?)->()) ) {
-
+        
         guard self.accountStatus == .available else { return }
         
         self.getUserID { (recordID, error) in
@@ -93,10 +93,11 @@ class DatabaseManager {
     }
       
     func save(subscription: CKSubscription, completion: @escaping ((CKSubscription?, Error?)->())){
-        db.save(subscription) { (subscription, error) in
+        dbPrivate.save(subscription) { (subscription, error) in
             completion(subscription, error)
         }
     }
+
     
     func delete(subscription: CKSubscription, completion: @escaping ((String?, Error?) -> ())) {
         db.delete(withSubscriptionID: subscription.subscriptionID) { (subscriptionID, error) in

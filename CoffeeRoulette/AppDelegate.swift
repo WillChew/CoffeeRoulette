@@ -21,6 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var navigationController: UINavigationController!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
+        
+        UIApplication.shared.registerForRemoteNotifications()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (success, err) in
+            print(#line, success)
+            print(#line, err?.localizedDescription ?? "registered for notifications")
+        }
         UserDefaults.standard.set(false, forKey: "hasLaunched")
         
         window = UIWindow()
@@ -144,6 +150,6 @@ extension AppDelegate  {
         
         print(#line, notification.title ?? "")
         print(#line, notification.alertBody ?? "")   
-}
+    }
 
 }

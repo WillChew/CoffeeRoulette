@@ -175,16 +175,17 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
 
                 //let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
                 
-                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID == %@", record.recordID), subscriptionID: "700" + (self?.userID)!, options: [.firesOnRecordUpdate])
+                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
                 let info = CKNotificationInfo()
-                info.alertBody = "This is fun" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
+                info.alertBody = "Guest confirmed" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
                 let title = record["title"] as! String
                 info.title = title
                 subscription.notificationInfo = info
                 
                 self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
                     if ((error == nil) && (subscription != nil)) {
-                        print("subscription saved")
+                        NSLog("subscription saved", subscription!.subscriptionID)
+                        //                        print("subscription saved")
                         
                         guard let photoRef = self?.selectedCafe.photoRef else { return }
                         
@@ -198,8 +199,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                         }
                     }
                 })
-                
-                
             }
         }
         
