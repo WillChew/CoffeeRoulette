@@ -29,6 +29,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
         mapView.delegate = self
@@ -168,6 +169,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         if segue.identifier == "goToEventConfirmation" {
             let eventConfirmationViewController = segue.destination as! EventConfirmationViewController
             eventConfirmationViewController.eventRecords = eventRecords
+            eventConfirmationViewController.locationManager = locationManager
             
         }
     }

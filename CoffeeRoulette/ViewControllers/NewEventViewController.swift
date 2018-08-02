@@ -16,7 +16,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var locationManager: CLLocationManager!
     var cafes = [Cafe]()
     var currentLocation: CLLocationCoordinate2D!
-    var delta: CLLocationDegrees = 0.006
+    var delta: CLLocationDegrees = 0.005
     var mapRequestManager: MapRequestManager!
     var selectedAnnotation: Annotations?
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
@@ -221,7 +221,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
+                let coordinate1 = CLLocation(latitude: point.location.latitude, longitude: point.location.longitude)
+                let currentLocationPlace = CLLocation(latitude: self.currentLocation.latitude, longitude: self.currentLocation.longitude)
+                let distance:CLLocationDistance = currentLocationPlace.distance(from: coordinate1)
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Distance: \(String(format:"%.1f",distance))m")
                 annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
             }

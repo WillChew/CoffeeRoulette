@@ -25,6 +25,13 @@ class EventDetailsViewController: UIViewController {
     var catchPhrase: String?
     
     
+    //placeholder values
+    let latitude = 43.6456
+    let longitude = -79.3954
+    let name = "Quantum"
+    
+    
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -53,7 +60,7 @@ class EventDetailsViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -76,14 +83,17 @@ class EventDetailsViewController: UIViewController {
         }
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //Get directions
+    @IBAction func directionsButtonPressed(_ sender: UIButton) {
+        
+        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, 1000, 1000)
+        let placeMarker = MKPlacemark(coordinate: coordinates)
+        let mapItem = MKMapItem(placemark: placeMarker)
+        mapItem.name = name
+        mapItem.openInMaps(launchOptions:[
+            MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
+            ] as [String : Any])
+        
     }
-    */
-
 }

@@ -13,7 +13,7 @@
         <!--Random-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CoffeeRouletteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -169,7 +169,7 @@
         <!--Onboarding Pager-->
         <scene sceneID="3A4-3k-DPq">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="l2V-aT-dWv" customClass="OnboardingPager" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController storyboardIdentifier="OnboardingPager" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="l2V-aT-dWv" customClass="OnboardingPager" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Psf-rP-S9c" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2830" y="-145"/>
@@ -207,6 +207,7 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="getStartedButtonPressed:" destination="Ne3-o3-rpz" eventType="touchUpInside" id="5ae-HC-p1O"/>
                                     <segue destination="zCC-1z-nkY" kind="show" identifier="goToMainAppSegue" id="6bI-P6-sFh"/>
                                 </connections>
                             </button>

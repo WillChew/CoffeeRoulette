@@ -10,12 +10,15 @@ import UIKit
 import MapKit
 import CloudKit
 
-class EventConfirmationViewController: UIViewController {
+class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
     
     var eventRecords : [CKRecord]?
     var recordIndex = 0
     let formatter = DateFormatter()
     let databaseManager = DatabaseManager()
+    var currentLocation: CLLocationCoordinate2D!
+    var locationManager: CLLocationManager!
+    let coordinates:CLLocationCoordinate2D = CLLocationCoordinate2DMake(43.6456, -79.3954)
 
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -29,24 +32,26 @@ class EventConfirmationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapView.delegate = self
+        locationManager = CLLocationManager()
+
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+        }
+        
+        createAnnotations(coordinates)
         
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
         
         //Button Constraints
-        tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
-        tryAgainButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tryAgainButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        tryAgainButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
-        tryAgainButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        constrainButtons()
+        mapView.showsUserLocation = true
         
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        confirmButton.leadingAnchor.constraint(equalTo: tryAgainButton.trailingAnchor).isActive = true
-        confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        confirmButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
-        confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
         
+       
         
         if eventRecords != nil {
             for record in eventRecords! {
@@ -66,6 +71,14 @@ class EventConfirmationViewController: UIViewController {
             }
         }
     }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = manager.location?.coordinate
+        
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.05, 0.05))
+        mapView.setRegion(coordinateRegion, animated: true)
+        
+    }
 
     @IBAction func tryAgainButtonTapped(_ sender: Any) {
         let eventRecord = eventRecords![recordIndex]
@@ -73,6 +86,8 @@ class EventConfirmationViewController: UIViewController {
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
         // set mapView to be location from EventRecord's location
+        
+        createAnnotations(coordinates)
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
@@ -119,8 +134,7 @@ class EventConfirmationViewController: UIViewController {
         }
         
     }
-    
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
@@ -144,6 +158,29 @@ class EventConfirmationViewController: UIViewController {
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
 
         }
+    }
+    
+    private func constrainButtons() {
+        tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
+        tryAgainButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        tryAgainButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        tryAgainButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
+        tryAgainButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+        
+        confirmButton.translatesAutoresizingMaskIntoConstraints = false
+        confirmButton.leadingAnchor.constraint(equalTo: tryAgainButton.trailingAnchor).isActive = true
+        confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        confirmButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
+        confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
+    }
+    
+    
+    func createAnnotations(_ coordinates:CLLocationCoordinate2D){
+       mapView.removeAnnotations(mapView.annotations)
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinates
+        mapView.addAnnotation(annotation)
     }
 
 }
