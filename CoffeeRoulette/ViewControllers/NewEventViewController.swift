@@ -62,9 +62,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation) {
-                self.reloadMap()
-            }
+            
             
             
         }
@@ -100,6 +98,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         self.mapView.setRegion(coordinateRegion, animated: true)
         self.mapView.showsUserLocation = true
+        mapRequest(currentLocation) {
+            self.reloadMap()
+        }
         
         
     }

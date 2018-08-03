@@ -54,15 +54,13 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         locationManager = CLLocationManager()
         mapView.delegate = self
         // Do any additional setup after loading the view, typically from a nib.
-//        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation) {
-                self.reloadMap()
-            }
+          
         }
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
@@ -76,7 +74,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
-        
+        mapRequest(currentLocation) {
+            self.reloadMap()
+        }
 
     }
     
