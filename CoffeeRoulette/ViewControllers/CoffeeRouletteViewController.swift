@@ -21,8 +21,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var cafes = [Cafe]()
     var selectedAnnotation: Annotations?
     var eventRecords = [CKRecord]()
-    var databaseManager = DatabaseManager()
     
+    var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
@@ -181,6 +181,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToCreateSegue" {
             let createViewController = segue.destination as! NewEventViewController
+            createViewController.databaseManager = databaseManager
             createViewController.locationManager = locationManager
             createViewController.cafes = self.cafes
         }
@@ -188,10 +189,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             let eventConfirmationViewController = segue.destination as! EventConfirmationViewController
             eventConfirmationViewController.eventRecords = eventRecords
             eventConfirmationViewController.locationManager = locationManager
+            eventConfirmationViewController.databaseManager = databaseManager
             
         }
     }
     
+    // TODO: DELETE THIS??
     @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
         
     }

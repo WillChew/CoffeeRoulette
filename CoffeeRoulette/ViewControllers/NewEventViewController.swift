@@ -22,10 +22,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
     var datePickerView: UIDatePicker!
     var time: Date!
-    //    var eventTitle: String!
     var selectedCafe: Cafe!
     let formatter = DateFormatter()
-    let databaseManager = DatabaseManager()
+    var databaseManager: DatabaseManager!
+    var event: Event!
     var eventRecord: CKRecord?
     var userID: String?
     
@@ -58,8 +58,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
             mapRequest(currentLocation)
-            locationManager.stopUpdatingLocation()
-            
+            locationManager.stopUpdatingLocation() 
         }
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
@@ -120,7 +119,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
         datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
-        //        mapView.isHidden = true
     }
     
     
@@ -135,62 +133,63 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         textField.resignFirstResponder()
         return true
     }
-    // Segues
     
+    // Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
-            detailViewController.cafe = selectedCafe
-            detailViewController.eventTitle = titleTextField.text
-            detailViewController.eventTime = time
-            
+            detailViewController.cafe = selectedCafe 
+            detailViewController.event = eventRecord
+            detailViewController.guestStatus = "No guest yet"
+            detailViewController.catchPhrase = "Your catchphrase is: ____"
+            detailViewController.databaseManager = databaseManager
         }
     }
+    
+    
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         print("create button clicked")
-        // Create Event instance and assign the values of the text fields to that object
-        // Take the selected location from the map and save the 2D coordinates to the Event object as a CLLocation
         
+        // start activity indicator (let user know this could take a while)
         view.addSubview(activityIndicator)
         activityIndicator.frame(forAlignmentRect: CGRect(x: 0, y: 0, width: 100, height: 100))
         activityIndicator.center = view.center
-        
         activityIndicator.startAnimating()
         
-        let event = Event(title: titleTextField.text!, time: time, location: CLLocation(latitude: selectedCafe.location.latitude, longitude: selectedCafe.location.longitude))
+        // make a new event with title, time and cafe
+        event = Event(title: titleTextField.text!, time: time, cafe: selectedCafe)
         
-        databaseManager.save(event: event) { [weak self] (record, error) in
+        // get cafe photo from photo reference
+        
+        // TODO: USE A PLACEHOLDER IF NO PHOTO REFERENCE/PHOTO
+        guard let photoRef = selectedCafe.photoRef else { return }
+        
+        mapRequestManager.getPictureRequest(photoRef){ [weak self] (photo) in
             
-            // move to datamanager
+            // add photo to selected cafe
+            self?.selectedCafe.photo = photo
             
-            if (error == nil), let record = record, let creatorUserRecordID = record.creatorUserRecordID {
-                self?.eventRecord = record
+            // add photo to event
+            self?.event.cafe.photo = photo
+            
+            self?.databaseManager.save(event: (self?.event!)!) { [weak self] (record, error) in
                 
-                
-                // SAVE SUBSCRIPTION FOR CHANGES ON MY EVENT
-                print(creatorUserRecordID.recordName)
-                print(self?.userID!)
-                
-                let randomNumber = arc4random_uniform(10)
+                if (error == nil), let record = record {
+                    self?.eventRecord = record
+                    
+                    // save subscription to changes on my event (FIX THIS)
+                    let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
 
-                //let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
-                
-                let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
-                let info = CKNotificationInfo()
-                info.alertBody = "Guest confirmed" // BUT IT COULD BE GUEST CANCELED... HOW TO FIGURE OUT WHICH ???
-                let title = record["title"] as! String
-                info.title = title
-                subscription.notificationInfo = info
-                
-                self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
-                    if ((error == nil) && (subscription != nil)) {
-                        NSLog("subscription saved", subscription!.subscriptionID)
-                        //                        print("subscription saved")
-                        
-                        guard let photoRef = self?.selectedCafe.photoRef else { return }
-                        
-                        self?.mapRequestManager.getPictureRequest(photoRef){ [weak self] (photo) in
-                            self?.selectedCafe.photo = photo
+                    let info = CKNotificationInfo()
+                    let title = record["title"] as! String
+                    info.title = title
+                    info.alertBody = "Guest confirmed"
+                    subscription.notificationInfo = info
+                    
+                    self?.databaseManager.save(subscription: subscription) { [weak self] (subscription, error) in
+                        if ((error == nil) && (subscription != nil)) {
+                            NSLog("subscription saved", subscription!.subscriptionID)
+                            
                             DispatchQueue.main.async {
                                 self?.activityIndicator.stopAnimating()
                                 self?.activityIndicator.removeFromSuperview()
@@ -198,11 +197,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                             }
                         }
                     }
-                })
+                }
             }
         }
-        
     }
+    
     
     // Gestures
     @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
@@ -224,7 +223,13 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapView.isHidden = false
     }
     
-    //Other Functions
+    // Other Functions
+    func changeSaveButton() {
+        if timeTextField.text != "" && titleTextField.text != "" && selectedCafe != nil {
+            saveButton.isEnabled = true
+        }
+    }
+    
     func mapRequest(_ coordinates: CLLocationCoordinate2D) {
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
@@ -239,11 +244,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
     }
     
-    func changeSaveButton() {
-        if timeTextField.text != "" && titleTextField.text != "" && selectedCafe != nil {
-            saveButton.isEnabled = true
-        }
-    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
@@ -259,8 +259,5 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
         return annotationView
     }
-    
-    
-    
     
 }

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
         
         UIApplication.shared.registerForRemoteNotifications()
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { (success, err) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, err) in
             print(#line, success)
             print(#line, err?.localizedDescription ?? "registered for notifications")
         }
@@ -32,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         window = UIWindow()
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
         let navigationController: UINavigationController!
-        
         
         
         if hasLaunched == true {
@@ -49,10 +48,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             
             self.window?.rootViewController = navigationController
             
-            
         } else {
-          
-        print("NO")
+            print("NO")
+            
             let walkthroughVC = UIStoryboard(name: "Main", bundle: nil)
             let rootVC = walkthroughVC.instantiateViewController(withIdentifier: "OnboardingPager")
             self.window?.rootViewController = rootVC
@@ -64,8 +62,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             navAppearance.backgroundColor = .brown
             navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
             
-            
+            // note the fact that app has been launched
+            UserDefaults.standard.set(true, forKey: "hasLaunched") 
         }
+        
+        
+        
         
         //        databaseManager.getUserID { (recordID, error) in
         //            if error == nil && recordID != nil {
@@ -80,24 +82,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //            print("Account status: unavailable")
         //        }
         
+        
+        
+        
         window?.makeKeyAndVisible()
         
         
         let pageControllerAppearance = UIPageControl.appearance()
         pageControllerAppearance.backgroundColor = .brown
-        
-
-        
-        
-        // PUSH NOTIFICATIONS STUFF
-        UIApplication.shared.registerForRemoteNotifications()
-        
-        UNUserNotificationCenter.current().delegate = self
-        
-        UNUserNotificationCenter.current().requestAuthorization(options:[.alert, .sound]) {(success, error) in
-            if let error = error { print(#line, error.localizedDescription); return}
-        }
-        
         
         return true
     }

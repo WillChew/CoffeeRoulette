@@ -12,26 +12,27 @@ import CloudKit
 class Event {
     var title: String
     var time: Date
-    var location: CLLocation
+    var location: CLLocation?
+    var cafe: Cafe!
     var host: String?
     var guest: String?
     var catchPhrase: String?
-    var eventID: String?
-//    var cafe: Cafe
+
     
-    
-    init(title:String, time: Date, location: CLLocation ) {
+    init(title:String, time: Date, cafe: Cafe) {
         self.title = title
         self.time = time
-        self.location = location
+        self.cafe = cafe
     }
     
     func createCKRecord() -> CKRecord {
-        let event = CKRecord(recordType: "Event")
-        event["title"] = self.title as NSString
-        event["time"] = self.time as NSDate
-        event["location"] = self.location
-        return event
+        let record = CKRecord(recordType: "Event")
+        record["title"] = self.title as NSString
+        record["time"] = self.time as NSDate
+        record["location"] = CLLocation(latitude: self.cafe.location.latitude, longitude: self.cafe.location.longitude)
+        record["cafeName"] = self.cafe.cafeName as NSString
+        record["cafePhotoRef"] = self.cafe.photoRef! as NSString
+        return record
     }
     
     

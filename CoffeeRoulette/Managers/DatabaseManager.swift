@@ -63,9 +63,9 @@ class DatabaseManager {
             let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(%K,%@) < %f", "location", location, radius)
             
             //let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [userPredicate, timePredicate, locationPredicate])
-            //let predicate = NSPredicate(value: true)
+            let predicate = NSPredicate(value: true)
             
-            let query = CKQuery(recordType: "Event", predicate: userPredicate)
+            let query = CKQuery(recordType: "Event", predicate: predicate)
             self.db.perform(query, inZoneWith: nil) { (records, error) in
                 if let error = error { print(#line, error.localizedDescription); return}
                 completion(records, error)
@@ -135,6 +135,8 @@ class DatabaseManager {
     }
     
 }
+
+
 
 // alert view upon errors saving to cloud database
 /*

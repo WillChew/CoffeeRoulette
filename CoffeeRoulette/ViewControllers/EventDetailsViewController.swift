@@ -12,12 +12,11 @@ import MapKit
 
 class EventDetailsViewController: UIViewController {
     
-    let databaseManager = DatabaseManager()
+    var databaseManager: DatabaseManager!
     
     var event: CKRecord?
     
     var cafe: Cafe?
-    var eventTitle: String?
     var eventTime: Date?
     var eventLocation: String?
     var cafePicture: UIImage?
@@ -26,7 +25,7 @@ class EventDetailsViewController: UIViewController {
     var catchPhrase: String?
     
     
-    //placeholder values
+    //CURRENT LOCATION HARDCODED PLACEHOLDER VALUES TO CENTER MAP
     let latitude = 43.6456
     let longitude = -79.3954
     let name = "Quantum"
@@ -44,25 +43,43 @@ class EventDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        guard let eventTime = eventTime else { return }
-       let date = eventTime
+        
+        // host and guest both pass event record
+        guard let event = event else { return }
+        
+        // host passes selected cafe (with photo)
+        if let cafe = cafe {
+            cafeImageView.image = cafe.photo
+        } else {
+            // guest must request cafe photo
+            let photoRef = event["cafePhotoRef"] as! NSString
+            let mapRequestManager = MapRequestManager()
+            mapRequestManager.getPictureRequest(photoRef as String) { [weak self] (photo) in
+                DispatchQueue.main.async {
+                    self?.cafeImageView.image = photo
+                }
+            }
+        }
+        
+        
+        let date = event["time"] as? Date
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .short
-        let eventDateTime = formatter.string(from: date)
-        
-        titleLabel.text = eventTitle
-        timeLabel.text = eventDateTime
+    
+        titleLabel.text = event["title"] as? String
+        timeLabel.text = formatter.string(from: date!)
         locationLabel.text = eventLocation
-        cafeImageView.image = cafe?.photo
         
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewDidLayoutSubviews() {
+        guestStatusLabel.text = guestStatus!
+        guestStatusLabel.sizeToFit()
+        catchPhraseLabel.text = catchPhrase!
+        catchPhraseLabel.sizeToFit()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         databaseManager.delete(event: event!) { (recordID, error) in
@@ -71,8 +88,7 @@ class EventDetailsViewController: UIViewController {
                     self.performSegue(withIdentifier: "goToMainScreen", sender: self)
                 }
             }
-        }
-        
+        }  
     }
     
     //Get directions
@@ -86,6 +102,5 @@ class EventDetailsViewController: UIViewController {
         mapItem.openInMaps(launchOptions:[
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
             ] as [String : Any])
-        
     }
 }

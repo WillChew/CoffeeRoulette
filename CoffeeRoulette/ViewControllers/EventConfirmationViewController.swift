@@ -15,7 +15,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var eventRecords : [CKRecord]?
     var recordIndex = 0
     let formatter = DateFormatter()
-    let databaseManager = DatabaseManager()
+    var databaseManager: DatabaseManager!
     var currentLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
     var coordinates:CLLocation!
@@ -46,8 +46,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             locationManager.startUpdatingLocation()
         }
         
-       
-        
+
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
         
@@ -68,7 +67,6 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             } else if eventRecords!.count > 0 {
                 eventRecords!.shuffle()
                 let eventRecord = eventRecords![recordIndex]
-                recordIndex = (recordIndex + 1) % eventRecords!.count
                 titleLabel.text = eventRecord["title"] as? String
                 timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
                coordinates = eventRecord["location"] as! CLLocation
@@ -88,8 +86,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
     @IBAction func tryAgainButtonTapped(_ sender: Any) {
         mapView.removeAnnotations(mapView.annotations)
-        let eventRecord = eventRecords![recordIndex]
         recordIndex = (recordIndex + 1) % eventRecords!.count
+        let eventRecord = eventRecords![recordIndex]
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
         // set mapView to be location from EventRecord's location
@@ -98,42 +96,32 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
-        
+        /*
         let eventRecord: CKRecord
-        
+         
         if (recordIndex == 0) {
             eventRecord = eventRecords![eventRecords!.count - 1]
         } else {
             eventRecord = eventRecords![recordIndex - 1]
         }
+        */
+        
+        let eventRecord = eventRecords![recordIndex]
         
         databaseManager.getUserID { (recordID, error) in
             if (error == nil) && (recordID != nil) {
                 
                 let guest = CKReference(recordID: recordID!, action: .none)
                 
-                //eventRecord["guest"] = guest as CKRecordValue
+                eventRecord["guest"] = guest as CKRecordValue
                 
                 self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
                     if (error == nil) && (record != nil) {
                         //print(record!["guest"] as! NSString)
                         
-                        // SAVE SUBSCRIPTION FOR CHANGES ON THE EVENT
-                        let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(format: "recordID = %@", record!.recordID), subscriptionID: "guestEvent", options: [.firesOnRecordUpdate])
-                        let info = CKNotificationInfo()
-                        info.alertBody = "Host Canceled"
-                        info.title = "Your Event"
-                        subscription.notificationInfo = info
-                        
-                        self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
-                            if ((error == nil) && (subscription != nil)) {
-                                print("subscription saved")
-                        
-                                DispatchQueue.main.async {
-                                    self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
-                                }
-                            }
-                        })
+                        DispatchQueue.main.async {
+                            self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                        }
 
                     }
                 }
@@ -146,6 +134,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
             
+            /*
             let eventRecord: CKRecord
             
             if (recordIndex == 0) {
@@ -153,17 +142,16 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             } else {
                 eventRecord = eventRecords![recordIndex - 1]
             }
-        
+            */
+            
+            let eventRecord = eventRecords![recordIndex]
+            
             detailViewController.event = eventRecord
-            
-            // MAYBE REMOVE THESE AND HAVE THE VC SET ITS OWN OUTLETS WITH EVENT FIELDS
-            detailViewController.eventTitle = eventRecord["title"] as? String
-            detailViewController.eventTime = eventRecord["time"] as? Date
-            
             
             detailViewController.guestStatus = "There is a guest!"
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
-
+            
+            detailViewController.databaseManager = databaseManager
         }
     }
     
