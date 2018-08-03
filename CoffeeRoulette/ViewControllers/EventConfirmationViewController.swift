@@ -87,7 +87,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.01, 0.01))
         mapView.setRegion(coordinateRegion, animated: true)
-        
+        locationManager.stopUpdatingLocation()
     }
 
     @IBAction func tryAgainButtonTapped(_ sender: Any) {

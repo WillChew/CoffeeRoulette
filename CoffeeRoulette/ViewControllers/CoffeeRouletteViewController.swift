@@ -76,7 +76,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
-        manager.stopUpdatingLocation()
         
 
     }
@@ -178,7 +177,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
-                
+                self.locationManager.stopUpdatingLocation()
+
             }
         }
     }

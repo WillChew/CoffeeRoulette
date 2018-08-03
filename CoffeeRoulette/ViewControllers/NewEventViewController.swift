@@ -88,6 +88,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     //    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
         currentLocation = manager.location?.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         self.mapView.setRegion(coordinateRegion, animated: true)
@@ -97,10 +99,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+         
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         
-        selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+         selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+        
         selectedCafe.photoRef = self.selectedAnnotation?.photoRef
         
         cafeLabel.isHidden = false
