@@ -12,7 +12,7 @@ import MapKit
 import CloudKit
 
 class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
-    
+    private var longPressGesture: UILongPressGestureRecognizer!
     var locationManager: CLLocationManager!
     var circle: MKCircle!
     var delta : CLLocationDegrees = 0.005
@@ -67,7 +67,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         mapRequest(currentLocation)
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
 
@@ -177,6 +177,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
+        mapView.removeAnnotations(mapView.annotations)
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
@@ -187,7 +188,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
        
 
         self.mapRequest(newCoordinates)
-            
+        longPressGesture.isEnabled = false
+        longPressGesture.isEnabled = true
         
            
         

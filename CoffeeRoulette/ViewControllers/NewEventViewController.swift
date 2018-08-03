@@ -28,7 +28,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var event: Event!
     var eventRecord: CKRecord?
     var userID: String?
-    
+    var longPressGesture: UILongPressGestureRecognizer!
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     @IBOutlet weak var cafeLabel: UILabel!
@@ -72,8 +72,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
         view.addGestureRecognizer(gestureRecognizer)
         
-        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
+        longPressGesture.allowableMovement = 0
+        
         mapView.addGestureRecognizer(longPressGesture)
         
         cafeLabel.isHidden = true
@@ -234,6 +236,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     // Gestures
     @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
+        mapView.removeAnnotations(mapView.annotations)
         let touchPoint = gestureRecognizer.location(in: mapView)
         let newCoordinates = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         let annotation = MKPointAnnotation()
@@ -241,7 +244,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
         mapView.addAnnotation(newAnnotation)
-       
+        longPressGesture.isEnabled = false
+        longPressGesture.isEnabled = true
 
         self.mapRequest(newCoordinates)
         
