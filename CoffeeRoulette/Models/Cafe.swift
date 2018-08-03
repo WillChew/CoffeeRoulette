@@ -16,6 +16,7 @@ class Cafe {
     var photo: UIImage?
     var photoRef: String?
     var rating: Double?
+    var address: String?
     
     init(cafeName: String, location: CLLocationCoordinate2D ) {
         self.cafeName = cafeName

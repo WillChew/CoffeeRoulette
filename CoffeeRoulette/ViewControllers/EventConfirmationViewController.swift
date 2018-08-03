@@ -32,7 +32,11 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    
         tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
         confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
         
@@ -81,9 +85,9 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
         
-        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.05, 0.05))
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.01, 0.01))
         mapView.setRegion(coordinateRegion, animated: true)
-        
+        locationManager.stopUpdatingLocation()
     }
 
     @IBAction func tryAgainButtonTapped(_ sender: Any) {
@@ -94,6 +98,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
         // set mapView to be location from EventRecord's location
         coordinates = eventRecord["location"] as! CLLocation
+        print(coordinates.coordinate)
         createAnnotations(coordinates.coordinate)
     }
     

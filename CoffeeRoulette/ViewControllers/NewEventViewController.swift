@@ -43,6 +43,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         timeTextField.delegate = self
         mapView.delegate = self
         datePickerView = UIDatePicker.init()
@@ -58,7 +59,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
             mapRequest(currentLocation)
-            locationManager.stopUpdatingLocation()
+            
             
         }
         
@@ -81,12 +82,14 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        mapView.removeFromSuperview()
-    }
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        mapView.removeFromSuperview()
+    //    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        
         currentLocation = manager.location?.coordinate
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         self.mapView.setRegion(coordinateRegion, animated: true)
@@ -96,10 +99,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+         
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         
-        selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+         selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+        
         selectedCafe.photoRef = self.selectedAnnotation?.photoRef
         
         cafeLabel.isHidden = false
@@ -172,7 +177,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 print(self?.userID!)
                 
                 let randomNumber = arc4random_uniform(10)
-
+                
                 //let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
                 
                 let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
@@ -213,8 +218,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
         mapView.addAnnotation(newAnnotation)
-        
-        mapRequest(newCoordinates)
+       
+
+        self.mapRequest(newCoordinates)
         
     }
     
@@ -235,6 +241,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Distance: \(String(format:"%.1f",distance))m")
                 annotation.photoRef = point.photoRef
                 self.mapView.addAnnotation(annotation)
+                self.locationManager.stopUpdatingLocation()
+                
             }
         }
     }

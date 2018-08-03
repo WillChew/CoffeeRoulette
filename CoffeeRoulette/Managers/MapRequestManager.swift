@@ -11,7 +11,7 @@ import CoreLocation
 
 enum Constants {
     static let key = "key"
-    static let api = "AIzaSyD_TB4AQSlBkZqdsmO_T2kpwEWhS3BuCBg"
+    static let api = "AIzaSyBPYVobA-0FPMZ00sU-S7MPPSyRyaYOfxM"
     //static let api = "AIzaSyDBkRECsxw7TPdZn3QiJbxX2ImmwedX1lc"
     static let location = "location"
     static let radius = "radius"
@@ -55,6 +55,7 @@ class MapRequestManager {
             for cafe in cafes {
                 guard let geometry = cafe["geometry"] as? Dictionary<String,Any?>, let location = geometry["location"] as? Dictionary<String,Any?>, let name = cafe["name"], let photosArray = cafe["photos"] as? Array<Dictionary<String,Any?>> else { return }
                 let rating = cafe["rating"] as? Double
+                let address = cafe["vicinity"] as? String
                 let photoDict = photosArray[0]
                 let photoRef = photoDict["photo_reference"] as? String
                 let latitude = location["lat"] as! CLLocationDegrees
@@ -62,6 +63,7 @@ class MapRequestManager {
                 let newCafe = Cafe(cafeName: name as! String, location:CLLocationCoordinate2DMake(latitude, longitude))
                 newCafe.photoRef = photoRef
                 newCafe.rating = rating
+                newCafe.address = address
                 cafeArray.append(newCafe)
 
             }
