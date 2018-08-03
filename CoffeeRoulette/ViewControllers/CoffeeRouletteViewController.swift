@@ -119,6 +119,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @IBAction func sliderChanged(_ sender: UISlider) {
         delta = Double(slider.value)
+        mapView.userTrackingMode = .follow
         var currentRegion = self.mapView.region
         currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         self.mapView.region = currentRegion
