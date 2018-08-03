@@ -56,7 +56,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         formatter.dateStyle = .medium
         
         //Button Constraints
-        constrainButtons()
+//        constrainButtons()
         mapView.showsUserLocation = true
         
         
@@ -186,20 +186,20 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         }
     }
     
-    private func constrainButtons() {
-        tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
-        tryAgainButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        tryAgainButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        tryAgainButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
-        tryAgainButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
-        
-        confirmButton.translatesAutoresizingMaskIntoConstraints = false
-        confirmButton.leadingAnchor.constraint(equalTo: tryAgainButton.trailingAnchor).isActive = true
-        confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        confirmButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
-        confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
-    }
+//    private func constrainButtons() {
+//        tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
+//        tryAgainButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+//        tryAgainButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        tryAgainButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
+//        tryAgainButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+//
+//        confirmButton.translatesAutoresizingMaskIntoConstraints = false
+//        confirmButton.leadingAnchor.constraint(equalTo: tryAgainButton.trailingAnchor).isActive = true
+//        confirmButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+//        confirmButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
+//        confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
+//    }
     
     
     func createAnnotations(_ coordinates:CLLocationCoordinate2D){
