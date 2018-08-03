@@ -111,11 +111,15 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         
-        if self.selectedAnnotation == nil {
+       
+        self.selectedAnnotation = view.annotation as? Annotations
+        
+        if selectedAnnotation == nil { selectedCafe = nil;
+            cafeLabel.text = "Your Current Location";
+            saveButton.isEnabled = false
             return
         } else {
-        
-        self.selectedAnnotation = view.annotation as? Annotations
+            
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         
          selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
@@ -125,8 +129,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         cafeLabel.isHidden = false
         cafeLabel.text = selectedCafe.cafeName
         changeSaveButton()
+        }
     }
-    }
+    
     @IBAction func timeTextFieldSelected(_ sender: UITextField) {
         
         let calendar = Calendar.current
