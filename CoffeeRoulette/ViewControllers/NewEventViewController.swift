@@ -39,6 +39,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
       
     
@@ -52,21 +53,21 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         timeTextField.inputView = datePickerView
         self.timeTextField.delegate = self
         datePickerView.datePickerMode = .time
-        
+        locationManager.delegate = self
         
         
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
+            mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
             
-            
+            self.mapView.region = MKCoordinateRegionMake(currentLocation, MKCoordinateSpanMake(delta, delta))
             
         }
-        
+        mapRequest(currentLocation)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -92,15 +93,17 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     //    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if currentLocation == nil {
+            self.currentLocation = locations.first?.coordinate
+            self.mapView.showsUserLocation = true
+        }
         
         
         currentLocation = manager.location?.coordinate
+        
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
-        self.mapView.setRegion(coordinateRegion, animated: true)
-        self.mapView.showsUserLocation = true
-        mapRequest(currentLocation) {
-            self.reloadMap()
-        }
+        mapView.setRegion(coordinateRegion, animated: true)
+        
         
         
     }
@@ -234,9 +237,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapView.addAnnotation(newAnnotation)
        
 
-        self.mapRequest(newCoordinates) {
-            print("working")
-        }
+        self.mapRequest(newCoordinates)
         
     }
     
@@ -247,22 +248,20 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     //Other Functions
-    func mapRequest(_ coordinates: CLLocationCoordinate2D, completion: @escaping()->()) {
+    func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+        
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
-                let coordinate1 = CLLocation(latitude: point.location.latitude, longitude: point.location.longitude)
-                let currentLocationPlace = CLLocation(latitude: self.currentLocation.latitude, longitude: self.currentLocation.longitude)
-                let distance:CLLocationDistance = currentLocationPlace.distance(from: coordinate1)
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Distance: \(String(format:"%.1f",distance))m")
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
                 DispatchQueue.main.async {
+                    self.mapView.addAnnotation(annotation)
                     
-                
-                self.mapView.addAnnotation(annotation)
-                
+                    
                 }
-
+                self.locationManager.stopUpdatingLocation()
+                
             }
         }
     }
@@ -298,11 +297,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         return annotationView
     }
     
-    func reloadMap() {
-        mapView.setRegion(MKCoordinateRegionMake(currentLocation, MKCoordinateSpanMake(0.06, 0.06)), animated: true)
-                self.locationManager.stopUpdatingLocation()
-    }
-
+  
     
     
 }

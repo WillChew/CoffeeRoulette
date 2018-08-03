@@ -52,16 +52,20 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
+        locationManager.delegate = self
         mapView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
+
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
+            mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
           
         }
+        
+        mapRequest(currentLocation)
+        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
@@ -70,13 +74,18 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if currentLocation == nil {
+            self.currentLocation = locations.first?.coordinate
+            self.mapView.showsUserLocation = true
+        }
+        
+        
         currentLocation = manager.location?.coordinate
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
-        mapRequest(currentLocation) {
-            self.reloadMap()
-        }
+      
+      
 
     }
     
@@ -176,13 +185,15 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapView.addAnnotation(newAnnotation)
        
 
-        self.mapRequest(newCoordinates) {
-            print("working")
-        }
+        self.mapRequest(newCoordinates)
+            
+        
+           
         
     }
     
-    func mapRequest(_ coordinates: CLLocationCoordinate2D, completion: @escaping()->()) {
+    func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+        
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
@@ -218,9 +229,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
         
     }
-    func reloadMap() {
-        mapView.setRegion(mapView.region, animated: true)
-    }
+    
 
 }
 
