@@ -23,12 +23,11 @@ class EventDetailsViewController: UIViewController {
     
     var guestStatus: String?
     var catchPhrase: String?
+   
     
     
     //CURRENT LOCATION HARDCODED PLACEHOLDER VALUES TO CENTER MAP
-    let latitude = 43.6456
-    let longitude = -79.3954
-    let name = "Quantum"
+
     
     
     
@@ -86,12 +85,16 @@ class EventDetailsViewController: UIViewController {
     
     //Get directions
     @IBAction func directionsButtonPressed(_ sender: UIButton) {
+        let eventLocation = event!["location"] as? CLLocation
+        let cafeName = event!["cafeName"] as? String
         
-        let coordinates = CLLocationCoordinate2DMake(latitude, longitude)
+        guard let lat = eventLocation?.coordinate.latitude, let lng = eventLocation?.coordinate.longitude else { return }
+        
+        let coordinates = CLLocationCoordinate2DMake(lat, lng)
         let regionSpan = MKCoordinateRegionMakeWithDistance(coordinates, 1000, 1000)
         let placeMarker = MKPlacemark(coordinate: coordinates)
         let mapItem = MKMapItem(placemark: placeMarker)
-        mapItem.name = name
+        mapItem.name = cafeName
         mapItem.openInMaps(launchOptions:[
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
             ] as [String : Any])
