@@ -62,7 +62,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation)
+            mapRequest(currentLocation) {
+                self.reloadMap()
+            }
             
             
         }
@@ -231,7 +233,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapView.addAnnotation(newAnnotation)
        
 
-        self.mapRequest(newCoordinates)
+        self.mapRequest(newCoordinates) {
+            print("working")
+        }
         
     }
     
@@ -242,7 +246,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     //Other Functions
-    func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+    func mapRequest(_ coordinates: CLLocationCoordinate2D, completion: @escaping()->()) {
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
@@ -257,7 +261,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 self.mapView.addAnnotation(annotation)
                 
                 }
-                self.locationManager.stopUpdatingLocation()
+
             }
         }
     }
@@ -293,7 +297,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         return annotationView
     }
     
-    
+    func reloadMap() {
+        mapView.setRegion(MKCoordinateRegionMake(currentLocation, MKCoordinateSpanMake(0.06, 0.06)), animated: true)
+                self.locationManager.stopUpdatingLocation()
+    }
+
     
     
 }

@@ -60,7 +60,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation)
+            mapRequest(currentLocation) {
+                self.reloadMap()
+            }
         }
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
