@@ -54,6 +54,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         locationManager = CLLocationManager()
         locationManager.delegate = self
         mapView.delegate = self
+        
 
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {

@@ -63,9 +63,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation)
-            locationManager.stopUpdatingLocation() 
+            
+            self.mapView.region = MKCoordinateRegionMake(currentLocation, MKCoordinateSpanMake(delta, delta))
+            
         }
+        
         mapRequest(currentLocation)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
         view.addGestureRecognizer(gestureRecognizer)
