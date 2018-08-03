@@ -47,18 +47,11 @@ class EventDetailsViewController: UIViewController {
         // host and guest both pass event record
         guard let event = event else { return }
         
-        // host passes selected cafe (with photo)
-        if let cafe = cafe {
-            cafeImageView.image = cafe.photo
+        if cafePicture != nil {
+            cafeImageView.image = cafePicture
         } else {
-            // guest must request cafe photo
-            let photoRef = event["cafePhotoRef"] as! NSString
-            let mapRequestManager = MapRequestManager()
-            mapRequestManager.getPictureRequest(photoRef as String) { [weak self] (photo) in
-                DispatchQueue.main.async {
-                    self?.cafeImageView.image = photo
-                }
-            }
+            // host passes selected cafe (with photo)
+            cafeImageView.image = cafe?.photo
         }
         
         

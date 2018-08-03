@@ -19,6 +19,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var currentLocation: CLLocationCoordinate2D!
     var locationManager: CLLocationManager!
     var coordinates:CLLocation!
+    var cafePhoto: UIImage!
 
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -119,8 +120,16 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                     if (error == nil) && (record != nil) {
                         //print(record!["guest"] as! NSString)
                         
-                        DispatchQueue.main.async {
-                            self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                        // guest must request cafe photo
+                        let photoRef = eventRecord["cafePhotoRef"] as! NSString
+                        
+                        let mapRequestManager = MapRequestManager()
+                        
+                        mapRequestManager.getPictureRequest(photoRef as String) { [weak self] (photo) in
+                            DispatchQueue.main.async {
+                                self?.cafePhoto = photo
+                                self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
+                            }
                         }
 
                     }
@@ -150,6 +159,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             
             detailViewController.guestStatus = "There is a guest!"
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
+            
+            detailViewController.cafePicture = cafePhoto
             
             detailViewController.databaseManager = databaseManager
         }
