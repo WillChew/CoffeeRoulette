@@ -160,7 +160,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
             annotationView?.markerTintColor = .clear
-            annotationView?.glyphTintColor = .clear
+            
+            
             
             let markerImage = UIImage(named: "cup")
             let size = CGSize(width: 50, height: 50)

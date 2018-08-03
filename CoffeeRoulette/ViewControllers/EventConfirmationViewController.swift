@@ -80,6 +80,21 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             }
         }
     }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation { return nil }
+        let identifier = "pin"
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
+        if annotationView == nil {
+            annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            annotationView?.canShowCallout = true
+            annotationView?.rightCalloutAccessoryView = UIView()
+            annotationView?.markerTintColor = .brown
+        } else {
+            annotationView?.annotation = annotation
+        }
+        return annotationView
+    }
+        
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
