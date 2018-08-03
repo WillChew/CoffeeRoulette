@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print(#line, success)
             print(#line, err?.localizedDescription ?? "registered for notifications")
         }
-        UserDefaults.standard.set(false, forKey: "hasLaunched")
+//        UserDefaults.standard.set(false, forKey: "hasLaunched")
         
         window = UIWindow()
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")

@@ -11,7 +11,7 @@ import CoreLocation
 
 enum Constants {
     static let key = "key"
-    static let api = "AIzaSyD_TB4AQSlBkZqdsmO_T2kpwEWhS3BuCBg"
+    static let api = "AIzaSyBPYVobA-0FPMZ00sU-S7MPPSyRyaYOfxM"
     //static let api = "AIzaSyDBkRECsxw7TPdZn3QiJbxX2ImmwedX1lc"
     static let location = "location"
     static let radius = "radius"
