@@ -35,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         
         
+        
+        
         if hasLaunched == true {
           
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -86,6 +88,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let pageControllerAppearance = UIPageControl.appearance()
         pageControllerAppearance.backgroundColor = .brown
         
+        let textFieldAppearance = UITextView.appearance()
+        textFieldAppearance.keyboardAppearance = .default
+        
+    
 
         
         

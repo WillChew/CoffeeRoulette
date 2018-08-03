@@ -40,15 +40,19 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+      
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         
         timeTextField.delegate = self
         mapView.delegate = self
         datePickerView = UIDatePicker.init()
         timeTextField.inputView = datePickerView
+        self.timeTextField.delegate = self
         datePickerView.datePickerMode = .time
+        
         
         
         mapRequestManager = MapRequestManager()
@@ -99,7 +103,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-         
+        
+        if self.selectedAnnotation == nil {
+            return
+        } else {
+        
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         
@@ -111,7 +119,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         cafeLabel.text = selectedCafe.cafeName
         changeSaveButton()
     }
-    
+    }
     @IBAction func timeTextFieldSelected(_ sender: UITextField) {
         
         let calendar = Calendar.current
@@ -121,6 +129,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
+        sender.inputView? = datePickerView
+        sender.inputView?.backgroundColor = .clear
+        
         
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
@@ -240,9 +251,13 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 let distance:CLLocationDistance = currentLocationPlace.distance(from: coordinate1)
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Distance: \(String(format:"%.1f",distance))m")
                 annotation.photoRef = point.photoRef
-                self.mapView.addAnnotation(annotation)
-                self.locationManager.stopUpdatingLocation()
+                DispatchQueue.main.async {
+                    
                 
+                self.mapView.addAnnotation(annotation)
+                
+                }
+                self.locationManager.stopUpdatingLocation()
             }
         }
     }
@@ -261,6 +276,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
+            annotationView?.markerTintColor = .clear
+            annotationView?.glyphTintColor = .clear
+            
+            let markerImage = UIImage(named: "cup")
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            markerImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            annotationView?.image = resizedImage
+            
             
         } else {
             annotationView?.annotation = annotation
