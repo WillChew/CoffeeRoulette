@@ -30,6 +30,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var goButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
@@ -48,18 +52,20 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
+        locationManager.delegate = self
         mapView.delegate = self
-        // Do any additional setup after loading the view, typically from a nib.
+
         locationManager.requestWhenInUseAuthorization()
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
+            mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
-            mapRequest(currentLocation)
-            locationManager.stopUpdatingLocation()
-
+          
         }
+        
+        mapRequest(currentLocation)
+        
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
@@ -68,12 +74,18 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if currentLocation == nil {
+            self.currentLocation = locations.first?.coordinate
+            self.mapView.showsUserLocation = true
+        }
+        
+        
         currentLocation = manager.location?.coordinate
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
-        
-        
+      
+      
 
     }
     
@@ -115,6 +127,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @IBAction func sliderChanged(_ sender: UISlider) {
         delta = Double(slider.value)
+        mapView.userTrackingMode = .follow
         var currentRegion = self.mapView.region
         currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         self.mapView.region = currentRegion
@@ -145,6 +158,16 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
+            annotationView?.markerTintColor = .clear
+            annotationView?.glyphTintColor = .clear
+            
+            let markerImage = UIImage(named: "cup")
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            markerImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            annotationView?.image = resizedImage
+            
             
         } else {
             annotationView?.annotation = annotation
@@ -160,18 +183,29 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
         mapView.addAnnotation(newAnnotation)
+       
+
+        self.mapRequest(newCoordinates)
+            
         
-        mapRequest(newCoordinates)
+           
         
     }
     
     func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+        
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
-                self.mapView.addAnnotation(annotation)
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotation(annotation)
+                    
+                    
+                }
+                 self.locationManager.stopUpdatingLocation()
+                
             }
         }
     }
@@ -201,6 +235,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
 
 }
+
+
 
 
 

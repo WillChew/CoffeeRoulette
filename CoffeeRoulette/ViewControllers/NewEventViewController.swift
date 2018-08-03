@@ -39,28 +39,34 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
+      
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        
         timeTextField.delegate = self
         mapView.delegate = self
         datePickerView = UIDatePicker.init()
         timeTextField.inputView = datePickerView
+        self.timeTextField.delegate = self
         datePickerView.datePickerMode = .time
+        locationManager.delegate = self
         
         
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
+            mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
             mapRequest(currentLocation)
             locationManager.stopUpdatingLocation() 
         }
-        
+        mapRequest(currentLocation)
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -80,32 +86,45 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        mapView.removeFromSuperview()
-    }
+    //    override func viewWillDisappear(_ animated: Bool) {
+    //        super.viewWillDisappear(animated)
+    //        mapView.removeFromSuperview()
+    //    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if currentLocation == nil {
+            self.currentLocation = locations.first?.coordinate
+            self.mapView.showsUserLocation = true
+        }
+        
+        
         currentLocation = manager.location?.coordinate
+        
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
-        self.mapView.setRegion(coordinateRegion, animated: true)
-        self.mapView.showsUserLocation = true
+        mapView.setRegion(coordinateRegion, animated: true)
+        
         
         
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        
+        if self.selectedAnnotation == nil {
+            return
+        } else {
+        
         self.selectedAnnotation = view.annotation as? Annotations
         cafeSelectedCoordinates = self.selectedAnnotation?.coordinate
         
-        selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+         selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
+        
         selectedCafe.photoRef = self.selectedAnnotation?.photoRef
         
         cafeLabel.isHidden = false
         cafeLabel.text = selectedCafe.cafeName
         changeSaveButton()
     }
-    
+    }
     @IBAction func timeTextFieldSelected(_ sender: UITextField) {
         
         let calendar = Calendar.current
@@ -115,6 +134,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
+        sender.inputView? = datePickerView
+        sender.inputView?.backgroundColor = .clear
+        
         
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
@@ -212,8 +234,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
         mapView.addAnnotation(newAnnotation)
-        
-        mapRequest(newCoordinates)
+       
+
+        self.mapRequest(newCoordinates)
         
     }
     
@@ -231,15 +254,19 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     func mapRequest(_ coordinates: CLLocationCoordinate2D) {
+        
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
-                let coordinate1 = CLLocation(latitude: point.location.latitude, longitude: point.location.longitude)
-                let currentLocationPlace = CLLocation(latitude: self.currentLocation.latitude, longitude: self.currentLocation.longitude)
-                let distance:CLLocationDistance = currentLocationPlace.distance(from: coordinate1)
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Distance: \(String(format:"%.1f",distance))m")
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
-                self.mapView.addAnnotation(annotation)
+                DispatchQueue.main.async {
+                    self.mapView.addAnnotation(annotation)
+                    
+                    
+                }
+                self.locationManager.stopUpdatingLocation()
+                
             }
         }
     }
@@ -253,6 +280,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
+            annotationView?.markerTintColor = .clear
+            annotationView?.glyphTintColor = .clear
+            
+            let markerImage = UIImage(named: "cup")
+            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext(size)
+            markerImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+            annotationView?.image = resizedImage
+            
             
         } else {
             annotationView?.annotation = annotation
