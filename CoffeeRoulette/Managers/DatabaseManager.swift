@@ -36,7 +36,7 @@ class DatabaseManager {
         }
     }
     
-    func getEvents(completion: @escaping (([CKRecord]?, Error?)->()) ) {
+    func getEvents(completion: @escaping (([CKRecord], Error?)->()) ) {
         
         let query = CKQuery(recordType: "Event", predicate: NSPredicate(value: true))
         
@@ -44,7 +44,10 @@ class DatabaseManager {
             
             if let error = error { print(error.localizedDescription); return }
             
-            guard let records = records else { return }
+            guard let records = records else {
+                completion([], error)
+                return
+            }
             
             completion(records, error)
         }

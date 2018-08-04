@@ -75,9 +75,11 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             } else {
                 print(#line, #function, "we are not in an event")
                 // stay put!
+                DispatchQueue.main.async {
+                    self?.spinner.stopAnimating()
+                    self?.splashScreen.isHidden = true
+                }
             }
-            
-            
 
         }
         
