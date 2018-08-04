@@ -21,6 +21,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var cafes = [Cafe]()
     var selectedAnnotation: Annotations?
     var eventRecords = [CKRecord]()
+    var event: CKRecord!
+    var userIsInEvent: Bool = false
     
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
@@ -34,6 +36,19 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
+        databaseManager.isUserInEvent { [weak self] (records, error) in
+            if let records = records, records.count > 0 {
+                print(#line, records.count)
+                self?.event = records.first
+//                self?.userIsInEvent = true
+                self?.performSegue(withIdentifier: "DetailSeque", sender: nil)
+                
+            } else {
+                print(#line, "we are not in an event")
+            }
+        }
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
@@ -214,6 +229,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     //PRAGMA MARK: Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DetailSeque" {
+            
+        }
         if segue.identifier == "goToCreateSegue" {
             let createViewController = segue.destination as! NewEventViewController
             createViewController.databaseManager = databaseManager

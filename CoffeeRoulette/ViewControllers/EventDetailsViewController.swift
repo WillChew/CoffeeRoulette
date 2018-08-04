@@ -12,13 +12,13 @@ import MapKit
 
 class EventDetailsViewController: UIViewController {
     
-    var databaseManager: DatabaseManager!
+    //var databaseManager: DatabaseManager!
     
     var event: CKRecord?
     
     var cafe: Cafe?
-    var eventTime: Date?
-    var eventLocation: String?
+    //var eventTime: Date?
+    //var eventLocation: String?
     var cafePicture: UIImage?
     
     var guestStatus: String?
@@ -29,7 +29,6 @@ class EventDetailsViewController: UIViewController {
     let latitude = 43.6456
     let longitude = -79.3954
     let name = "Quantum"
-    
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -62,7 +61,7 @@ class EventDetailsViewController: UIViewController {
     
         titleLabel.text = event["title"] as? String
         timeLabel.text = formatter.string(from: date!)
-        locationLabel.text = eventLocation
+        //locationLabel.text = eventLocation
         
     }
     
@@ -75,13 +74,7 @@ class EventDetailsViewController: UIViewController {
 
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        databaseManager.delete(event: event!) { (recordID, error) in
-            if ((error == nil) && (recordID != nil)) {
-                DispatchQueue.main.async {
-                    self.performSegue(withIdentifier: "goToMainScreen", sender: self)
-                }
-            }
-        }  
+
     }
     
     //Get directions

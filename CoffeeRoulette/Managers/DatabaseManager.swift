@@ -59,6 +59,7 @@ class DatabaseManager {
             guard let recordID = recordID, error == nil else { return }
             
             let userPredicate = NSPredicate(format: "creatorUserRecordID != %@", recordID)
+            //let guestPredicate =
             let timePredicate = NSPredicate(format: "time > %@", NSDate())
             let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(%K,%@) < %f", "location", location, radius)
             
@@ -120,9 +121,18 @@ class DatabaseManager {
             
             guard let userRecordID = recordID, error == nil else { return }
             
-            let ref = CKReference(recordID: userRecordID, action: .none)
+            let userReference = CKReference(recordID: userRecordID, action: .none)
             
-            let query = CKQuery(recordType: "Event", predicate: NSPredicate(format: "%K == %@", "creatorUserRecordID", ref))
+            let hostPredicate = NSPredicate(format: "%K == %@", "creatorUserRecordID", userReference)
+            
+            let guestPredicate = NSPredicate(format: "%K == %@", "guest", userReference)
+            
+            // MODIFY THIS TO BE SOME WINDOW
+            let datePredicate = NSPredicate(format: "time > %@", NSDate())
+            
+            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hostPredicate, guestPredicate, datePredicate])
+            
+            let query = CKQuery(recordType: "Event", predicate: predicate)
             
             self.db.perform(query, inZoneWith: nil) { (records, error) in
                 if let error = error { print(#line, error.localizedDescription); return}
@@ -130,8 +140,6 @@ class DatabaseManager {
             }
         }
         
-        
-
     }
     
 }

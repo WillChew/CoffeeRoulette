@@ -15,39 +15,55 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     
     var window: UIWindow?
-    var userID: String?
+    var event: CKRecord?
+
     
     var databaseManager = DatabaseManager()
     var navigationController: UINavigationController!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
-        
+        // REMOTE NOTIFICATIONS
         UIApplication.shared.registerForRemoteNotifications()
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, err) in
-            print(#line, success)
-            print(#line, err?.localizedDescription ?? "registered for notifications")
-        }
-//        UserDefaults.standard.set(false, forKey: "hasLaunched")
         
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
+            print(#line, success)
+            print(#line, error?.localizedDescription ?? "registered for notifications")
+        }
+        
+
+
         window = UIWindow()
+        
+        // UserDefaults.standard.set(false, forKey: "hasLaunched")
+        
+        
         let hasLaunched = UserDefaults.standard.bool(forKey: "hasLaunched")
         let navigationController: UINavigationController!
         
         
-        if hasLaunched == true {
-          
+        if (hasLaunched) {
+            
             let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as UIViewController
-            navigationController = UINavigationController(rootViewController: rootVC)
-            let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
             
-            let navAppearance = UINavigationBar.appearance()
-            navAppearance.titleTextAttributes = attributes
-            navAppearance.backgroundColor = .brown
-            navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
-            
-            self.window?.rootViewController = navigationController
-            
+            if (userIsInEvent) {
+                let eventDetailsViewController = mainStoryboard.instantiateViewController(withIdentifier: "EventDetailsViewController") as! EventDetailsViewController
+                eventDetailsViewController.event = event
+                self.window?.rootViewController = eventDetailsViewController
+                
+            } else {
+                // let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
+                navigationController = UINavigationController(rootViewController: rootVC)
+                let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
+                
+                let navAppearance = UINavigationBar.appearance()
+                navAppearance.titleTextAttributes = attributes
+                navAppearance.backgroundColor = .brown
+                navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
+                
+                self.window?.rootViewController = navigationController
+            }
+
         } else {
             print("NO")
             
@@ -63,34 +79,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
             
             // note the fact that app has been launched
-            UserDefaults.standard.set(true, forKey: "hasLaunched") 
+            // UserDefaults.standard.set(true, forKey: "hasLaunched") 
         }
         
-        
-        
-        
-        //        databaseManager.getUserID { (recordID, error) in
-        //            if error == nil && recordID != nil {
-        //                print(recordID!)
-        //            }
-        //        }
-        
-        //        if databaseManager.accountStatus == .available {
-        //            print("Account status: available")
-        //            print(databaseManager.userID!)
-        //        } else {
-        //            print("Account status: unavailable")
-        //        }
-        
-        
-        
-        
+
         window?.makeKeyAndVisible()
-        
         
         let pageControllerAppearance = UIPageControl.appearance()
         pageControllerAppearance.backgroundColor = .brown
-        
+ 
         return true
     }
     
@@ -136,9 +133,9 @@ extension AppDelegate  {
         
         let notification = CKNotification(fromRemoteNotificationDictionary: userInfo)
         
-        if (notification.subscriptionID == "x" + userID!) {
-            
-        }
+//        if (notification.subscriptionID == "x" + userID!) {
+//
+//        }
         
         print(#line, notification.title ?? "")
         print(#line, notification.alertBody ?? "")   

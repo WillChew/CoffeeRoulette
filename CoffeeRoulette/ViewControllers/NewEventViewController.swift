@@ -136,8 +136,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
+        // WHY CAN'T WE CHANGE THE BACKGROUND COLOR???
         sender.inputView? = datePickerView
-        sender.inputView?.backgroundColor = .clear
+        //sender.inputView?.backgroundColor = .clear
+        datePickerView.backgroundColor = .brown
         
         
         datePickerView.minuteInterval = 5
@@ -166,7 +168,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             detailViewController.event = eventRecord
             detailViewController.guestStatus = "No guest yet"
             detailViewController.catchPhrase = "Your catchphrase is: ____"
-            detailViewController.databaseManager = databaseManager
+            //detailViewController.databaseManager = databaseManager
         }
     }
     

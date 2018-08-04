@@ -167,7 +167,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             
             detailViewController.cafePicture = cafePhoto
             
-            detailViewController.databaseManager = databaseManager
+            //detailViewController.databaseManager = databaseManager
         }
     }
     
