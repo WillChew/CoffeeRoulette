@@ -70,6 +70,7 @@
                         <outlet property="mapView" destination="4d1-gQ-hrH" id="FJa-FY-mpx"/>
                         <outlet property="slider" destination="X1v-vh-x4G" id="l5I-OZ-tVv"/>
                         <segue destination="VH7-h1-AbX" kind="show" identifier="goToEventConfirmation" id="anJ-Ji-l7v"/>
+                        <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailSegue" modalTransitionStyle="crossDissolve" id="h8u-d5-ift"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -163,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iwI-Yj-whR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2022" y="216"/>
+            <point key="canvasLocation" x="2076" y="487"/>
         </scene>
         <!--firstPage-->
         <scene sceneID="Ht1-Vf-Lle">
@@ -298,20 +299,6 @@
                                     <action selector="directionsButtonPressed:" destination="XuD-oS-AJY" eventType="touchUpInside" id="r77-wR-BOj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jyQ-3S-azH">
-                                <rect key="frame" x="16" y="607" width="343" height="35"/>
-                                <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="oqB-eX-Oid"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                <state key="normal" title="CANCEL">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <segue destination="NT9-8v-cz5" kind="unwind" identifier="goToMainScreen" unwindAction="unwindToRandomScreenWithSegue:" id="51f-fB-iJc"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-Lr-6xN">
                                 <rect key="frame" x="171" y="54.5" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -324,14 +311,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No guests yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUY-s9-zuG">
-                                <rect key="frame" x="134.5" y="490" width="106" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No guests yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUY-s9-zuG">
+                                <rect key="frame" x="16" y="490" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your catchphrase is: _____" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBF-Fl-w86">
-                                <rect key="frame" x="0.0" y="521" width="375" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your catchphrase is: _____" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBF-Fl-w86">
+                                <rect key="frame" x="0.0" y="519" width="375" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -341,27 +329,20 @@
                         <constraints>
                             <constraint firstItem="4aS-Et-O5q" firstAttribute="top" secondItem="BaU-94-yij" secondAttribute="bottom" constant="8" symbolic="YES" id="0ZZ-RE-fUL"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="top" secondItem="8Es-9G-CSb" secondAttribute="bottom" constant="8" id="6HO-wK-BZE"/>
-                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="AUY-s9-zuG" secondAttribute="trailing" constant="134.5" id="6hc-xi-nvd"/>
-                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="HBF-Fl-w86" secondAttribute="trailing" id="7j4-7O-hJl"/>
-                            <constraint firstItem="HBF-Fl-w86" firstAttribute="top" secondItem="AUY-s9-zuG" secondAttribute="bottom" constant="10" id="80C-c0-KiA"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="top" secondItem="ezA-Sb-Tps" secondAttribute="top" constant="120" id="8g5-db-e2P"/>
                             <constraint firstItem="8Es-9G-CSb" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="Aak-gi-dB3"/>
-                            <constraint firstItem="AUY-s9-zuG" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" constant="134.5" id="Dzf-mV-ytD"/>
-                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="bottom" secondItem="jyQ-3S-azH" secondAttribute="bottom" constant="25" id="HPv-KK-FeI"/>
                             <constraint firstItem="NCb-Lr-6xN" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="MPx-hd-cbm"/>
-                            <constraint firstItem="HBF-Fl-w86" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" id="VJw-X7-vjh"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="top" secondItem="BaU-94-yij" secondAttribute="bottom" constant="70" id="VVj-1p-W2L"/>
-                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="jyQ-3S-azH" secondAttribute="trailing" constant="16" id="ZBa-QD-T7V"/>
+                            <constraint firstItem="AUY-s9-zuG" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" constant="16" id="a79-U7-6H3"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="bk3-c2-f01"/>
                             <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="BaU-94-yij" secondAttribute="trailing" id="bo4-zc-uau"/>
-                            <constraint firstItem="HBF-Fl-w86" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="eqL-Vw-EWy"/>
                             <constraint firstItem="8Es-9G-CSb" firstAttribute="top" secondItem="Pbx-jd-MEu" secondAttribute="bottom" constant="8" id="gPQ-9h-LwX"/>
                             <constraint firstItem="Pbx-jd-MEu" firstAttribute="top" secondItem="NCb-Lr-6xN" secondAttribute="bottom" constant="8" id="k8S-uh-RKM"/>
                             <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="4aS-Et-O5q" secondAttribute="trailing" constant="16" id="lRg-aP-wNG"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" id="n7V-SB-w6X"/>
-                            <constraint firstItem="jyQ-3S-azH" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" constant="16" id="nlz-nK-W4o"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="vB4-oT-L8o"/>
                             <constraint firstItem="Pbx-jd-MEu" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="x8z-2h-eXv"/>
+                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="AUY-s9-zuG" secondAttribute="trailing" constant="16" id="xfm-Po-ctl"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ezA-Sb-Tps"/>
                     </view>
@@ -375,9 +356,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLQ-OY-pNu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="NT9-8v-cz5" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2871" y="-145"/>
+            <point key="canvasLocation" x="2869.5999999999999" y="-145.27736131934034"/>
         </scene>
         <!--New Event-->
         <scene sceneID="rLs-fe-ouW">
@@ -456,7 +436,7 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="r6x-rY-sTD"/>
+        <segue reference="h8u-d5-ift"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

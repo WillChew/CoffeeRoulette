@@ -21,8 +21,8 @@ class EventDetailsViewController: UIViewController {
     //var eventLocation: String?
     var cafePicture: UIImage?
     
-    var guestStatus: String?
-    var catchPhrase: String?
+    var guestStatus: String!
+    var catchPhrase: String!
    
     
     
@@ -65,10 +65,8 @@ class EventDetailsViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
-        guestStatusLabel.text = guestStatus!
-        guestStatusLabel.sizeToFit()
-        catchPhraseLabel.text = catchPhrase!
-        catchPhraseLabel.sizeToFit()
+        guestStatusLabel.text = guestStatus
+        catchPhraseLabel.text = catchPhrase
     }
 
     

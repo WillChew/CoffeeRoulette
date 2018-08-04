@@ -14,7 +14,12 @@ enum Constants {
 //    static let api = ""
 //    static let api = "AIzaSyBPYVobA-0FPMZ00sU-S7MPPSyRyaYOfxM"
 //    static let api = "AIzaSyDBkRECsxw7TPdZn3QiJbxX2ImmwedX1lc"
-    static let api = "AIzaSyCIf8ooqUANGarp0Wz1udeTZvX987OozyQ"
+//    static let api = "AIzaSyCIf8ooqUANGarp0Wz1udeTZvX987OozyQ"
+//    static let api = "AIzaSyDA_1I98i0pCfJKz95FE--RXsHmRAk0ovA"
+//    static let api = "AIzaSyC2KMDIxxmDqhZmqt0wJ8ujLpzLfl6uYFk"
+    
+        static let api = "AIzaSyCI7-MJIjcLdatZXcA54cVIWNXCl5VN5DU"
+
     static let location = "location"
     static let radius = "radius"
     static let keyword = "keyword"
@@ -78,7 +83,14 @@ class MapRequestManager {
         
     }
     
-    func getPictureRequest(_ photoRef: String, completion: @escaping(UIImage) -> ()) {
+    func getPictureRequest(_ photoRef: String?, completion: @escaping(UIImage) -> ()) {
+        // handle dummy image
+        guard let photoRef = photoRef else {
+            let cup = UIImage(named: "cup.png")
+            completion(cup!)
+            return
+        }
+        
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         let url = URL(string: "https://maps.googleapis.com")!

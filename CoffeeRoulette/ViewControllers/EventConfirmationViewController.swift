@@ -134,18 +134,18 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                 
                 let guest = CKReference(recordID: recordID!, action: .none)
                 
-                eventRecord["guest"] = guest as CKRecordValue
+                eventRecord["guest"] = guest as CKReference
                 
                 self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
                     if (error == nil) && (record != nil) {
                         //print(record!["guest"] as! NSString)
                         
                         // guest must request cafe photo
-                        let photoRef = eventRecord["cafePhotoRef"] as! NSString
+                        let photoRef = record!["cafePhotoRef"]
                         
                         let mapRequestManager = MapRequestManager()
                         
-                        mapRequestManager.getPictureRequest(photoRef as String) { [weak self] (photo) in
+                        mapRequestManager.getPictureRequest(photoRef as? String) { [weak self] (photo) in
                             DispatchQueue.main.async {
                                 self?.cafePhoto = photo
                                 self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
@@ -177,7 +177,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             
             detailViewController.event = eventRecord
             
-            detailViewController.guestStatus = "There is a guest!"
+            detailViewController.guestStatus = "Your are a confirmed guest!"
             detailViewController.catchPhrase = "Your catchphrase is: petunia"
             
             detailViewController.cafePicture = cafePhoto

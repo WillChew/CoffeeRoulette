@@ -22,33 +22,66 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var selectedAnnotation: Annotations?
     var eventRecords = [CKRecord]()
     var event: CKRecord!
-    var userIsInEvent: Bool = false
+    var cafePhoto: UIImage!
     
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var slider: UISlider!
+    let splashScreen = UIView()
     
     @IBOutlet weak var goButton: UIButton!
+    
+    let spinner = UIActivityIndicatorView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.hidesWhenStopped = true
+        splashScreen.frame = view.frame
+        splashScreen.backgroundColor = .black
+        view.addSubview(splashScreen)
+        splashScreen.addSubview(spinner)
+        spinner.startAnimating()
+        spinner.center = splashScreen.center
+        splashScreen.alpha = 0.75
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
-        databaseManager.isUserInEvent { [weak self] (records, error) in
-            if let records = records, records.count > 0 {
-                print(#line, records.count)
-                self?.event = records.first
-//                self?.userIsInEvent = true
-                self?.performSegue(withIdentifier: "DetailSeque", sender: nil)
+        databaseManager.isUserInEvent { [weak self] (record, error) in
+            
+            
+            
+            
+            if let record = record {
+                print(#line, #function, "we are in an event")
+                self?.event = record
+                
+                // guest must request cafe photo
+                let photoRef = record["cafePhotoRef"]
+                
+                let mapRequestManager = MapRequestManager()
+                
+                mapRequestManager.getPictureRequest(photoRef as? String) { [weak self] (photo) in
+                    DispatchQueue.main.async {
+                        self?.cafePhoto = photo
+                        self?.performSegue(withIdentifier: "goToDetailSegue", sender: self)
+                    }
+                }
                 
             } else {
-                print(#line, "we are not in an event")
+                print(#line, #function, "we are not in an event")
+                // stay put!
             }
+            
+            
+
         }
+        
+        
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
@@ -86,6 +119,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         longPressGesture.minimumPressDuration = 1.0
         mapView.addGestureRecognizer(longPressGesture)
 
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        spinner.stopAnimating()
+        splashScreen.isHidden = true
     }
     
     
@@ -179,9 +218,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             
             
             let markerImage = UIImage(named: "cup")
-            let size = CGSize(width: 50, height: 50)
-            UIGraphicsBeginImageContext(size)
-            markerImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+//            let size = CGSize(width: 50, height: 50)
+            UIGraphicsBeginImageContext((markerImage?.size)!)
+            markerImage!.draw(in: CGRect(x: 0, y: 0, width: (markerImage?.size.width)!, height: (markerImage?.size.height)!))
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             annotationView?.image = resizedImage
             
@@ -214,7 +253,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     func mapRequest(_ coordinates: CLLocationCoordinate2D) {
         
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
-            
+            print(#line, "number of cafes found on map request", mapArray.count)
             for point in mapArray {
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
@@ -232,7 +271,15 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     //PRAGMA MARK: Segues
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "DetailSeque" {
+        if segue.identifier == "goToDetailSegue" {
+            let detailViewController = segue.destination as! EventDetailsViewController
+            detailViewController.event = event
+            
+            detailViewController.guestStatus = "Hello"
+//            detailViewController.guestStatus?
+            detailViewController.catchPhrase = "Your catchphrase is: petunia"
+            
+            detailViewController.cafePicture = cafePhoto
             
         }
         if segue.identifier == "goToCreateSegue" {
