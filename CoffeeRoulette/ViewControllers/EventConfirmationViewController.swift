@@ -20,7 +20,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var locationManager = CLLocationManager()
     var coordinates:CLLocation!
     var cafePhoto: UIImage!
-    
+    var makeOwnButton: UIButton!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -36,7 +36,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
         confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
-        
+        confirmButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
         
         mapView.delegate = self
         
@@ -59,6 +59,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             tryAgainButton.isHidden = true
             confirmButton.isHidden = true
             makeButton()
+            makeOwnButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
             return
         }
 
@@ -67,7 +68,11 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         }
 
         if eventRecords.count == 1 {
-            tryAgainButton.isEnabled = false
+            tryAgainButton.isHidden = true
+            
+            makeButton()
+            makeOwnButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 1).isActive = true
+            
         }
         
         eventRecords.shuffle()
@@ -216,22 +221,26 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     func makeButton() {
-        let makeOwnButton = UIButton()
+        makeOwnButton = UIButton()
         makeOwnButton.frame = .zero
         self.view.addSubview(makeOwnButton)
-        makeOwnButton.isHidden = true
         
-
-        makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
-        makeOwnButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
-//        makeOwnButton.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
-        makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        makeOwnButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
-        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
-        makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         makeOwnButton.setTitle("Make your Own!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.layer.cornerRadius = 42.5
+        makeOwnButton.layer.cornerRadius = 35
+        makeOwnButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        makeOwnButton.titleLabel?.font = UIFont(name: "Noteworthy-Bold", size: 20)
+        makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
+        makeOwnButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
+        makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+//        makeOwnButton.topAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -30).isActive = true
+        
+        
+       
+        
+        
        
     }
     
