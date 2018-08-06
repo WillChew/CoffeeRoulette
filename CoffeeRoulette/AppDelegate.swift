@@ -22,12 +22,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var navigationController: UINavigationController!
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
+        //GLOBAL THEMING, SEE EXTENSION AT BOTTOM
+        UIApplication.shared.statusBarStyle = .lightContent
+//        UINavigationBar.appearance().barTintColor = UIColor(red: 234.0/255.0, green: 46.0/255.0, blue: 73.0/255.0, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        configureTheme()
+        
         // REMOTE NOTIFICATIONS
         UIApplication.shared.registerForRemoteNotifications()
         
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { (success, error) in
             print(#line, success)
             print(#line, error?.localizedDescription ?? "registered for notifications")
+            
+        
         }
         
 
@@ -120,4 +129,12 @@ extension AppDelegate  {
         print(#line, notification.alertBody ?? "")   
     }
 
+}
+
+extension AppDelegate {
+    
+    func configureTheme() {
+        StyleManager.setUpTheme()
+    
+    }
 }

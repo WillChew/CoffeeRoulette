@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import CloudKit
+import ChameleonFramework
 
 class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     private var longPressGesture: UILongPressGestureRecognizer!
@@ -28,9 +29,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var slider: UISlider!
+    
     let splashScreen = UIView()
     
+    @IBOutlet weak var createEventButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     
     let spinner = UIActivityIndicatorView()
@@ -52,7 +54,15 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
         createCenterButton()
+
+        self.view.backgroundColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
+        let nav = self.navigationController?.navigationBar
+        nav?.backgroundColor = UIColor.black
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite()]
+        
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
         databaseManager.isUserInEvent { [weak self] (record, error) in
             
@@ -90,9 +100,13 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
+        createEventButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        createEventButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        createEventButton.layer.cornerRadius = goButton.frame.height / 8
+        
         goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         goButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
-        goButton.layer.cornerRadius = goButton.frame.height / 2
+        goButton.layer.cornerRadius = goButton.frame.height / 8
         
         //check if user is in an event
         UserDefaults.standard.set(false, forKey: "isInEvent")
@@ -186,12 +200,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
-    @IBAction func sliderChanged(_ sender: UISlider) {
-        delta = Double(slider.value)
-        mapView.userTrackingMode = .follow
-        var currentRegion = self.mapView.region
-        currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
-        self.mapView.region = currentRegion
+
         
         
         
@@ -210,7 +219,31 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 //                     }
 //                 }
         
-    }
+
+//    @IBAction func sliderChanged(_ sender: UISlider) {
+//        delta = Double(slider.value)
+//        mapView.userTrackingMode = .follow
+//        var currentRegion = self.mapView.region
+//        currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
+//        self.mapView.region = currentRegion
+//
+        /* CIRCLE STUFF
+         //        mapView.remove(circle)
+         //        let newRadius = sender.value
+         //        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
+         //        mapView.add(circle)
+         
+         
+         //        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
+         //            self.mapView.removeAnnotations(self.mapView.annotations)
+         //            for point in cafeArray {
+         //
+         //                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+         //                self.mapView.addAnnotation(annotation)
+         //            }
+         //        }
+         */
+//    }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
