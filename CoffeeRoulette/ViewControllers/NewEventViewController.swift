@@ -39,13 +39,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
       
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        locationManager = CLLocationManager()
+        if databaseManager == nil {
+            databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
+        }
         
         timeTextField.delegate = self
         mapView.delegate = self
@@ -57,7 +60,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         
         mapRequestManager = MapRequestManager()
-        locationManager = CLLocationManager()
         if CLLocationManager.locationServicesEnabled() {
             mapView.showsUserLocation = true
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters

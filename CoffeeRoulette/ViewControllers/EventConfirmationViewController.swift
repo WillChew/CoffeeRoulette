@@ -37,6 +37,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
         confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
         
+        
         mapView.delegate = self
         
         if CLLocationManager.locationServicesEnabled() {
@@ -52,9 +53,12 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         guard eventRecords.count > 0 else {
             titleLabel.text = "No events found at this time. Try again later, or create your own event!"
+            titleLabel.lineBreakMode = .byWordWrapping
+            titleLabel.numberOfLines = 0
             timeLabel.text = ""
-            tryAgainButton.isEnabled = false
-            confirmButton.isEnabled = false
+            tryAgainButton.isHidden = true
+            confirmButton.isHidden = true
+            makeButton()
             return
         }
 
@@ -209,6 +213,32 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
+    }
+    
+    func makeButton() {
+        let makeOwnButton = UIButton()
+        makeOwnButton.frame = .zero
+        self.view.addSubview(makeOwnButton)
+        makeOwnButton.isHidden = true
+        
+
+        makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
+        makeOwnButton.heightAnchor.constraint(equalToConstant: 85).isActive = true
+//        makeOwnButton.widthAnchor.constraint(equalToConstant: self.view.frame.width).isActive = true
+        makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+        makeOwnButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+        makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        makeOwnButton.setTitle("Make your Own!", for: .normal)
+        makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
+        makeOwnButton.layer.cornerRadius = 42.5
+       
+    }
+    
+    @objc func customButtonAction(sender: UIButton!){
+        let newEventVC = storyboard?.instantiateViewController(withIdentifier: "NewEventViewController")
+        self.navigationController?.pushViewController(newEventVC!, animated: true)
+        
     }
     
 }
