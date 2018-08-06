@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Randomize-->
+        <!--Coffee Roulette-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CoffeeRouletteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -58,7 +58,8 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Randomize" id="1js-QS-nCf">
+                    <navigationItem key="navigationItem" title="Coffee Roulette" id="1js-QS-nCf">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="9hv-5c-utD"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="q2Q-eT-Kwz">
                             <connections>
                                 <segue destination="fNL-rD-Uxt" kind="show" identifier="goToCreateSegue" id="3yX-Oe-aoA"/>
@@ -412,6 +413,7 @@
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="lss-gV-yTb"/>
                         <barButtonItem key="rightBarButtonItem" title="Create" id="n24-PB-Neo">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" id="g7a-9F-U8h"/>
@@ -436,7 +438,7 @@
         <image name="coffee" width="1000" height="563"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h8u-d5-ift"/>
+        <segue reference="r6x-rY-sTD"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

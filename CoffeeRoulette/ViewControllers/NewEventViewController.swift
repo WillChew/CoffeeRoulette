@@ -42,6 +42,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         createCenterButton()
+
     }
       
     
