@@ -78,8 +78,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         view.addGestureRecognizer(gestureRecognizer)
         
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
-        longPressGesture.minimumPressDuration = 1.0
-        longPressGesture.allowableMovement = 0
+        longPressGesture.minimumPressDuration = 0.5
+        
         
         mapView.addGestureRecognizer(longPressGesture)
         
@@ -326,6 +326,7 @@ self.mapRequest(newCoordinates)
     
     @objc func centerMap() {
         self.mapView.userTrackingMode = .follow
+        mapRequest(currentLocation)
     }
     
 }

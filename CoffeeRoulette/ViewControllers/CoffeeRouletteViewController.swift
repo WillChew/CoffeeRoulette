@@ -125,7 +125,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapRequest(currentLocation)
         
         longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
-        longPressGesture.minimumPressDuration = 1.0
+        longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
 
     }
@@ -332,6 +332,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @objc func centerMap() {
        self.mapView.userTrackingMode = .follow
+        mapRequest(currentLocation)
     }
     
 
