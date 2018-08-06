@@ -247,12 +247,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         let annotation = MKPointAnnotation()
         annotation.coordinate = newCoordinates
         
-        let newAnnotation = Annotations(title: "Selected Location", coordinate: CLLocationCoordinate2DMake(newCoordinates.latitude, newCoordinates.longitude), subtitle: "New Starting Point")
-        mapView.addAnnotation(newAnnotation)
+self.mapRequest(newCoordinates)
         longPressGesture.isEnabled = false
         longPressGesture.isEnabled = true
 
-        self.mapRequest(newCoordinates)
+        
         
     }
     
