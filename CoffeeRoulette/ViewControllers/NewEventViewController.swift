@@ -31,6 +31,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var longPressGesture: UILongPressGestureRecognizer!
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
+    
     @IBOutlet weak var cafeLabel: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
@@ -40,6 +41,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(false, animated: false)
+        createCenterButton()
     }
       
     
@@ -314,6 +316,29 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             annotationView?.annotation = annotation
         }
         return annotationView
+    }
+    
+    func createCenterButton() {
+        let centerMapButton = UIButton()
+        centerMapButton.frame = .zero
+        self.mapView.addSubview(centerMapButton)
+        centerMapButton.backgroundColor = .clear
+        centerMapButton.translatesAutoresizingMaskIntoConstraints = false
+        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10).isActive = true
+        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10).isActive = true
+        centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        centerMapButton.clipsToBounds = true
+        
+        centerMapButton.setImage(UIImage(named: "center"), for: .normal)
+        centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
+    }
+    
+    @objc func centerMap() {
+        let center = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.0129654, longitudeDelta: 0.0129654))
+        mapView.setRegion(region, animated: true)
     }
     
 }

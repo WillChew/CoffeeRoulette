@@ -15,7 +15,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     private var longPressGesture: UILongPressGestureRecognizer!
     var locationManager: CLLocationManager!
     var circle: MKCircle!
-    var delta : CLLocationDegrees = 0.005
+    var delta : CLLocationDegrees = 0.0129654
     var currentLocation: CLLocationCoordinate2D!
     var mapRequestManager: MapRequestManager!
     var cafes = [Cafe]()
@@ -23,6 +23,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var eventRecords = [CKRecord]()
     var event: CKRecord!
     var cafePhoto: UIImage!
+    var centerMapButton: UIButton!
     
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
@@ -45,11 +46,13 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         spinner.startAnimating()
         spinner.center = splashScreen.center
         splashScreen.alpha = 0.75
+        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        createCenterButton()
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
         databaseManager.isUserInEvent { [weak self] (record, error) in
             
@@ -113,6 +116,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
           
+            mapView.removeOverlays(mapView.overlays)
+            circle = MKCircle(center: currentLocation, radius: 500)
+            
+            mapView.add(circle)
         }
         
         mapRequest(currentLocation)
@@ -146,12 +153,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
     }
     
-    /*CIRCLE STUFF
-     mapView.removeOverlays(mapView.overlays)
-     //        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(slider.value))
-     //
-     //        mapView.add(circle)
-     */
+    
+  
+ 
     
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -189,22 +193,23 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         currentRegion.span = MKCoordinateSpan(latitudeDelta: delta, longitudeDelta: delta)
         self.mapView.region = currentRegion
         
-        /* CIRCLE STUFF
-         //        mapView.remove(circle)
-         //        let newRadius = sender.value
-         //        circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
-         //        mapView.add(circle)
+        
+        
+//                 mapView.remove(circle)
+//                 let newRadius = sender.value
+//                 circle = MKCircle(center: currentLocation, radius: CLLocationDistance(newRadius))
+//                 mapView.add(circle)
+        
          
-         
-         //        mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
-         //            self.mapView.removeAnnotations(self.mapView.annotations)
-         //            for point in cafeArray {
-         //
-         //                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
-         //                self.mapView.addAnnotation(annotation)
-         //            }
-         //        }
-         */
+//                 mapRequestManager.getLocations(currentLocation, radius: newRadius){ (cafeArray) in
+//                     self.mapView.removeAnnotations(self.mapView.annotations)
+//                     for point in cafeArray {
+//
+//                         let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude)) as MKAnnotation
+//                         self.mapView.addAnnotation(annotation)
+//                     }
+//                 }
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -216,6 +221,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
             annotationView?.markerTintColor = .clear
+            annotationView?.backgroundColor = .clear
+            annotationView?.glyphTintColor = .clear
+            annotationView?.tintColor = .clear
             
             
             
@@ -304,20 +312,39 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
     }
     
+    func createCenterButton() {
+        centerMapButton = UIButton()
+        centerMapButton.frame = .zero
+        self.mapView.addSubview(centerMapButton)
+        centerMapButton.backgroundColor = .clear
+        centerMapButton.translatesAutoresizingMaskIntoConstraints = false
+        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10).isActive = true
+        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10).isActive = true
+        centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        centerMapButton.clipsToBounds = true
+        
+        centerMapButton.setImage(UIImage(named: "center"), for: .normal)
+        centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
+    }
+    
+    @objc func centerMap() {
+        let center = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.0129654, longitudeDelta: 0.0129654))
+        mapView.setRegion(region, animated: true)
+    }
+    
 
 }
 
 
-
-
-
-
-//extension CoffeeRouletteViewController {
-//    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-//        guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
-//        let circleRenderer = MKCircleRenderer(circle: circleOverlay)
-//        circleRenderer.fillColor = .red
-//        circleRenderer.alpha = 0.1
-//        return circleRenderer
-//    }
-//}
+extension CoffeeRouletteViewController {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
+        let circleRenderer = MKCircleRenderer(circle: circleOverlay)
+        circleRenderer.fillColor = .red
+        circleRenderer.alpha = 0.1
+        return circleRenderer
+    }
+}
