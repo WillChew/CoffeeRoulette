@@ -235,13 +235,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
         makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-//        makeOwnButton.topAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -30).isActive = true
-        
-        
-       
-        
-        
-       
+
     }
     
     @objc func customButtonAction(sender: UIButton!){

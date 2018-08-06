@@ -111,9 +111,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
         mapView.setRegion(coordinateRegion, animated: true)
-        
-        
-        
+   
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
@@ -301,17 +299,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             annotationView?.markerTintColor = .clear
             
             let markerImage = UIImage(named: "cup")
-            //            let size = CGSize(width: 50, height: 50)
             UIGraphicsBeginImageContext((markerImage?.size)!)
             markerImage!.draw(in: CGRect(x: 0, y: 0, width: (markerImage?.size.width)!, height: (markerImage?.size.height)!))
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-//            let markerImage = UIImage(named: "cup")
-//            let size = CGSize(width: 50, height: 50)
-//            UIGraphicsBeginImageContext(size)
-//            markerImage!.draw(in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
-//            let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
             annotationView?.image = resizedImage
-            
             
         } else {
             annotationView?.annotation = annotation
@@ -329,9 +320,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10).isActive = true
         centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        
-        
+
         centerMapButton.setImage(UIImage(named: "center"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
     }

@@ -25,11 +25,6 @@ class EventDetailsViewController: UIViewController {
     var catchPhrase: String!
    
     
-    
-    //CURRENT LOCATION HARDCODED PLACEHOLDER VALUES TO CENTER MAP
-
-    
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
