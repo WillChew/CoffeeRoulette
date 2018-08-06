@@ -9,6 +9,7 @@
 import UIKit
 import CloudKit
 import MapKit
+import ChameleonFramework
 
 class EventDetailsViewController: UIViewController {
     
@@ -57,7 +58,12 @@ class EventDetailsViewController: UIViewController {
         timeLabel.text = formatter.string(from: date!)
         //locationLabel.text = eventLocation
         
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.flatMint(), UIColor.flatMintColorDark()])
+
+        
     }
+    
+    
     
     override func viewDidLayoutSubviews() {
         guestStatusLabel.text = guestStatus
