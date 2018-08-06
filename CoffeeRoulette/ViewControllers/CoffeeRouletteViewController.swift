@@ -118,7 +118,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
           
             mapView.removeOverlays(mapView.overlays)
             circle = MKCircle(center: currentLocation, radius: 500)
-            
+
             mapView.add(circle)
         }
         
@@ -314,8 +314,9 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     func createCenterButton() {
         centerMapButton = UIButton()
+        self.mapView.userTrackingMode = .none
         centerMapButton.frame = .zero
-        self.mapView.addSubview(centerMapButton)
+        self.view.addSubview(centerMapButton)
         centerMapButton.backgroundColor = .clear
         centerMapButton.translatesAutoresizingMaskIntoConstraints = false
         centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10).isActive = true
@@ -323,16 +324,14 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        centerMapButton.clipsToBounds = true
+        
         
         centerMapButton.setImage(UIImage(named: "center"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
     }
     
     @objc func centerMap() {
-        let center = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.0129654, longitudeDelta: 0.0129654))
-        mapView.setRegion(region, animated: true)
+       self.mapView.userTrackingMode = .follow
     }
     
 
@@ -343,8 +342,11 @@ extension CoffeeRouletteViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
         let circleRenderer = MKCircleRenderer(circle: circleOverlay)
-        circleRenderer.fillColor = .red
-        circleRenderer.alpha = 0.1
+        circleRenderer.fillColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        circleRenderer.alpha = 0.5
+        circleRenderer.strokeColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:0.5)
+        circleRenderer.lineWidth = 5
+
         return circleRenderer
     }
 }

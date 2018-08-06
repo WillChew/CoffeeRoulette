@@ -150,7 +150,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         // WHY CAN'T WE CHANGE THE BACKGROUND COLOR???
         sender.inputView? = datePickerView
         //sender.inputView?.backgroundColor = .clear
-        datePickerView.backgroundColor = .brown
+        datePickerView.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         
         
         datePickerView.minuteInterval = 5
@@ -329,16 +329,14 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
-        centerMapButton.clipsToBounds = true
+        
         
         centerMapButton.setImage(UIImage(named: "center"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
     }
     
     @objc func centerMap() {
-        let center = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.0129654, longitudeDelta: 0.0129654))
-        mapView.setRegion(region, animated: true)
+        self.mapView.userTrackingMode = .follow
     }
     
 }
