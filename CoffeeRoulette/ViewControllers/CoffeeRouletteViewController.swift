@@ -326,7 +326,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         
         
-        centerMapButton.setImage(UIImage(named: "center"), for: .normal)
+        centerMapButton.setImage(UIImage(named: "marker"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
     }
     

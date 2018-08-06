@@ -16,7 +16,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var locationManager: CLLocationManager!
     var cafes = [Cafe]()
     var currentLocation: CLLocationCoordinate2D!
-    var delta: CLLocationDegrees = 0.005
+    var delta: CLLocationDegrees = 0.0129654
     var mapRequestManager: MapRequestManager!
     var selectedAnnotation: Annotations?
     var cafeSelectedCoordinates: CLLocationCoordinate2D!
@@ -320,7 +320,7 @@ self.mapRequest(newCoordinates)
         centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
         centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
 
-        centerMapButton.setImage(UIImage(named: "center"), for: .normal)
+        centerMapButton.setImage(UIImage(named: "marker"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)
     }
     
