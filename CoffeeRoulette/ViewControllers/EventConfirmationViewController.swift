@@ -80,6 +80,13 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         addAnnotation()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let nav = self.navigationController?.navigationBar
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+    }
+    
     
     func addAnnotation() {
         let eventRecord = eventRecords[recordIndex]

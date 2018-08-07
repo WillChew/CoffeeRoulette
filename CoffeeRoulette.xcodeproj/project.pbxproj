@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		0305C523210A7129005A4AA4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0305C522210A7129005A4AA4 /* Main.storyboard */; };
+		0368AE092118C39F00FFC1AC /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0368AE082118C39F00FFC1AC /* StyleManager.swift */; };
 		0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A62110C35F007935DE /* DatabaseManager.swift */; };
 		0380E6A92110C373007935DE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A82110C373007935DE /* Event.swift */; };
 		03AB432D2111027900AFD149 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AB432C2111027900AFD149 /* CloudKit.framework */; };
 		03AB432F211117E100AFD149 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB432E211117E100AFD149 /* Extensions.swift */; };
-		20741916887D9B490F66288B /* Pods_CoffeeRoulette.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65EACB78B501072E0244D347 /* Pods_CoffeeRoulette.framework */; };
+		0E732C6E3DF88F8ADD9AA431 /* Pods_CoffeeRoulette.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53A569FE4D4ED88939B635D /* Pods_CoffeeRoulette.framework */; };
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
 		211FAD39210F88210043C6C5 /* Cafe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD38210F88210043C6C5 /* Cafe.swift */; };
 		211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD3A210F99010043C6C5 /* Annotations.swift */; };
@@ -31,6 +32,7 @@
 
 /* Begin PBXFileReference section */
 		0305C522210A7129005A4AA4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		0368AE082118C39F00FFC1AC /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		0380E6A62110C35F007935DE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		0380E6A82110C373007935DE /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		03AB432B2111027600AFD149 /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
@@ -52,9 +54,9 @@
 		21ED40D6210A7A9400B9F654 /* NewEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventViewController.swift; sourceTree = "<group>"; };
 		21ED40D8210A7C4600B9F654 /* EventConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventConfirmationViewController.swift; sourceTree = "<group>"; };
 		21ED40DA210A7C5E00B9F654 /* EventDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailsViewController.swift; sourceTree = "<group>"; };
-		65EACB78B501072E0244D347 /* Pods_CoffeeRoulette.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeRoulette.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A94921C5555ACC9B98653038 /* Pods-CoffeeRoulette.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeRoulette.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeRoulette/Pods-CoffeeRoulette.debug.xcconfig"; sourceTree = "<group>"; };
-		D66E90AE225F4BFABDECBD3D /* Pods-CoffeeRoulette.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeRoulette.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeRoulette/Pods-CoffeeRoulette.release.xcconfig"; sourceTree = "<group>"; };
+		724B9A68CE5F653F3B9CF37D /* Pods-CoffeeRoulette.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeRoulette.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeRoulette/Pods-CoffeeRoulette.debug.xcconfig"; sourceTree = "<group>"; };
+		AD7E4FCBD1FAD3E8842EB9D3 /* Pods-CoffeeRoulette.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoffeeRoulette.release.xcconfig"; path = "Pods/Target Support Files/Pods-CoffeeRoulette/Pods-CoffeeRoulette.release.xcconfig"; sourceTree = "<group>"; };
+		B53A569FE4D4ED88939B635D /* Pods_CoffeeRoulette.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoffeeRoulette.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +65,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				03AB432D2111027900AFD149 /* CloudKit.framework in Frameworks */,
-				20741916887D9B490F66288B /* Pods_CoffeeRoulette.framework in Frameworks */,
+				0E732C6E3DF88F8ADD9AA431 /* Pods_CoffeeRoulette.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -74,7 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				03AB432C2111027900AFD149 /* CloudKit.framework */,
-				65EACB78B501072E0244D347 /* Pods_CoffeeRoulette.framework */,
+				B53A569FE4D4ED88939B635D /* Pods_CoffeeRoulette.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,6 +106,7 @@
 		03A945272110F74D006E3805 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0368AE082118C39F00FFC1AC /* StyleManager.swift */,
 				0380E6A62110C35F007935DE /* DatabaseManager.swift */,
 				211FAD36210F85E50043C6C5 /* MapRequestManager.swift */,
 			);
@@ -136,7 +139,7 @@
 				21ED40C3210A3B7200B9F654 /* CoffeeRoulette */,
 				21ED40C2210A3B7200B9F654 /* Products */,
 				0380E6962110BBEB007935DE /* Frameworks */,
-				9C6415ACDDDC2C5EBAD8D676 /* Pods */,
+				9E483D9A88B18F8D5D6DC527 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -164,11 +167,11 @@
 			path = CoffeeRoulette;
 			sourceTree = "<group>";
 		};
-		9C6415ACDDDC2C5EBAD8D676 /* Pods */ = {
+		9E483D9A88B18F8D5D6DC527 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A94921C5555ACC9B98653038 /* Pods-CoffeeRoulette.debug.xcconfig */,
-				D66E90AE225F4BFABDECBD3D /* Pods-CoffeeRoulette.release.xcconfig */,
+				724B9A68CE5F653F3B9CF37D /* Pods-CoffeeRoulette.debug.xcconfig */,
+				AD7E4FCBD1FAD3E8842EB9D3 /* Pods-CoffeeRoulette.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -180,11 +183,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 21ED40D3210A3B7500B9F654 /* Build configuration list for PBXNativeTarget "CoffeeRoulette" */;
 			buildPhases = (
-				82C1E27CB917802D2AE52677 /* [CP] Check Pods Manifest.lock */,
+				8097A0364525BDD7E51F42E1 /* [CP] Check Pods Manifest.lock */,
 				21ED40BD210A3B7200B9F654 /* Sources */,
 				21ED40BE210A3B7200B9F654 /* Frameworks */,
 				21ED40BF210A3B7200B9F654 /* Resources */,
-				315EEDF82FE872BBE3C7394A /* [CP] Embed Pods Frameworks */,
+				2F25D0631CF8306EAB4C5ADA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -250,7 +253,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		315EEDF82FE872BBE3C7394A /* [CP] Embed Pods Frameworks */ = {
+		2F25D0631CF8306EAB4C5ADA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -268,7 +271,7 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CoffeeRoulette/Pods-CoffeeRoulette-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		82C1E27CB917802D2AE52677 /* [CP] Check Pods Manifest.lock */ = {
+		8097A0364525BDD7E51F42E1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -302,6 +305,7 @@
 				211FAD3B210F99010043C6C5 /* Annotations.swift in Sources */,
 				211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */,
 				0380E6A92110C373007935DE /* Event.swift in Sources */,
+				0368AE092118C39F00FFC1AC /* StyleManager.swift in Sources */,
 				21ED40D7210A7A9400B9F654 /* NewEventViewController.swift in Sources */,
 				21ED40D9210A7C4600B9F654 /* EventConfirmationViewController.swift in Sources */,
 				21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */,
@@ -441,7 +445,7 @@
 		};
 		21ED40D4210A3B7500B9F654 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A94921C5555ACC9B98653038 /* Pods-CoffeeRoulette.debug.xcconfig */;
+			baseConfigurationReference = 724B9A68CE5F653F3B9CF37D /* Pods-CoffeeRoulette.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
@@ -465,7 +469,7 @@
 		};
 		21ED40D5210A3B7500B9F654 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D66E90AE225F4BFABDECBD3D /* Pods-CoffeeRoulette.release.xcconfig */;
+			baseConfigurationReference = AD7E4FCBD1FAD3E8842EB9D3 /* Pods-CoffeeRoulette.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;

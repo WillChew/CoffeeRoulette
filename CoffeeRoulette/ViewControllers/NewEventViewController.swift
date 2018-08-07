@@ -48,6 +48,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        super.viewWillAppear(animated)
+        let nav = self.navigationController?.navigationBar
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+        
         locationManager = CLLocationManager()
         if databaseManager == nil {
             databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
