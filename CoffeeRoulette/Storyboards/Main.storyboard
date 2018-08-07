@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Coffee Roulette-->
+        <!--Randomize-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CoffeeRouletteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4d1-gQ-hrH">
-                                <rect key="frame" x="16" y="80" width="343" height="412"/>
+                                <rect key="frame" x="16" y="64" width="343" height="428"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-BP-4AY">
                                 <rect key="frame" x="16" y="587" width="343" height="60"/>
@@ -27,7 +27,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="pZh-NK-W6g"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="24"/>
                                 <state key="normal" title="Random Match">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -41,23 +41,26 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="5rq-x7-xKH"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="24"/>
                                 <state key="normal" title="Create Event">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <segue destination="fNL-rD-Uxt" kind="show" identifier="goToEventCreation" id="jFo-L1-Cia"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coffee512" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-fh-7Cx">
-                                <rect key="frame" x="288" y="512" width="60" height="60"/>
+                                <rect key="frame" x="292" y="512" width="60" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="aaT-ca-sZI"/>
                                     <constraint firstAttribute="width" constant="60" id="qK0-Wu-CXf"/>
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Roulette_Wheel" translatesAutoresizingMaskIntoConstraints="NO" id="FD0-sS-QvE">
-                                <rect key="frame" x="288" y="587" width="60" height="60"/>
+                                <rect key="frame" x="294" y="590" width="54" height="54"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="Qh5-bO-ofI"/>
-                                    <constraint firstAttribute="height" constant="60" id="elY-es-5HI"/>
+                                    <constraint firstAttribute="width" constant="54" id="Qh5-bO-ofI"/>
+                                    <constraint firstAttribute="height" constant="54" id="elY-es-5HI"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -77,10 +80,9 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mbP-NF-vuG" secondAttribute="trailing" constant="16" id="dyr-0L-C0P"/>
                             <constraint firstItem="mbP-NF-vuG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hi8-fy-9w9"/>
                             <constraint firstItem="mbP-NF-vuG" firstAttribute="top" secondItem="4d1-gQ-hrH" secondAttribute="bottom" constant="20" id="p8q-aM-K29"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FD0-sS-QvE" secondAttribute="bottom" constant="20" id="pF8-5G-mKU"/>
-                            <constraint firstItem="FD0-sS-QvE" firstAttribute="top" secondItem="mbP-NF-vuG" secondAttribute="bottom" constant="15" id="sPd-yt-lgd"/>
-                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="vV8-wb-uYQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dwD-fh-7Cx" secondAttribute="trailing" constant="27" id="w9V-KS-g3o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FD0-sS-QvE" secondAttribute="bottom" constant="23" id="pF8-5G-mKU"/>
+                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vV8-wb-uYQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dwD-fh-7Cx" secondAttribute="trailing" constant="23" id="w9V-KS-g3o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -388,13 +390,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Title" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="69B-TZ-BGM">
-                                <rect key="frame" x="16" y="40" width="343" height="30"/>
+                                <rect key="frame" x="16" y="84" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Time" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qDa-RK-1Fw">
-                                <rect key="frame" x="16" y="78" width="343" height="30"/>
+                                <rect key="frame" x="16" y="122" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -403,7 +405,7 @@
                                 </connections>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="rIQ-Zf-Mw5">
-                                <rect key="frame" x="0.0" y="128" width="375" height="419"/>
+                                <rect key="frame" x="0.0" y="172" width="375" height="375"/>
                                 <color key="tintColor" red="1" green="0.84313725490000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </mapView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8UC-qY-LpX">
@@ -454,12 +456,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Roulette_Wheel" width="318" height="318"/>
+        <image name="Roulette_Wheel" width="159" height="159"/>
         <image name="coffee" width="1000" height="563"/>
-        <image name="coffee512" width="512" height="512"/>
+        <image name="coffee512" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-Xq-pp7"/>
+        <segue reference="h8u-d5-ift"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

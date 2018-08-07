@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "Roulette_Wheel.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "Roulette_Wheel.png",
       "scale" : "2x"
     },
     {

@@ -94,14 +94,7 @@ extension FontType {
     var fontSize: CGFloat {
         switch self {
         case .Primary:
-            return 16
-        }
-    }
-    
-    var fontColor: UIColor {
-        switch self {
-        case .Primary:
-            return UIColor.flatWhite
+            return 24
         }
     }
 }
