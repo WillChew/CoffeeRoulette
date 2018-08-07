@@ -57,11 +57,26 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
         createCenterButton()
 
-        self.view.backgroundColor = UIColor(red:0.20, green:0.20, blue:0.20, alpha:1.0)
+//        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.flatCoffeeColorDark(), UIColor.white])
+//        self.view.backgroundColor = UIColor(red:0.96, green:0.78, blue:0.52, alpha:1.0)
+        // UIColor(displayP3Red: 0.40, green: 0.40, blue: 0.40, alpha: 0.8)
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+
         let nav = self.navigationController?.navigationBar
         nav?.backgroundColor = UIColor.black
         nav?.tintColor = UIColor.white
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite()]
+        
+        goButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
+            self.goButton.alpha = 1.0
+        }, completion: nil)
+        
+        createEventButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
+            self.createEventButton.alpha = 1.0
+        }, completion: nil)
+        
         
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
         databaseManager.isUserInEvent { [weak self] (record, error) in
@@ -100,13 +115,39 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
         
-        createEventButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+//        createEventButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        createEventButton.backgroundColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
+//        createEventButton.backgroundColor = UIColor(red:0.91, green:0.73, blue:0.47, alpha:1.0)
+
+//        createEventButton.backgroundColor = UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: self.view.frame, andColors: [UIColor.flatCoffee(), UIColor.flatCoffeeColorDark()])
+        
+        createEventButton.layer.borderWidth = 2.5
+        createEventButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+//        createEventButton.alpha = 0.0
+//        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
+//            self.createEventButton.alpha = 1.0
+//        }, completion: nil)
+    
+
+
+
         createEventButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
-        createEventButton.layer.cornerRadius = goButton.frame.height / 8
+        createEventButton.layer.cornerRadius = goButton.frame.height / 4
         
         goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+//        goButton.backgroundColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
+//        goButton.backgroundColor = UIColor(red:0.91, green:0.73, blue:0.47, alpha:1.0)
+//        goButton.backgroundColor = UIColor.flatCoffee()
         goButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
-        goButton.layer.cornerRadius = goButton.frame.height / 8
+        goButton.layer.cornerRadius = goButton.frame.height / 4
+        goButton.layer.borderWidth = 2.5
+//        goButton.layer.borderColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0).cgColor
+        goButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        
+        mapView.layer.borderWidth = 2.5
+        //        goButton.layer.borderColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0).cgColor
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+
         
         //check if user is in an event
         UserDefaults.standard.set(false, forKey: "isInEvent")
@@ -132,7 +173,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
           
             mapView.removeOverlays(mapView.overlays)
             circle = MKCircle(center: currentLocation, radius: 500)
-
+        
             mapView.add(circle)
         }
         
@@ -260,7 +301,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             
             
             
-            let markerImage = UIImage(named: "cup")
+            let markerImage = UIImage(named: "Icon-App-40x40")
 //            let size = CGSize(width: 50, height: 50)
             UIGraphicsBeginImageContext((markerImage?.size)!)
             markerImage!.draw(in: CGRect(x: 0, y: 0, width: (markerImage?.size.width)!, height: (markerImage?.size.height)!))
@@ -376,10 +417,15 @@ extension CoffeeRouletteViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
         let circleRenderer = MKCircleRenderer(circle: circleOverlay)
-        circleRenderer.fillColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        circleRenderer.alpha = 0.5
-        circleRenderer.strokeColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:0.5)
-        circleRenderer.lineWidth = 5
+//        circleRenderer.fillColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+//        circleRenderer.fillColor = UIColor(red:0.70, green:0.90, blue:0.90, alpha:0.4)
+        circleRenderer.fillColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:0.1)
+        mapView.tintColor = UIColor(red:0.91, green:0.73, blue:0.47, alpha:1.0)
+        
+        circleRenderer.alpha = 0.9
+        circleRenderer.strokeColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+        circleRenderer.lineWidth = 1
+//        circleRenderer
 
         return circleRenderer
     }

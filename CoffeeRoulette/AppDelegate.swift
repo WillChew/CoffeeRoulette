@@ -63,8 +63,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
                 let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
                 navigationController = UINavigationController(rootViewController: rootVC)
-                let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
-                
+                let attributes = [NSAttributedStringKey.font: UIFont(name: "HelveticaNeue", size: 24)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
+                UINavigationBar.appearance().titleTextAttributes = attributes
                 let navAppearance = UINavigationBar.appearance()
                 navAppearance.titleTextAttributes = attributes
                 navAppearance.backgroundColor = .brown
