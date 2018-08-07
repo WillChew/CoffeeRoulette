@@ -90,10 +90,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
     }
     
-    //    override func viewWillDisappear(_ animated: Bool) {
-    //        super.viewWillDisappear(animated)
-    //        mapView.removeFromSuperview()
-    //    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if currentLocation == nil {
@@ -143,7 +139,6 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
-        // WHY CAN'T WE CHANGE THE BACKGROUND COLOR???
         sender.inputView? = datePickerView
         //sender.inputView?.backgroundColor = .clear
         datePickerView.backgroundColor = .brown
@@ -174,8 +169,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             detailViewController.cafe = selectedCafe 
             detailViewController.event = eventRecord
             detailViewController.guestStatus = "No guest yet"
-            detailViewController.catchPhrase = "Your catchphrase is: ____"
-            //detailViewController.databaseManager = databaseManager
+            detailViewController.catchPhrase = ""
+            detailViewController.databaseManager = databaseManager
         }
     }
     
@@ -191,6 +186,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         // make a new event with title, time and cafe
         event = Event(title: titleTextField.text!, time: time, cafe: selectedCafe)
+        
+        event.catchPhrase = ""
         
         // get cafe photo from photo reference
         
@@ -210,8 +207,10 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 if (error == nil), let record = record {
                     self?.eventRecord = record
                     
-                    // save subscription to changes on my event (FIX THIS)
-                    let subscription = CKQuerySubscription(recordType: "Event", predicate: NSPredicate(value: true), options: [.firesOnRecordUpdate])
+                    // save subscription to changes on my event (guest confirmation)
+                    let predicate = NSPredicate(format: "recordID = %@", record.recordID)
+                    
+                    let subscription = CKQuerySubscription(recordType: "Event", predicate: predicate, options: [.firesOnRecordUpdate, .firesOnce])
 
                     let info = CKNotificationInfo()
                     let title = record["title"] as! String
@@ -274,9 +273,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
                 DispatchQueue.main.async {
-                    self.mapView.addAnnotation(annotation)
-                    
-                    
+                    self.mapView.addAnnotation(annotation)  
                 }
                 self.locationManager.stopUpdatingLocation()
                 

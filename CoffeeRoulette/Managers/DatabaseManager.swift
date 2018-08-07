@@ -35,6 +35,27 @@ class DatabaseManager {
             completion(record, error)
         }
     }
+
+    func getEvent(recordID: CKRecordID, completion: @escaping ((CKRecord?, Error?)->()) ) {
+        
+        let predicate = NSPredicate(format: "recordID = %@", recordID)
+        
+        let query = CKQuery(recordType: "Event", predicate: predicate)
+        
+        db.perform(query, inZoneWith: nil) { (records, error) in
+            
+            if let error = error { print(error.localizedDescription); return }
+            
+            guard let records = records, let record = records.first else {
+                completion(nil, error)
+                return
+            }
+            
+            completion(record, error)
+        }
+    }
+    
+    
     
     func getEvents(completion: @escaping (([CKRecord], Error?)->()) ) {
         
@@ -58,15 +79,22 @@ class DatabaseManager {
         guard self.accountStatus == .available else { return }
         
         self.getUserID { (recordID, error) in
-            
+ 
             guard let recordID = recordID, error == nil else { return }
             
-            let userPredicate = NSPredicate(format: "creatorUserRecordID != %@", recordID)
-            //let guestPredicate =
+            // user is not the host of the event
+            let hostPredicate = NSPredicate(format: "creatorUserRecordID != %@", recordID)
+            
+            // the event has no confirmed guest
+            let guestPredicate = NSPredicate(format: "catchPhrase == %@", "")
+            
+            // the event is in the future
             let timePredicate = NSPredicate(format: "time > %@", NSDate())
+            
+            // the event is near the user
             let locationPredicate = NSPredicate(format: "distanceToLocation:fromLocation:(%K,%@) < %f", "location", location, radius)
             
-            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [userPredicate, timePredicate, locationPredicate])
+            let predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [hostPredicate, guestPredicate, timePredicate, locationPredicate])
             //let predicate = NSPredicate(value: true)
             
             let query = CKQuery(recordType: "Event", predicate: predicate)
@@ -97,7 +125,7 @@ class DatabaseManager {
     }
     
     func save(subscription: CKSubscription, completion: @escaping ((CKSubscription?, Error?)->())){
-        dbPrivate.save(subscription) { (subscription, error) in
+        db.save(subscription) { (subscription, error) in
             completion(subscription, error)
         }
     }
@@ -126,8 +154,9 @@ class DatabaseManager {
             
             let userReference = CKReference(recordID: userRecordID, action: .none)
             
-            let hostPredicate = NSPredicate(format: "creatorUserRecordID == %@ AND time > %@", userReference, Date() as NSDate)
+            let nowMinus5Minutes = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
             
+            let hostPredicate = NSPredicate(format: "creatorUserRecordID == %@ AND time > %@", userReference, nowMinus5Minutes as NSDate)
             
             let guestPredicate = NSPredicate(format: "%K == %@ AND time > %@", "guest", userReference, Date() as NSDate)
             
@@ -178,12 +207,14 @@ class DatabaseManager {
                 }
             }
             
-            
-            //            self?.db.perform(query, inZoneWith: nil) { (records, error) in
-            //                if let error = error { print(#line, error.localizedDescription); return}
-            //                completion(records, error)
-            //            }
+            /*
+            self?.db.perform(query, inZoneWith: nil) { (records, error) in
+                if let error = error { print(#line, error.localizedDescription); return}
+                completion(records, error)
+            }
+            */
         }
+
         
     }
     
@@ -198,6 +229,40 @@ class DatabaseManager {
  ac.addAction(UIAlertAction(title: "OK", style: .default))
  self.present(ac, animated: true)
  */
+
+extension DatabaseManager {
+    func fetchAllSubscriptions() {
+        let publicFetchSubcriptions = CKFetchSubscriptionsOperation.fetchAllSubscriptionsOperation()
+        db.add(publicFetchSubcriptions)
+        let privateFetchSubcriptions = CKFetchSubscriptionsOperation.fetchAllSubscriptionsOperation()
+        db.add(privateFetchSubcriptions)
+        publicFetchSubcriptions.fetchSubscriptionCompletionBlock = {dict, error in
+            print(#line, dict ?? "no public subscriptions")
+//            self.deleteSubscriptions(dict: dict, isPublic: true)
+        }
+        privateFetchSubcriptions.fetchSubscriptionCompletionBlock = {dict, error in
+            print(#line, dict ?? "no private subscriptions")
+//            self.deleteSubscriptions(dict: dict, isPublic: false)
+        }
+    }
+    
+    func deleteSubscriptions(dict: Dictionary<String, CKSubscription>?, isPublic: Bool) {
+        guard let dict = dict else { return }
+        var subIds = [String]()
+        for d in dict {
+            // delete subscription
+            subIds.append(d.value.subscriptionID)
+        }
+        let deletionOperation = CKModifySubscriptionsOperation(subscriptionsToSave: nil, subscriptionIDsToDelete: subIds)
+        isPublic ? db.add(deletionOperation) : dbPrivate.add(deletionOperation)
+        deletionOperation.modifySubscriptionsCompletionBlock = {subs, ids, err in
+            print(#line, subs?.count ?? 0)
+            print(#line, ids ?? "no ids")
+            print(#line, err ?? "no error")
+            
+        }
+    }
+}
 
 
 

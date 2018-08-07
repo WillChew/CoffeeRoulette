@@ -30,7 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print(#line, error?.localizedDescription ?? "registered for notifications")
         }
         
-
+        UNUserNotificationCenter.current().delegate = self
+        
+        
 
         window = UIWindow()
         
@@ -42,27 +44,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         if (hasLaunched) {
+            //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
+            navigationController = UINavigationController(rootViewController: rootVC)
+            let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
             
+            let navAppearance = UINavigationBar.appearance()
+            navAppearance.titleTextAttributes = attributes
+            navAppearance.backgroundColor = .brown
+            navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
             
-            
-            if (false) {
-//                let eventDetailsViewController = mainStoryboard.instantiateViewController(withIdentifier: "EventDetailsViewController") as! EventDetailsViewController
-//                eventDetailsViewController.event = event
-//                self.window?.rootViewController = eventDetailsViewController
-                
-            } else {
-                //let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-                let rootVC = mainStoryboard.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
-                navigationController = UINavigationController(rootViewController: rootVC)
-                let attributes = [NSAttributedStringKey.font: UIFont(name: "Noteworthy-Bold", size: 20)!, NSAttributedStringKey.foregroundColor: UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)]
-                
-                let navAppearance = UINavigationBar.appearance()
-                navAppearance.titleTextAttributes = attributes
-                navAppearance.backgroundColor = .brown
-                navAppearance.tintColor = UIColor(red:0.22, green:0.18, blue:0.11, alpha:1.0)
-                
-                self.window?.rootViewController = navigationController
-            }
+            self.window?.rootViewController = navigationController
 
         } else {
             print("NO")
@@ -99,9 +91,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 extension AppDelegate  {
 
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
- 
-    }
     
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         print(#line, "Failed to register: ", error.localizedDescription)
@@ -111,13 +100,19 @@ extension AppDelegate  {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         
         let notification = CKNotification(fromRemoteNotificationDictionary: userInfo)
-        
-//        if (notification.subscriptionID == "x" + userID!) {
-//
-//        }
-        
+ 
         print(#line, notification.title ?? "")
         print(#line, notification.alertBody ?? "")   
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        completionHandler([.alert, .badge, .sound])
+        
+        DispatchQueue.main.async {
+            NotificationCenter.default.post(name: Notification.Name("guestConfirmed"), object: nil)
+        }
+
     }
 
 }

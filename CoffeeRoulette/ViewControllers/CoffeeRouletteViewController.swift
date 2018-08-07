@@ -23,6 +23,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var eventRecords = [CKRecord]()
     var event: CKRecord!
     var cafePhoto: UIImage!
+
     
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
@@ -37,6 +38,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        databaseManager.fetchAllSubscriptions()
+        
+        
         spinner.hidesWhenStopped = true
         splashScreen.frame = view.frame
         splashScreen.backgroundColor = .black
@@ -52,10 +57,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
         databaseManager.isUserInEvent { [weak self] (record, error) in
-            
-            
-            
-            
+
             if let record = record {
                 print(#line, #function, "we are in an event")
                 self?.event = record
@@ -82,7 +84,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             }
 
         }
-        
+ 
         
         
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
@@ -161,7 +163,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
     @IBAction func goButtonTapped(_ sender: Any) {
         print(#line, "Go button was tapped")
-        
         /*
         databaseManager.getEvents { [weak self] (records, error) in
             self?.eventRecords = records!
@@ -277,9 +278,20 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             let detailViewController = segue.destination as! EventDetailsViewController
             detailViewController.event = event
             
-            detailViewController.guestStatus = "Hello"
-//            detailViewController.guestStatus?
-            detailViewController.catchPhrase = "Your catchphrase is: petunia"
+            let catchPhrase = event["catchPhrase"] as? String
+            
+            
+            if catchPhrase! == "" {
+                // host has created an event but no guest has confirmed
+                detailViewController.guestStatus = "No guest yet"
+                detailViewController.catchPhrase = ""
+            } else {
+                // host and guest see the same thing
+                detailViewController.guestStatus = ""
+                detailViewController.catchPhrase = "Your catchphrase is: \(catchPhrase!)"
+            }
+            
+
             
             detailViewController.cafePicture = cafePhoto
             
@@ -299,10 +311,11 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         }
     }
     
-    // TODO: DELETE THIS??
-    @IBAction func unwindToRandomScreen(segue:UIStoryboardSegue) {
+    @IBAction func unwindToRoulette(segue: UIStoryboardSegue) {
         
     }
+    
+    
     
 
 }

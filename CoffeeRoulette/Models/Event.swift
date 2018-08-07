@@ -32,6 +32,7 @@ class Event {
         record["location"] = CLLocation(latitude: self.cafe.location.latitude, longitude: self.cafe.location.longitude)
         record["cafeName"] = self.cafe.cafeName as NSString
         record["cafePhotoRef"] = self.cafe.photoRef! as NSString
+        record["catchPhrase"] = self.catchPhrase! as NSString
         return record
     }
     

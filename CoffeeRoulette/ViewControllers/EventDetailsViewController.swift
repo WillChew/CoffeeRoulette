@@ -12,7 +12,7 @@ import MapKit
 
 class EventDetailsViewController: UIViewController {
     
-    //var databaseManager: DatabaseManager!
+    var databaseManager: DatabaseManager!
     
     var event: CKRecord?
     
@@ -28,7 +28,6 @@ class EventDetailsViewController: UIViewController {
     
     //CURRENT LOCATION HARDCODED PLACEHOLDER VALUES TO CENTER MAP
 
-    
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
@@ -62,11 +61,65 @@ class EventDetailsViewController: UIViewController {
         timeLabel.text = formatter.string(from: date!)
         //locationLabel.text = eventLocation
         
+        NotificationCenter.default.addObserver(self, selector: #selector(confirmGuest(notfication:)), name: Notification.Name("guestConfirmed"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(goBackToRoulette(notification:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
+        
+    }
+    
+    @objc func goBackToRoulette(notification: NSNotification) {
+        databaseManager.isUserInEvent { [weak self] (record, error) in
+
+            if record != nil {
+                print(#line, #function, "we are in an event")
+                // stay here
+            } else {
+                print(#line, #function, "we are not in an event")
+                
+                // go back to presenting view controller
+                // self?.dismiss(animated: true, completion: nil)
+                
+                // go back to roulette view controller
+                self?.performSegue(withIdentifier: "unwindToRoulette", sender: nil)
+            }
+        }
+        
+       
+    }
+    
+    @objc func confirmGuest(notfication: NSNotification) {
+        //view.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+
+        databaseManager.getEvent(recordID: event!.recordID) { (record, error) in
+            
+            let word = record!["catchPhrase"] as! String
+            self.catchPhrase = "Your catchphrase is: \(word)"
+            self.guestStatus = ""
+
+            DispatchQueue.main.async {
+                
+                self.catchPhraseLabel.alpha = 0.0
+                //self.catchPhraseLabel.textColor = .white
+                self.catchPhraseLabel.text = self.catchPhrase
+                
+                UIView.animate(withDuration: 2.0, animations: {
+                    self.guestStatusLabel.text = self.guestStatus
+                    self.guestStatusLabel.alpha = 0.0
+                    self.catchPhraseLabel.alpha = 1.0
+                })
+                
+            }
+        }
+    
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidLayoutSubviews() {
         guestStatusLabel.text = guestStatus
-        catchPhraseLabel.text = catchPhrase
+        catchPhraseLabel.text = catchPhrase 
     }
 
     
@@ -90,4 +143,12 @@ class EventDetailsViewController: UIViewController {
             MKLaunchOptionsMapCenterKey: NSValue(mkCoordinate: regionSpan.center)
             ] as [String : Any])
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "unwindToRoulette" {
+            // do i need anything here?
+        }
+    }
+    
+    
 }

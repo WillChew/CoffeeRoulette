@@ -20,6 +20,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var locationManager = CLLocationManager()
     var coordinates:CLLocation!
     var cafePhoto: UIImage!
+    var catchPhrase: String!
     
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -119,17 +120,11 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
-        /*
-         let eventRecord: CKRecord
-         
-         if (recordIndex == 0) {
-         eventRecord = eventRecords![eventRecords!.count - 1]
-         } else {
-         eventRecord = eventRecords![recordIndex - 1]
-         }
-         */
-        
+
         let eventRecord = eventRecords![recordIndex]
+        
+        // generate random catchphrase
+        catchPhrase = randomCatchPhrase()
         
         databaseManager.getUserID { (recordID, error) in
             if (error == nil) && (recordID != nil) {
@@ -138,11 +133,13 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                 
                 eventRecord["guest"] = guest as CKReference
                 
+                eventRecord["catchPhrase"] = self.catchPhrase as NSString
+                
                 self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
                     if (error == nil) && (record != nil) {
                         //print(record!["guest"] as! NSString)
                         
-                        // guest must request cafe photo
+                        // guest requests cafe photo
                         let photoRef = record!["cafePhotoRef"]
                         
                         let mapRequestManager = MapRequestManager()
@@ -164,27 +161,12 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
-            
-            /*
-             let eventRecord: CKRecord
-             
-             if (recordIndex == 0) {
-             eventRecord = eventRecords![eventRecords!.count - 1]
-             } else {
-             eventRecord = eventRecords![recordIndex - 1]
-             }
-             */
-            
             let eventRecord = eventRecords![recordIndex]
-            
             detailViewController.event = eventRecord
-            
             detailViewController.guestStatus = "Your are a confirmed guest!"
-            detailViewController.catchPhrase = "Your catchphrase is: petunia"
-            
+            detailViewController.catchPhrase = "Your catchphrase is: \(catchPhrase!)"
             detailViewController.cafePicture = cafePhoto
-            
-            //detailViewController.databaseManager = databaseManager
+            detailViewController.databaseManager = databaseManager
         }
     }
     
@@ -209,6 +191,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
+    }
+    
+    func randomCatchPhrase() -> String {
+        return "random123"
     }
     
 }
