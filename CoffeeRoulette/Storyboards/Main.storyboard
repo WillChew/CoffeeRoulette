@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Randomize-->
+        <!--Coffee Roulette-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController storyboardIdentifier="CoffeeRouletteViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="CoffeeRouletteViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -86,7 +86,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Randomize" id="1js-QS-nCf"/>
+                    <navigationItem key="navigationItem" title="Coffee Roulette" id="1js-QS-nCf">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="Wln-IR-n5l"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="createEventButton" destination="mbP-NF-vuG" id="B81-PV-rqS"/>
                         <outlet property="goButton" destination="7RV-BP-4AY" id="rHq-jV-shZ"/>

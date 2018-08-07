@@ -117,7 +117,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 //        self.view.backgroundColor = UIColor(patternImage: <#T##UIImage#>)
 
 //        createEventButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        createEventButton.backgroundColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
+//        createEventButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.91, alpha:1.0)
+        createEventButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
 //        createEventButton.backgroundColor = UIColor(red:0.91, green:0.73, blue:0.47, alpha:1.0)
 
 //        createEventButton.backgroundColor = UIColor(gradientStyle: UIGradientStyle.leftToRight, withFrame: self.view.frame, andColors: [UIColor.flatCoffee(), UIColor.flatCoffeeColorDark()])
