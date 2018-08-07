@@ -172,11 +172,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
 
-            mapView.removeOverlays(mapView.overlays)
-            circle = MKCircle(center: currentLocation, radius: 500)
-
-            mapView.add(circle)
+            
         }
+        mapView.removeOverlays(mapView.overlays)
+        circle = MKCircle(center: currentLocation, radius: 500)
+        
+        mapView.add(circle)
 
         mapRequest(currentLocation)
 
@@ -403,10 +404,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         self.view.addSubview(centerMapButton)
         centerMapButton.backgroundColor = .clear
         centerMapButton.translatesAutoresizingMaskIntoConstraints = false
-        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10).isActive = true
-        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10).isActive = true
-        centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -15).isActive = true
+        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -19).isActive = true
+        centerMapButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        centerMapButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
 
 

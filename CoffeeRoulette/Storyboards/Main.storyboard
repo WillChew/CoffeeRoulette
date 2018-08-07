@@ -375,9 +375,11 @@
                         <outlet property="locationLabel" destination="8Es-9G-CSb" id="vQx-A7-83B"/>
                         <outlet property="timeLabel" destination="Pbx-jd-MEu" id="dYi-2E-0mU"/>
                         <outlet property="titleLabel" destination="NCb-Lr-6xN" id="N4t-1o-A4b"/>
+                        <segue destination="EhO-ab-3Ml" kind="unwind" identifier="unwindToRoulette" unwindAction="unwindToRouletteWithSegue:" id="MVq-iP-MFQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fLQ-OY-pNu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="EhO-ab-3Ml" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2869.5999999999999" y="-145.27736131934034"/>
         </scene>
