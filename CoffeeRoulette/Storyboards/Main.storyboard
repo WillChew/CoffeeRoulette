@@ -18,57 +18,79 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.0050000000000000001" minValue="0.0" maxValue="0.021999999999999999" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-vh-x4G">
-                                <rect key="frame" x="14" y="512" width="347" height="31"/>
-                                <connections>
-                                    <action selector="sliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Ccd-f6-hfm"/>
-                                </connections>
-                            </slider>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4d1-gQ-hrH">
-                                <rect key="frame" x="0.0" y="64" width="375" height="428"/>
+                                <rect key="frame" x="16" y="64" width="343" height="428"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7RV-BP-4AY">
-                                <rect key="frame" x="16" y="567" width="343" height="70"/>
-                                <color key="backgroundColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="16" y="587" width="343" height="60"/>
+                                <color key="backgroundColor" cyan="0.16923168960000001" magenta="0.46379445660000002" yellow="1" black="0.13756670060000001" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="pZh-NK-W6g"/>
+                                    <constraint firstAttribute="height" constant="60" id="pZh-NK-W6g"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="20"/>
-                                <state key="normal" title="Find Random Match!">
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="24"/>
+                                <state key="normal" title="Random Match">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="goButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SVa-jj-IGv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbP-NF-vuG">
+                                <rect key="frame" x="16" y="512" width="343" height="60"/>
+                                <color key="backgroundColor" red="0.15101002156734467" green="0.56891876459121704" blue="0.43715286254882812" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="5rq-x7-xKH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="24"/>
+                                <state key="normal" title="Create Event">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fNL-rD-Uxt" kind="show" identifier="goToEventCreation" id="jFo-L1-Cia"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coffee512" translatesAutoresizingMaskIntoConstraints="NO" id="dwD-fh-7Cx">
+                                <rect key="frame" x="292" y="512" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="aaT-ca-sZI"/>
+                                    <constraint firstAttribute="width" constant="60" id="qK0-Wu-CXf"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Roulette_Wheel" translatesAutoresizingMaskIntoConstraints="NO" id="FD0-sS-QvE">
+                                <rect key="frame" x="294" y="590" width="54" height="54"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="54" id="Qh5-bO-ofI"/>
+                                    <constraint firstAttribute="height" constant="54" id="elY-es-5HI"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="0.84313725490000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="7RV-BP-4AY" firstAttribute="top" secondItem="X1v-vh-x4G" secondAttribute="bottom" constant="25" id="CGw-xI-HEQ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4d1-gQ-hrH" secondAttribute="trailing" id="FiM-f7-5iM"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="X1v-vh-x4G" secondAttribute="trailing" constant="16" id="H4v-Zj-Kuy"/>
+                            <constraint firstItem="7RV-BP-4AY" firstAttribute="top" secondItem="mbP-NF-vuG" secondAttribute="bottom" constant="15" id="22c-k9-GVw"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="FD0-sS-QvE" secondAttribute="trailing" constant="27" id="4ND-2f-Z9q"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="4d1-gQ-hrH" secondAttribute="trailing" constant="16" id="Ata-qw-aCE"/>
+                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Br8-7F-Q7K"/>
+                            <constraint firstItem="7RV-BP-4AY" firstAttribute="top" secondItem="dwD-fh-7Cx" secondAttribute="bottom" constant="15" id="Jj0-8t-WKB"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="7RV-BP-4AY" secondAttribute="trailing" constant="16" id="Q3r-Wy-q6L"/>
-                            <constraint firstItem="X1v-vh-x4G" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="TIc-2j-c5L"/>
                             <constraint firstItem="7RV-BP-4AY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Vr3-N9-xT3"/>
-                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Xtd-IY-lBZ"/>
-                            <constraint firstItem="X1v-vh-x4G" firstAttribute="top" secondItem="4d1-gQ-hrH" secondAttribute="bottom" constant="20" id="ZSj-x0-xQ9"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7RV-BP-4AY" secondAttribute="bottom" constant="30" id="bRB-E9-0OV"/>
-                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="k1a-HK-ual"/>
+                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="WvX-j5-Ux5"/>
+                            <constraint firstItem="dwD-fh-7Cx" firstAttribute="top" secondItem="4d1-gQ-hrH" secondAttribute="bottom" constant="20" id="Z7m-LI-ZMJ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7RV-BP-4AY" secondAttribute="bottom" constant="20" id="bRB-E9-0OV"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mbP-NF-vuG" secondAttribute="trailing" constant="16" id="dyr-0L-C0P"/>
+                            <constraint firstItem="mbP-NF-vuG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="hi8-fy-9w9"/>
+                            <constraint firstItem="mbP-NF-vuG" firstAttribute="top" secondItem="4d1-gQ-hrH" secondAttribute="bottom" constant="20" id="p8q-aM-K29"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="FD0-sS-QvE" secondAttribute="bottom" constant="23" id="pF8-5G-mKU"/>
+                            <constraint firstItem="4d1-gQ-hrH" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vV8-wb-uYQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dwD-fh-7Cx" secondAttribute="trailing" constant="23" id="w9V-KS-g3o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Randomize" id="1js-QS-nCf">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="q2Q-eT-Kwz">
-                            <connections>
-                                <segue destination="fNL-rD-Uxt" kind="show" identifier="goToCreateSegue" id="3yX-Oe-aoA"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Randomize" id="1js-QS-nCf"/>
                     <connections>
+                        <outlet property="createEventButton" destination="mbP-NF-vuG" id="B81-PV-rqS"/>
                         <outlet property="goButton" destination="7RV-BP-4AY" id="rHq-jV-shZ"/>
                         <outlet property="mapView" destination="4d1-gQ-hrH" id="FJa-FY-mpx"/>
-                        <outlet property="slider" destination="X1v-vh-x4G" id="l5I-OZ-tVv"/>
                         <segue destination="VH7-h1-AbX" kind="show" identifier="goToEventConfirmation" id="anJ-Ji-l7v"/>
                         <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailSegue" modalTransitionStyle="crossDissolve" id="h8u-d5-ift"/>
                     </connections>
@@ -362,7 +384,7 @@
         <!--New Event-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
-                <viewController id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewEventViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ue3-cv-qeN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -412,6 +434,7 @@
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Event" id="TEI-cO-aht">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="lss-gV-yTb"/>
                         <barButtonItem key="rightBarButtonItem" title="Create" id="n24-PB-Neo">
                             <connections>
                                 <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" id="g7a-9F-U8h"/>
@@ -433,7 +456,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Roulette_Wheel" width="159" height="159"/>
         <image name="coffee" width="1000" height="563"/>
+        <image name="coffee512" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="h8u-d5-ift"/>

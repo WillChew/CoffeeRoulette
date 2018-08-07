@@ -11,7 +11,7 @@ import MapKit
 import CloudKit
 
 class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
-    
+
     var eventRecords : [CKRecord]!
     var recordIndex = 0
     let formatter = DateFormatter()
@@ -21,41 +21,47 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var coordinates:CLLocation!
     var cafePhoto: UIImage!
     var catchPhrase: String!
-    
-    
+
+    var makeOwnButton: UIButton!
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
+
     @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    
-    
-    
+
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
         confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
-        
+        confirmButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+
         mapView.delegate = self
-        
+
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
         }
-        
+
         formatter.timeStyle = .short
         formatter.dateStyle = .medium
-        
+
         mapView.showsUserLocation = true
-        
+
         guard eventRecords.count > 0 else {
             titleLabel.text = "No events found at this time. Try again later, or create your own event!"
+            titleLabel.lineBreakMode = .byWordWrapping
+            titleLabel.numberOfLines = 0
             timeLabel.text = ""
-            tryAgainButton.isEnabled = false
-            confirmButton.isEnabled = false
+            tryAgainButton.isHidden = true
+            confirmButton.isHidden = true
+            makeButton()
+            makeOwnButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
             return
         }
 
@@ -64,15 +70,26 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         }
 
         if eventRecords.count == 1 {
-            tryAgainButton.isEnabled = false
+            tryAgainButton.isHidden = true
+
+            makeButton()
+            makeOwnButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 1).isActive = true
+
         }
-        
+
         eventRecords.shuffle()
-        
+
         addAnnotation()
     }
-    
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let nav = self.navigationController?.navigationBar
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+    }
+
+
     func addAnnotation() {
         let eventRecord = eventRecords[recordIndex]
         titleLabel.text = eventRecord["title"] as? String
@@ -80,7 +97,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         coordinates = eventRecord["location"] as! CLLocation
         createAnnotations(coordinates.coordinate)
     }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
         let identifier = "pin"
@@ -95,16 +112,16 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         }
         return annotationView
     }
-    
-    
+
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
-        
+
         let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.01, 0.01))
         mapView.setRegion(coordinateRegion, animated: true)
         locationManager.stopUpdatingLocation()
     }
-    
+
     @IBAction func tryAgainButtonTapped(_ sender: Any) {
 //        mapView.removeAnnotations(mapView.annotations)
         // remove this
@@ -118,46 +135,46 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 //        print(coordinates.coordinate)
 //        createAnnotations(coordinates.coordinate)
     }
-    
+
     @IBAction func confirmButtonTapped(_ sender: Any) {
 
         let eventRecord = eventRecords![recordIndex]
-        
+
         // generate random catchphrase
         catchPhrase = randomCatchPhrase()
-        
+
         databaseManager.getUserID { (recordID, error) in
             if (error == nil) && (recordID != nil) {
-                
+
                 let guest = CKReference(recordID: recordID!, action: .none)
-                
+
                 eventRecord["guest"] = guest as CKReference
-                
+
                 eventRecord["catchPhrase"] = self.catchPhrase as NSString
-                
+
                 self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
                     if (error == nil) && (record != nil) {
                         //print(record!["guest"] as! NSString)
-                        
+
                         // guest requests cafe photo
                         let photoRef = record!["cafePhotoRef"]
-                        
+
                         let mapRequestManager = MapRequestManager()
-                        
+
                         mapRequestManager.getPictureRequest(photoRef as? String) { [weak self] (photo) in
                             DispatchQueue.main.async {
                                 self?.cafePhoto = photo
                                 self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
                             }
                         }
-                        
+
                     }
                 }
             }
         }
-        
+
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToDetailScreenSegue" {
             let detailViewController = segue.destination as! EventDetailsViewController
@@ -169,7 +186,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             detailViewController.databaseManager = databaseManager
         }
     }
-    
+
     //    private func constrainButtons() {
     //        tryAgainButton.translatesAutoresizingMaskIntoConstraints = false
     //        tryAgainButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -184,18 +201,43 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     //        confirmButton.heightAnchor.constraint(equalToConstant: tryAgainButton.frame.size.height).isActive = true
     //        confirmButton.widthAnchor.constraint(equalToConstant: self.view.frame.size.width/2).isActive = true
     //    }
-    
-    
+
+
     func createAnnotations(_ coordinates:CLLocationCoordinate2D){
         mapView.removeAnnotations(mapView.annotations)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
     }
-    
+
+
     func randomCatchPhrase() -> String {
         return "random123"
-    }
-    
-}
+        }
 
+    func makeButton() {
+        makeOwnButton = UIButton()
+        makeOwnButton.frame = .zero
+        self.view.addSubview(makeOwnButton)
+
+        makeOwnButton.setTitle("Make your Own!", for: .normal)
+        makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
+        makeOwnButton.layer.cornerRadius = 35
+        makeOwnButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        makeOwnButton.titleLabel?.font = UIFont(name: "Noteworthy-Bold", size: 20)
+        makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
+        makeOwnButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
+        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
+        makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+
+    }
+
+    @objc func customButtonAction(sender: UIButton!){
+        let newEventVC = storyboard?.instantiateViewController(withIdentifier: "NewEventViewController")
+        self.navigationController?.pushViewController(newEventVC!, animated: true)
+
+
+    }
+
+}
