@@ -10,6 +10,8 @@ import UIKit
 import CloudKit
 import MapKit
 import UserNotifications
+import ChameleonFramework
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -85,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             // note the fact that app has been launched
             // UserDefaults.standard.set(true, forKey: "hasLaunched")
             let pageControllerAppearance = UIPageControl.appearance()
-            pageControllerAppearance.backgroundColor = .brown
+            pageControllerAppearance.backgroundColor = UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)
         }
 
 

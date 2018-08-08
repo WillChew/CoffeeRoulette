@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import ChameleonFramework
+
 
 class SecondOnboardingScreen: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-view.backgroundColor = .brown
+self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         // Do any additional setup after loading the view.
     }
 
