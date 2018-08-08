@@ -161,6 +161,7 @@
                         <constraints>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="ULg-GT-AXT" secondAttribute="trailing" constant="8" id="73S-ga-XHc"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="bottom" secondItem="ue8-gX-8H7" secondAttribute="bottom" constant="20" id="IKQ-mi-rfr"/>
+                            <constraint firstItem="yQn-aB-Wvg" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="JD4-Xu-4Kx"/>
                             <constraint firstItem="ue8-gX-8H7" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="8" id="L1Z-05-XGB"/>
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="top" secondItem="s8P-nr-YOT" secondAttribute="top" constant="12" id="N9w-Nx-QeY"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="5NJ-Y6-jVO" secondAttribute="trailing" constant="16" id="PfR-id-SL6"/>
@@ -175,7 +176,6 @@
                             <constraint firstItem="wxl-9n-h2Q" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="j7H-mA-KTC"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="yQn-aB-Wvg" secondAttribute="trailing" constant="16" id="jxi-2f-YLW"/>
                             <constraint firstItem="s8P-nr-YOT" firstAttribute="trailing" secondItem="wxl-9n-h2Q" secondAttribute="trailing" constant="16" id="q2p-iq-du4"/>
-                            <constraint firstItem="yQn-aB-Wvg" firstAttribute="leading" secondItem="s8P-nr-YOT" secondAttribute="leading" constant="16" id="tKT-ZL-eJl"/>
                             <constraint firstItem="5NJ-Y6-jVO" firstAttribute="top" secondItem="wxl-9n-h2Q" secondAttribute="bottom" constant="12" id="tlj-U8-XNH"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="s8P-nr-YOT"/>
@@ -442,7 +442,7 @@
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Confirm Venue"/>
                                 <connections>
-                                    <segue destination="XuD-oS-AJY" kind="presentation" id="d4e-EA-3zO"/>
+                                    <action selector="saveButtonPressed:" destination="fNL-rD-Uxt" eventType="touchUpInside" id="uAk-Ye-Cjz"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -476,6 +476,7 @@
                         <outlet property="saveButton" destination="4zR-9y-fA6" id="3oc-tR-4Ym"/>
                         <outlet property="timeTextField" destination="qDa-RK-1Fw" id="6GF-il-22H"/>
                         <outlet property="titleTextField" destination="69B-TZ-BGM" id="dOn-lU-wjQ"/>
+                        <segue destination="XuD-oS-AJY" kind="presentation" identifier="goToDetailScreenSegue" id="iTW-sc-jz1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YFV-sW-e27" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -489,7 +490,7 @@
         <image name="coffee512" width="256" height="256"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-Xq-pp7"/>
+        <segue reference="iTW-sc-jz1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
