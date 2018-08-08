@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import CloudKit
+import ChameleonFramework
 
 class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UITextFieldDelegate {
 
@@ -32,8 +33,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
 
 
+    @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var cafeLabel: UILabel!
-    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var timeTextField: UITextField!
     @IBOutlet weak var titleTextField: UITextField!
@@ -48,11 +49,11 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
-        super.viewWillAppear(animated)
         let nav = self.navigationController?.navigationBar
         nav?.tintColor = UIColor.white
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+        
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
 
         locationManager = CLLocationManager()
         if databaseManager == nil {
@@ -66,6 +67,26 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         self.timeTextField.delegate = self
         datePickerView.datePickerMode = .time
         locationManager.delegate = self
+        
+        timeTextField.layer.masksToBounds = true
+        timeTextField.layer.cornerRadius = timeTextField.frame.height / 4
+        timeTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        timeTextField.layer.borderWidth = 2.0
+        
+        
+        titleTextField.layer.masksToBounds = true
+        titleTextField.layer.cornerRadius = titleTextField.frame.height / 4
+        titleTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        titleTextField.layer.borderWidth = 2.0
+        
+        
+        saveButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        saveButton.layer.cornerRadius = saveButton.frame.height / 4
+        saveButton.layer.borderWidth = 2.5
+        saveButton.setTitleColor(UIColor.black, for: .normal)
+        saveButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderWidth = 2.5
 
 
         mapRequestManager = MapRequestManager()
@@ -300,7 +321,7 @@ self.mapRequest(newCoordinates)
             annotationView?.rightCalloutAccessoryView = UIView()
             annotationView?.markerTintColor = .clear
 
-            let markerImage = UIImage(named: "cup")
+            let markerImage = UIImage(named: "Icon-App-40x40")
             UIGraphicsBeginImageContext((markerImage?.size)!)
             markerImage!.draw(in: CGRect(x: 0, y: 0, width: (markerImage?.size.width)!, height: (markerImage?.size.height)!))
             let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -318,10 +339,10 @@ self.mapRequest(newCoordinates)
         self.mapView.addSubview(centerMapButton)
         centerMapButton.backgroundColor = .clear
         centerMapButton.translatesAutoresizingMaskIntoConstraints = false
-        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -10).isActive = true
-        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -10).isActive = true
-        centerMapButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        centerMapButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -15).isActive = true
+        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -15).isActive = true
+        centerMapButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        centerMapButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
         centerMapButton.setImage(UIImage(named: "marker"), for: .normal)
         centerMapButton.addTarget(self, action: #selector(centerMap), for: .touchUpInside)

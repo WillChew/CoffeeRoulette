@@ -43,7 +43,7 @@ final class StyleManager {
     }
     
     static func titleTheme() -> UIColor {
-        return FlatCoffeeDark()
+        return FlatWhite()
     }
     
     static func textTheme() -> UIColor {

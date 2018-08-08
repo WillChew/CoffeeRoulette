@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import CloudKit
+import ChameleonFramework
 
 class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate {
 
@@ -55,13 +56,15 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
         guard eventRecords.count > 0 else {
             titleLabel.text = "No events found at this time. Try again later, or create your own event!"
+            titleLabel.textColor = UIColor.white
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.numberOfLines = 0
             timeLabel.text = ""
             tryAgainButton.isHidden = true
             confirmButton.isHidden = true
             makeButton()
-            makeOwnButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20).isActive = true
+            makeOwnButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: 0).isActive = true
+            makeOwnButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 0).isActive = true
             return
         }
 
@@ -74,6 +77,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
             makeButton()
             makeOwnButton.widthAnchor.constraint(equalTo: confirmButton.widthAnchor, multiplier: 1).isActive = true
+            makeOwnButton.heightAnchor.constraint(equalTo: confirmButton.heightAnchor, multiplier: 1).isActive = true
 
         }
 
@@ -87,8 +91,28 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         let nav = self.navigationController?.navigationBar
         nav?.tintColor = UIColor.white
         nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+        
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        timeLabel.textColor = UIColor.white
+        timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        
+        tryAgainButton.layer.masksToBounds = true
+        tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 4
+        tryAgainButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        tryAgainButton.layer.borderWidth = 2.5
+        tryAgainButton.setTitleColor(UIColor.black, for: .normal)
+     
+        confirmButton.layer.masksToBounds = true
+        confirmButton.layer.cornerRadius = confirmButton.frame.height / 4
+        confirmButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        confirmButton.layer.borderWidth = 2.5
+        confirmButton.setTitleColor(UIColor.black, for: .normal)
+        
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderWidth = 2.5
     }
-
 
     func addAnnotation() {
         let eventRecord = eventRecords[recordIndex]
@@ -220,16 +244,19 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.frame = .zero
         self.view.addSubview(makeOwnButton)
 
-        makeOwnButton.setTitle("Make your Own!", for: .normal)
+        makeOwnButton.setTitle("Make Your Own Event!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.layer.cornerRadius = 35
-        makeOwnButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
-        makeOwnButton.titleLabel?.font = UIFont(name: "Noteworthy-Bold", size: 20)
+        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 24)
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
         makeOwnButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
         makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        makeOwnButton.layer.masksToBounds = true
+        makeOwnButton.layer.cornerRadius = makeOwnButton.frame.height / 4
+        makeOwnButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        makeOwnButton.layer.borderWidth = 2.5
+        makeOwnButton.setTitleColor(UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0), for: .normal)
 
     }
 

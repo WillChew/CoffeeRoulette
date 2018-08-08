@@ -32,6 +32,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
     let splashScreen = UIView()
 
+    @IBOutlet weak var rouletteButtonImage: UIImageView!
+    @IBOutlet weak var coffeeButtonImage: UIImageView!
     @IBOutlet weak var createEventButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
 
@@ -66,10 +68,10 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         // UIColor(displayP3Red: 0.40, green: 0.40, blue: 0.40, alpha: 0.8)
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
 
-        let nav = self.navigationController?.navigationBar
-        nav?.backgroundColor = UIColor.black
-        nav?.tintColor = UIColor.white
-        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+        let nav = self.navigationController!.navigationBar
+        nav.backgroundColor = UIColor.black
+        nav.tintColor = UIColor.white
+        nav.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
 
         goButton.alpha = 0.0
         UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
@@ -125,6 +127,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
         createEventButton.layer.borderWidth = 2.5
         createEventButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        createEventButton.setTitleColor(UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0), for: .normal)
 //        createEventButton.alpha = 0.0
 //        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
 //            self.createEventButton.alpha = 1.0
@@ -140,7 +143,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 //        goButton.backgroundColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0)
 //        goButton.backgroundColor = UIColor(red:0.91, green:0.73, blue:0.47, alpha:1.0)
 //        goButton.backgroundColor = UIColor.flatCoffee()
-        goButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        goButton.setTitleColor(UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0), for: .normal)
         goButton.layer.cornerRadius = goButton.frame.height / 4
         goButton.layer.borderWidth = 2.5
 //        goButton.layer.borderColor = UIColor(red:1.0, green:1.0, blue:1.0, alpha:1.0).cgColor
@@ -406,7 +409,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         centerMapButton.backgroundColor = .clear
         centerMapButton.translatesAutoresizingMaskIntoConstraints = false
         centerMapButton.bottomAnchor.constraint(equalTo: self.mapView.bottomAnchor, constant: -15).isActive = true
-        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -19).isActive = true
+//        centerMapButton.trailingAnchor.constraint(equalTo: self.mapView.trailingAnchor, constant: -19).isActive = true
+        centerMapButton.centerXAnchor.constraint(equalTo: coffeeButtonImage.centerXAnchor).isActive = true
         centerMapButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         centerMapButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
 
