@@ -144,6 +144,7 @@ class EventDetailsViewController: UIViewController {
                 self.catchPhraseLabel.alpha = 0.0
                 //self.catchPhraseLabel.textColor = .white
                 self.catchPhraseLabel.text = self.catchPhrase
+                self.catchPhraseLabel.numberOfLines = 0
 
                 UIView.animate(withDuration: 2.0, animations: {
                     self.guestStatusLabel.text = self.guestStatus

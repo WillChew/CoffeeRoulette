@@ -248,7 +248,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
 
     func randomCatchPhrase() -> String {
-        let catchphraseArray  = ["What’s your favorite way to waste time?", "What’s the worst movie you have seen recently?", "What is the silliest fear you have?", "What flavor of ice cream do you wish existed?", "What would you rate 10 / 10?", "What is the most impressive thing you know how to do?", "What is the strangest thing you have come across?", "What gets you fired up?"]
+        let catchphraseArray  = ["\nWhat’s your favorite way to waste time?", "\nWhat’s the worst movie you have seen recently?", "\nWhat is the silliest fear you have?", "\nWhat flavor of ice cream do you wish existed?", "\nWhat would you rate 10 / 10?", "\nWhat is the most impressive thing you know how to do?", "\nWhat is the strangest thing you have come across?", "\nWhat gets you fired up?"]
         let randomNumber = arc4random_uniform(UInt32(catchphraseArray.count))
 
         return catchphraseArray[Int(randomNumber)]
