@@ -30,41 +30,41 @@ final class StyleManager {
         return FlatWhite()
     }
     
-    static func toolBarTheme() -> UIColor {
-        return FlatMint()
-    }
-    
-    static func tintTheme() -> UIColor {
-        return FlatMint()
-    }
-    
-    static func titleTextTheme() -> UIColor {
-        return FlatWhite()
-    }
-    
-    static func titleTheme() -> UIColor {
-        return FlatWhite()
-    }
-    
-    static func textTheme() -> UIColor {
-        return FlatMint()
-    }
-    
-    static func backgroudTheme() -> UIColor {
-        return FlatMint()
-    }
-    
-    static func positiveTheme() -> UIColor {
-        return FlatMint()
-    }
-    
-    static func negativeTheme() -> UIColor {
-        return FlatMintDark()
-    }
-    
-    static func clearTheme() -> UIColor {
-        return UIColor.clear
-    }
+//    static func toolBarTheme() -> UIColor {
+//        return FlatMint()
+//    }
+//
+//    static func tintTheme() -> UIColor {
+//        return FlatMint()
+//    }
+//
+//    static func titleTextTheme() -> UIColor {
+//        return FlatWhite()
+//    }
+//
+//    static func titleTheme() -> UIColor {
+//        return FlatWhite()
+//    }
+//
+//    static func textTheme() -> UIColor {
+//        return FlatMint()
+//    }
+//
+//    static func backgroudTheme() -> UIColor {
+//        return FlatMint()
+//    }
+//
+//    static func positiveTheme() -> UIColor {
+//        return FlatMint()
+//    }
+//
+//    static func negativeTheme() -> UIColor {
+//        return FlatMintDark()
+//    }
+//
+//    static func clearTheme() -> UIColor {
+//        return UIColor.clear
+//    }
     
     // MARK: - Content
     

@@ -91,6 +91,7 @@ class EventDetailsViewController: UIViewController {
         getDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
         
         getDirectionsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        getDirectionsButton.setTitle("Open Directions in Maps", for: UIControlState.normal)
     }
 
     @objc func goBackToRoulette(notification: NSNotification) {
