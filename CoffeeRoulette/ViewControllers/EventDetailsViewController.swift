@@ -38,7 +38,7 @@ class EventDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.flatMint, UIColor.flatMint])
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         // host and guest both pass event record
         guard let event = event else { return }
 
@@ -70,6 +70,9 @@ class EventDetailsViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+        
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         timeLabel.textColor = UIColor.white

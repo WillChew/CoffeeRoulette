@@ -246,13 +246,13 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.layer.cornerRadius = 15
 //        makeOwnButton.frame = .zero
 
-        makeOwnButton.setTitle("Make Your Own Event!", for: .normal)
+        makeOwnButton.setTitle("Make Your Own!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 24)
+        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
         makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+        makeOwnButton.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 0).isActive = true
         makeOwnButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20).isActive = true
         makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         
