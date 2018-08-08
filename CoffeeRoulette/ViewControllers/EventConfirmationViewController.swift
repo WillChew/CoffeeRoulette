@@ -37,8 +37,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 2
-        confirmButton.layer.cornerRadius = confirmButton.frame.height / 2
+        tryAgainButton.layer.cornerRadius = 15
+        confirmButton.layer.cornerRadius = 15
         confirmButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
 
         mapView.delegate = self
@@ -241,22 +241,26 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
     func makeButton() {
         makeOwnButton = UIButton()
-        makeOwnButton.frame = .zero
         self.view.addSubview(makeOwnButton)
+        makeOwnButton.layer.masksToBounds = true
+        makeOwnButton.layer.cornerRadius = 15
+//        makeOwnButton.frame = .zero
 
         makeOwnButton.setTitle("Make Your Own Event!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
         makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 24)
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
-        makeOwnButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
-        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -30).isActive = true
+        makeOwnButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -20).isActive = true
+        makeOwnButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20).isActive = true
         makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        makeOwnButton.layer.masksToBounds = true
-        makeOwnButton.layer.cornerRadius = makeOwnButton.frame.height / 4
+        
         makeOwnButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         makeOwnButton.layer.borderWidth = 2.5
         makeOwnButton.setTitleColor(UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0), for: .normal)
+        makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+
 
     }
 

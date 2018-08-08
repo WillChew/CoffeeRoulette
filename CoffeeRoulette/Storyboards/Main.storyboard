@@ -319,13 +319,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aS-Et-O5q">
-                                <rect key="frame" x="262" y="428" width="97" height="30"/>
-                                <state key="normal" title="Get directions"/>
-                                <connections>
-                                    <action selector="directionsButtonPressed:" destination="XuD-oS-AJY" eventType="touchUpInside" id="r77-wR-BOj"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCb-Lr-6xN">
                                 <rect key="frame" x="171" y="54.5" width="33.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -339,43 +332,55 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No guests yet" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AUY-s9-zuG">
-                                <rect key="frame" x="16" y="490" width="343" height="21"/>
+                                <rect key="frame" x="16" y="486" width="343" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your catchphrase is: _____" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBF-Fl-w86">
-                                <rect key="frame" x="0.0" y="519" width="375" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your catchphrase is: _____" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HBF-Fl-w86">
+                                <rect key="frame" x="89.5" y="519" width="196.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4aS-Et-O5q">
+                                <rect key="frame" x="16" y="617" width="343" height="30"/>
+                                <state key="normal" title="Get directions"/>
+                                <connections>
+                                    <action selector="directionsButtonPressed:" destination="XuD-oS-AJY" eventType="touchUpInside" id="r77-wR-BOj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="4aS-Et-O5q" firstAttribute="top" secondItem="BaU-94-yij" secondAttribute="bottom" constant="8" symbolic="YES" id="0ZZ-RE-fUL"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="top" secondItem="8Es-9G-CSb" secondAttribute="bottom" constant="8" id="6HO-wK-BZE"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="top" secondItem="ezA-Sb-Tps" secondAttribute="top" constant="120" id="8g5-db-e2P"/>
                             <constraint firstItem="8Es-9G-CSb" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="Aak-gi-dB3"/>
+                            <constraint firstItem="HBF-Fl-w86" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="Bvn-A3-tlk"/>
+                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="bottom" secondItem="4aS-Et-O5q" secondAttribute="bottom" constant="20" id="Fno-i1-MFD"/>
                             <constraint firstItem="NCb-Lr-6xN" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="MPx-hd-cbm"/>
-                            <constraint firstItem="AUY-s9-zuG" firstAttribute="top" secondItem="BaU-94-yij" secondAttribute="bottom" constant="70" id="VVj-1p-W2L"/>
+                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="4aS-Et-O5q" secondAttribute="trailing" constant="16" id="NN6-up-uvy"/>
+                            <constraint firstItem="HBF-Fl-w86" firstAttribute="top" secondItem="AUY-s9-zuG" secondAttribute="bottom" constant="12" id="XEM-Ja-97R"/>
+                            <constraint firstItem="4aS-Et-O5q" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" constant="16" id="XIE-h6-kjT"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" constant="16" id="a79-U7-6H3"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="bk3-c2-f01"/>
                             <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="BaU-94-yij" secondAttribute="trailing" id="bo4-zc-uau"/>
                             <constraint firstItem="8Es-9G-CSb" firstAttribute="top" secondItem="Pbx-jd-MEu" secondAttribute="bottom" constant="8" id="gPQ-9h-LwX"/>
                             <constraint firstItem="Pbx-jd-MEu" firstAttribute="top" secondItem="NCb-Lr-6xN" secondAttribute="bottom" constant="8" id="k8S-uh-RKM"/>
-                            <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="4aS-Et-O5q" secondAttribute="trailing" constant="16" id="lRg-aP-wNG"/>
+                            <constraint firstItem="4aS-Et-O5q" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="lg0-3v-txm"/>
+                            <constraint firstItem="AUY-s9-zuG" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="m8Z-48-EJb"/>
                             <constraint firstItem="BaU-94-yij" firstAttribute="leading" secondItem="ezA-Sb-Tps" secondAttribute="leading" id="n7V-SB-w6X"/>
                             <constraint firstItem="AUY-s9-zuG" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="vB4-oT-L8o"/>
                             <constraint firstItem="Pbx-jd-MEu" firstAttribute="centerX" secondItem="Rk7-nm-JmO" secondAttribute="centerX" id="x8z-2h-eXv"/>
                             <constraint firstItem="ezA-Sb-Tps" firstAttribute="trailing" secondItem="AUY-s9-zuG" secondAttribute="trailing" constant="16" id="xfm-Po-ctl"/>
+                            <constraint firstItem="4aS-Et-O5q" firstAttribute="top" secondItem="HBF-Fl-w86" secondAttribute="bottom" constant="77" id="xpt-C0-43Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ezA-Sb-Tps"/>
                     </view>
                     <connections>
                         <outlet property="cafeImageView" destination="BaU-94-yij" id="z3t-zj-ih5"/>
                         <outlet property="catchPhraseLabel" destination="HBF-Fl-w86" id="zw4-kW-z87"/>
+                        <outlet property="getDirectionsButton" destination="4aS-Et-O5q" id="YeQ-dV-nB5"/>
                         <outlet property="guestStatusLabel" destination="AUY-s9-zuG" id="BHU-QL-knw"/>
                         <outlet property="locationLabel" destination="8Es-9G-CSb" id="vQx-A7-83B"/>
                         <outlet property="timeLabel" destination="Pbx-jd-MEu" id="dYi-2E-0mU"/>

@@ -25,7 +25,8 @@ class EventDetailsViewController: UIViewController {
     var guestStatus: String!
     var catchPhrase: String!
 
-
+    @IBOutlet weak var getDirectionsButton: UIButton!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
@@ -57,12 +58,40 @@ class EventDetailsViewController: UIViewController {
         titleLabel.text = event["title"] as? String
         timeLabel.text = formatter.string(from: date!)
         //locationLabel.text = eventLocation
+        
+//        titleLabel
+        
 
 
         NotificationCenter.default.addObserver(self, selector: #selector(confirmGuest(notfication:)), name: Notification.Name("guestConfirmed"), object: nil)
 
         NotificationCenter.default.addObserver(self, selector: #selector(goBackToRoulette(notification:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        timeLabel.textColor = UIColor.white
+        timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        locationLabel.textColor = UIColor.white
+        locationLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        guestStatusLabel.textColor = UIColor.white
+        guestStatusLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        catchPhraseLabel.textColor = UIColor.white
+        catchPhraseLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        
+        
+        getDirectionsButton.layer.masksToBounds = true
+        getDirectionsButton.layer.cornerRadius = 15
+        getDirectionsButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        getDirectionsButton.layer.borderWidth = 2.5
+        //        getDirectionsButton.setTitleColor(UIColor.black, for: .normal).cgColor
+        getDirectionsButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+        getDirectionsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        getDirectionsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
     }
 
     @objc func goBackToRoulette(notification: NSNotification) {
@@ -81,8 +110,6 @@ class EventDetailsViewController: UIViewController {
                 self?.performSegue(withIdentifier: "unwindToRoulette", sender: nil)
             }
         }
-
-
     }
 
     @objc func confirmGuest(notfication: NSNotification) {
