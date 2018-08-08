@@ -205,7 +205,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
 
 
-    @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
+    @IBAction func saveButtonPressed(_ sender: UIButton!) {
         print("create button clicked")
 
         // start activity indicator (let user know this could take a while)
