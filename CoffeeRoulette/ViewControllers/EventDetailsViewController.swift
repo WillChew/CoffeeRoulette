@@ -35,7 +35,8 @@ class EventDetailsViewController: UIViewController {
     @IBOutlet weak var guestStatusLabel: UILabel!
     @IBOutlet weak var catchPhraseLabel: UILabel!
 
-
+    @IBOutlet weak var venueImage: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
@@ -106,6 +107,9 @@ class EventDetailsViewController: UIViewController {
         
         getDirectionsButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         getDirectionsButton.setTitle("Open Directions in Maps", for: UIControlState.normal)
+        
+        venueImage.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        venueImage.layer.borderWidth = 2.5
     }
 
     @objc func goBackToRoulette(notification: NSNotification) {
