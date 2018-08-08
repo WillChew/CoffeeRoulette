@@ -246,6 +246,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                     let title = record["title"] as! String
                     info.title = title
                     info.alertBody = "Guest confirmed"
+                    info.soundName = "default"
                     subscription.notificationInfo = info
 
                     self?.databaseManager.save(subscription: subscription) { [weak self] (subscription, error) in

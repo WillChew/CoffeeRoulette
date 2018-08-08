@@ -56,7 +56,7 @@ class EventDetailsViewController: UIViewController {
 
         titleLabel.text = event["title"] as? String
         timeLabel.text = formatter.string(from: date!)
-        //locationLabel.text = eventLocation
+        locationLabel.text = event["cafeAddress"] as? String
 
 
         NotificationCenter.default.addObserver(self, selector: #selector(confirmGuest(notfication:)), name: Notification.Name("guestConfirmed"), object: nil)
