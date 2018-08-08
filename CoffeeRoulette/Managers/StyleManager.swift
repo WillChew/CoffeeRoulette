@@ -27,7 +27,7 @@ final class StyleManager {
     }
     
     static func theme() -> UIColor {
-        return FlatWhite()
+        return UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
     }
     
 //    static func toolBarTheme() -> UIColor {

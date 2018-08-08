@@ -73,18 +73,29 @@ class EventDetailsViewController: UIViewController {
         
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
+        
+        // LABEL STYLING
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         timeLabel.textColor = UIColor.white
+        
         timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        
         locationLabel.textColor = UIColor.white
         locationLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        
         guestStatusLabel.textColor = UIColor.white
         guestStatusLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        guestStatusLabel.lineBreakMode = .byWordWrapping
+        guestStatusLabel.numberOfLines = 0
+        
         catchPhraseLabel.textColor = UIColor.white
         catchPhraseLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        catchPhraseLabel.lineBreakMode = .byWordWrapping
+        catchPhraseLabel.numberOfLines = 0
         
         
+        // BUTTON STYLING
         getDirectionsButton.layer.masksToBounds = true
         getDirectionsButton.layer.cornerRadius = 15
         getDirectionsButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor

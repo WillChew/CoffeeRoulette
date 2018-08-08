@@ -56,7 +56,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
 
         guard eventRecords.count > 0 else {
             titleLabel.text = "No events found at this time. Try again later, or create your own event!"
-            titleLabel.textColor = UIColor.white
+            titleLabel.textColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.numberOfLines = 0
             timeLabel.text = ""
@@ -65,6 +65,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             makeButton()
             makeOwnButton.trailingAnchor.constraint(equalTo: mapView.trailingAnchor, constant: 0).isActive = true
             makeOwnButton.leadingAnchor.constraint(equalTo: mapView.leadingAnchor, constant: 0).isActive = true
+            makeOwnButton.alpha = 0.0
+            UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
+                self.makeOwnButton.alpha = 1.0
+            }, completion: nil)
             return
         }
 
@@ -89,8 +93,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let nav = self.navigationController?.navigationBar
-        nav?.tintColor = UIColor.white
-        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.flatWhite]
+        nav?.tintColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)]
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
         titleLabel.textColor = UIColor.white
@@ -103,12 +107,22 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         tryAgainButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         tryAgainButton.layer.borderWidth = 2.5
         tryAgainButton.setTitleColor(UIColor.black, for: .normal)
+        tryAgainButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+        tryAgainButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
+            self.tryAgainButton.alpha = 1.0
+        }, completion: nil)
      
         confirmButton.layer.masksToBounds = true
         confirmButton.layer.cornerRadius = confirmButton.frame.height / 4
         confirmButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         confirmButton.layer.borderWidth = 2.5
         confirmButton.setTitleColor(UIColor.black, for: .normal)
+        confirmButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        confirmButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
+            self.confirmButton.alpha = 1.0
+        }, completion: nil)
         
         mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         mapView.layer.borderWidth = 2.5
@@ -191,12 +205,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                                 self?.performSegue(withIdentifier: "goToDetailScreenSegue", sender: self)
                             }
                         }
-
                     }
                 }
             }
         }
-
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -255,6 +267,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 0).isActive = true
         makeOwnButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20).isActive = true
         makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        
         
         makeOwnButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         makeOwnButton.layer.borderWidth = 2.5

@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         //GLOBAL THEMING, SEE EXTENSION AT BOTTOM
         UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().barTintColor = UIColor.black
-        UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().tintColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)]
         configureTheme()
 
         // REMOTE NOTIFICATIONS
