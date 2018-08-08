@@ -309,10 +309,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUN-Sj-tSE">
-                                <rect key="frame" x="0.0" y="582" width="375" height="85"/>
+                                <rect key="frame" x="0.0" y="582" width="375" height="60"/>
                                 <color key="backgroundColor" red="0.17254901960784313" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="xLm-jV-Qdk"/>
+                                    <constraint firstAttribute="height" constant="60" id="xLm-jV-Qdk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 <state key="normal" title="Get Started!">
@@ -358,7 +358,7 @@
                             <constraint firstItem="uuQ-0O-59Y" firstAttribute="top" secondItem="EBt-rB-xcG" secondAttribute="bottom" constant="56" id="Y1L-Rf-tuO"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="c0s-KH-KXp" secondAttribute="trailing" constant="16" id="a4O-6V-u1D"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="uuQ-0O-59Y" secondAttribute="trailing" constant="20" id="eAk-Of-Fo4"/>
-                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" id="fTi-lz-ElN"/>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" constant="25" id="fTi-lz-ElN"/>
                             <constraint firstItem="VUN-Sj-tSE" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" id="iZv-Yk-0Ok"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="53" id="qgh-mm-nTm"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="top" secondItem="Lxo-cP-MdO" secondAttribute="top" constant="68" id="vzM-Jr-kqy"/>
