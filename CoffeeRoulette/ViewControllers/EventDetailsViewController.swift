@@ -79,11 +79,15 @@ class EventDetailsViewController: UIViewController {
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         timeLabel.textColor = UIColor.white
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.numberOfLines = 0
         
         timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         
         locationLabel.textColor = UIColor.white
         locationLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        locationLabel.lineBreakMode = .byWordWrapping
+        locationLabel.numberOfLines = 0
         
         guestStatusLabel.textColor = UIColor.white
         guestStatusLabel.font = UIFont(name: "HelveticaNeue", size: 20)
