@@ -15,6 +15,7 @@ class Annotations: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     var photoRef: String?
     var subtitle: String?
+    var address: String?
     
     init(title: String, coordinate: CLLocationCoordinate2D, subtitle: String) {
         self.title = title

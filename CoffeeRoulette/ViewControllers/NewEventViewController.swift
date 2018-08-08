@@ -153,7 +153,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
          selectedCafe = Cafe(cafeName: (selectedAnnotation?.title)!, location: CLLocationCoordinate2DMake(cafeSelectedCoordinates.latitude, cafeSelectedCoordinates.longitude))
 
         selectedCafe.photoRef = self.selectedAnnotation?.photoRef
-
+        selectedCafe.address = self.selectedAnnotation?.address
         cafeLabel.isHidden = false
         cafeLabel.text = selectedCafe.cafeName
         changeSaveButton()
@@ -302,6 +302,7 @@ self.mapRequest(newCoordinates)
             for point in mapArray {
                 let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
                 annotation.photoRef = point.photoRef
+                annotation.address = point.address
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annotation)
                 }
