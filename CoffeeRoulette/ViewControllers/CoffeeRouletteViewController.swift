@@ -380,6 +380,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
 
 
             detailViewController.cafePicture = cafePhoto
+            detailViewController.databaseManager = databaseManager
 
         }
         if segue.identifier == "goToCreateSegue" {
