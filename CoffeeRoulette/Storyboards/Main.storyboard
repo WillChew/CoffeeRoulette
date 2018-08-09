@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -209,15 +208,21 @@
                                     <constraint firstAttribute="width" constant="268" id="aua-Il-Ebp"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find Cafes within 500m" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgM-Ft-7bS">
-                                <rect key="frame" x="16" y="414" width="343" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find cafes within 500m" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WgM-Ft-7bS">
+                                <rect key="frame" x="16" y="414" width="343" height="33"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="or hold down on the map at your desired destination to find more!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-AZ-Wvf">
-                                <rect key="frame" x="20" y="456" width="335" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Coffee Roulette uses your location to find venues in your area" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EdG-AZ-Wvf">
+                                <rect key="frame" x="20" y="462" width="335" height="44.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="You can also scroll to a different area and hold down on the map to find more around your desired destination!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AiW-M6-vMn">
+                                <rect key="frame" x="20" y="521.5" width="335" height="66.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -225,10 +230,13 @@
                         <color key="backgroundColor" red="0.66666666669999997" green="0.47450980390000003" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="0.84313725490196079" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EdG-AZ-Wvf" firstAttribute="top" secondItem="WgM-Ft-7bS" secondAttribute="bottom" constant="8" id="6NB-f8-zBb"/>
+                            <constraint firstItem="EdG-AZ-Wvf" firstAttribute="top" secondItem="WgM-Ft-7bS" secondAttribute="bottom" constant="15" id="6NB-f8-zBb"/>
+                            <constraint firstAttribute="trailing" secondItem="AiW-M6-vMn" secondAttribute="trailing" constant="20" id="GDw-Ge-O1a"/>
                             <constraint firstItem="TuK-nZ-Eb3" firstAttribute="top" secondItem="foL-cG-LRz" secondAttribute="top" constant="68" id="N13-JF-uVd"/>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="TuK-nZ-Eb3" secondAttribute="trailing" constant="54" id="NJB-7e-RXC"/>
                             <constraint firstItem="EdG-AZ-Wvf" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="20" id="W6l-bY-DYA"/>
+                            <constraint firstItem="AiW-M6-vMn" firstAttribute="top" secondItem="EdG-AZ-Wvf" secondAttribute="bottom" constant="15" id="aPh-B3-R1n"/>
+                            <constraint firstItem="AiW-M6-vMn" firstAttribute="leading" secondItem="ZJb-K6-PCJ" secondAttribute="leading" constant="20" id="cTQ-FS-7MN"/>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="EdG-AZ-Wvf" secondAttribute="trailing" constant="20" id="enw-5W-BL8"/>
                             <constraint firstItem="WgM-Ft-7bS" firstAttribute="top" secondItem="TuK-nZ-Eb3" secondAttribute="bottom" constant="58" id="o4s-G7-Lyx"/>
                             <constraint firstItem="WgM-Ft-7bS" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="16" id="qLr-Sn-Jst"/>
@@ -265,33 +273,39 @@
                                     <constraint firstAttribute="height" constant="268" id="hRZ-gJ-Hdm"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't forget to use the secret catch phrase to find each other!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-oD-xQv">
-                                <rect key="frame" x="16" y="437" width="335" height="85"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="MFa-MN-JzF"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you arrive at the venue, be sure to let the other user know you're from Coffee Roulette." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-oD-xQv">
+                                <rect key="frame" x="20" y="462" width="335" height="64.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Meet each other at the cafe" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Reu-a3-6zZ">
-                                <rect key="frame" x="16" y="414" width="343" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <rect key="frame" x="16" y="414" width="343" height="33"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You'll be given a prompt to start the conversation off, but where you take it from there is completely up to you" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuV-0G-NHc">
+                                <rect key="frame" x="20" y="541.5" width="335" height="64.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.47450980390000003" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tGl-oD-xQv" firstAttribute="top" secondItem="Ufd-6A-k7E" secondAttribute="bottom" constant="81" id="CZi-NJ-PWk"/>
-                            <constraint firstItem="tGl-oD-xQv" firstAttribute="trailing" secondItem="usa-R1-gj2" secondAttribute="trailingMargin" constant="-8" id="Gtw-cJ-4uy"/>
+                            <constraint firstItem="cuV-0G-NHc" firstAttribute="top" secondItem="tGl-oD-xQv" secondAttribute="bottom" constant="15" id="5L5-Q9-M6i"/>
+                            <constraint firstItem="tGl-oD-xQv" firstAttribute="top" secondItem="Reu-a3-6zZ" secondAttribute="bottom" constant="15" id="GVO-zk-HBw"/>
                             <constraint firstItem="Reu-a3-6zZ" firstAttribute="leading" secondItem="F9E-bT-7Rs" secondAttribute="leading" constant="16" id="JM7-dG-brE"/>
                             <constraint firstItem="Ufd-6A-k7E" firstAttribute="top" secondItem="F9E-bT-7Rs" secondAttribute="top" constant="68" id="Wsr-Nb-vJ1"/>
                             <constraint firstItem="F9E-bT-7Rs" firstAttribute="trailing" secondItem="Ufd-6A-k7E" secondAttribute="trailing" constant="54" id="dq0-na-SYb"/>
+                            <constraint firstAttribute="trailing" secondItem="cuV-0G-NHc" secondAttribute="trailing" constant="20" id="hAT-0q-yMk"/>
                             <constraint firstItem="Reu-a3-6zZ" firstAttribute="top" secondItem="Ufd-6A-k7E" secondAttribute="bottom" constant="58" id="iVK-yx-dCa"/>
                             <constraint firstItem="F9E-bT-7Rs" firstAttribute="trailing" secondItem="Reu-a3-6zZ" secondAttribute="trailing" constant="16" id="jxJ-EK-UeV"/>
+                            <constraint firstAttribute="trailing" secondItem="tGl-oD-xQv" secondAttribute="trailing" constant="20" id="nwj-gN-DiS"/>
                             <constraint firstItem="Ufd-6A-k7E" firstAttribute="leading" secondItem="F9E-bT-7Rs" secondAttribute="leading" constant="53" id="pyL-YE-mBb"/>
-                            <constraint firstItem="tGl-oD-xQv" firstAttribute="leading" secondItem="F9E-bT-7Rs" secondAttribute="leading" constant="16" id="vNW-ak-Pew"/>
+                            <constraint firstItem="cuV-0G-NHc" firstAttribute="leading" secondItem="F9E-bT-7Rs" secondAttribute="leading" constant="20" id="txe-dQ-owb"/>
+                            <constraint firstItem="tGl-oD-xQv" firstAttribute="leading" secondItem="F9E-bT-7Rs" secondAttribute="leading" constant="20" id="vNW-ak-Pew"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="F9E-bT-7Rs"/>
                     </view>
@@ -309,13 +323,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VUN-Sj-tSE">
-                                <rect key="frame" x="0.0" y="582" width="375" height="60"/>
+                                <rect key="frame" x="16" y="597" width="343" height="60"/>
                                 <color key="backgroundColor" red="0.17254901960784313" green="0.14117647058823529" blue="0.086274509803921567" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="xLm-jV-Qdk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                <state key="normal" title="Get Started!">
+                                <state key="normal" title="Let's Get Started!">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
@@ -327,14 +341,14 @@
                                 <rect key="frame" x="53" y="88" width="268" height="256"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ready to try something new?" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uuQ-0O-59Y">
-                                <rect key="frame" x="19" y="505" width="336" height="29"/>
+                                <rect key="frame" x="19" y="553" width="336" height="29"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Be a guest or host your own event immediately after!" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-rB-xcG">
-                                <rect key="frame" x="19" y="454" width="335" height="43"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair up randomly with another user as a guest or select a venue as a host your own event immediately after!" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-rB-xcG">
+                                <rect key="frame" x="19" y="461" width="335" height="66.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -347,21 +361,21 @@
                         </subviews>
                         <color key="backgroundColor" red="0.66666666666666663" green="0.47450980392156861" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="EBt-rB-xcG" firstAttribute="top" secondItem="c0s-KH-KXp" secondAttribute="bottom" constant="8" id="1gv-SP-d4C"/>
+                            <constraint firstItem="EBt-rB-xcG" firstAttribute="top" secondItem="c0s-KH-KXp" secondAttribute="bottom" constant="15" id="1gv-SP-d4C"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="EBt-rB-xcG" secondAttribute="trailing" constant="21" id="7dE-ax-376"/>
-                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="VUN-Sj-tSE" secondAttribute="trailing" id="92r-f9-Ax0"/>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="VUN-Sj-tSE" secondAttribute="trailing" constant="16" id="92r-f9-Ax0"/>
                             <constraint firstItem="EBt-rB-xcG" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="19" id="AAe-Es-EKW"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="zBx-fv-Xma" secondAttribute="trailing" constant="54" id="F3q-Ww-mW2"/>
                             <constraint firstItem="c0s-KH-KXp" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="32" id="Jil-ao-AGw"/>
                             <constraint firstItem="c0s-KH-KXp" firstAttribute="top" secondItem="zBx-fv-Xma" secondAttribute="bottom" constant="68" id="Se0-NS-qF3"/>
                             <constraint firstItem="uuQ-0O-59Y" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="19" id="UuB-Pv-hyc"/>
-                            <constraint firstItem="uuQ-0O-59Y" firstAttribute="top" secondItem="EBt-rB-xcG" secondAttribute="bottom" constant="8" id="Y1L-Rf-tuO"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="c0s-KH-KXp" secondAttribute="trailing" id="a4O-6V-u1D"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="uuQ-0O-59Y" secondAttribute="trailing" constant="20" id="eAk-Of-Fo4"/>
-                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" constant="25" id="fTi-lz-ElN"/>
-                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" id="iZv-Yk-0Ok"/>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" constant="10" id="fTi-lz-ElN"/>
+                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="16" id="iZv-Yk-0Ok"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="53" id="qgh-mm-nTm"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="top" secondItem="Lxo-cP-MdO" secondAttribute="top" constant="68" id="vzM-Jr-kqy"/>
+                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="top" secondItem="uuQ-0O-59Y" secondAttribute="bottom" constant="15" id="xQJ-Ph-4VV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lxo-cP-MdO"/>
                     </view>
@@ -603,7 +617,7 @@
         <image name="mapWithMarker" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="h8u-d5-ift"/>
+        <segue reference="dcR-Xq-pp7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -56,7 +56,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         guard eventRecords.count > 0 else {
             titleLabel.text = "No events found at this time. Try again later, or create your own event!"
-            titleLabel.textColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+            titleLabel.textColor = UIColor.white
             titleLabel.lineBreakMode = .byWordWrapping
             titleLabel.numberOfLines = 0
             timeLabel.text = ""
@@ -93,8 +93,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let nav = self.navigationController?.navigationBar
-        nav?.tintColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
-        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)]
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
         titleLabel.textColor = UIColor.white
