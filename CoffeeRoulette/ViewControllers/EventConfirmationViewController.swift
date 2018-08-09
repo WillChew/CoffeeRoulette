@@ -242,7 +242,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         makeOwnButton.setTitle("Make Your Own!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
         makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true

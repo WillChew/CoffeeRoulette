@@ -116,16 +116,16 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         createEventButton.layer.borderWidth = 2.5
         createEventButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        createEventButton.setTitleColor(UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0), for: .normal)
+        createEventButton.setTitleColor(UIColor.black, for: .normal)
         
         
         
         
         
-        createEventButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        createEventButton.setTitleColor(UIColor.black, for: .normal)
         createEventButton.layer.cornerRadius = goButton.frame.height / 4
         goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        goButton.setTitleColor(UIColor(red:0.10, green:0.10, blue:0.10, alpha:1.0), for: .normal)
+        goButton.setTitleColor(UIColor.black, for: .normal)
         goButton.layer.cornerRadius = goButton.frame.height / 4
         goButton.layer.borderWidth = 2.5
         goButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor

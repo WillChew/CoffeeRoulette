@@ -617,7 +617,7 @@
         <image name="mapWithMarker" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-Xq-pp7"/>
+        <segue reference="h8u-d5-ift"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
