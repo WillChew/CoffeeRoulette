@@ -17,7 +17,7 @@ class Event {
     var host: String?
     var guest: String?
     var catchPhrase: String?
-
+    
     
     init(title:String, time: Date, cafe: Cafe) {
         self.title = title
@@ -34,7 +34,7 @@ class Event {
         record["cafePhotoRef"] = self.cafe.photoRef! as NSString
         record["cafeAddress"] = self.cafe.address! as NSString
         record["catchPhrase"] = self.catchPhrase! as NSString
-
+        
         return record
     }
     

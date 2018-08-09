@@ -12,7 +12,7 @@ import ChameleonFramework
 
 
 class ThirdOnboardingScreen: UIViewController, CLLocationManagerDelegate {
-
+    
     @IBOutlet weak var getStartedButton: UIButton!
     var locationManager: CLLocationManager!
     
@@ -24,46 +24,29 @@ class ThirdOnboardingScreen: UIViewController, CLLocationManagerDelegate {
         getStartedButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
         getStartedButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
         
-            getStartedButton.layer.borderWidth = 2.5
+        getStartedButton.layer.borderWidth = 2.5
         
         getStartedButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         
         getStartedButton.layer.cornerRadius = getStartedButton.frame.height / 4
         
-         locationManager = CLLocationManager()
-            locationManager.requestWhenInUseAuthorization()
-       
+        locationManager = CLLocationManager()
+        locationManager.requestWhenInUseAuthorization()
+        
         if CLLocationManager.locationServicesEnabled() {
             locationManager.delegate = self
- }
-        
-        
-        
+        }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
     @IBAction func getStartedButtonPressed(_ sender: UIButton) {
         UserDefaults.standard.set(true, forKey: "hasLaunched")
     }
     
-    //    func goToMainApp() -> CoffeeRouletteViewController {
-//        return storyboard!.instantiateViewController(withIdentifier: "CoffeeRouletteViewController") as! CoffeeRouletteViewController
-//    }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

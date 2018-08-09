@@ -35,7 +35,7 @@ class DatabaseManager {
             completion(record, error)
         }
     }
-
+    
     func getEvent(recordID: CKRecordID, completion: @escaping ((CKRecord?, Error?)->()) ) {
         
         let predicate = NSPredicate(format: "recordID = %@", recordID)
@@ -79,7 +79,7 @@ class DatabaseManager {
         guard self.accountStatus == .available else { return }
         
         self.getUserID { (recordID, error) in
- 
+            
             guard let recordID = recordID, error == nil else { return }
             
             // user is not the host of the event
@@ -207,14 +207,8 @@ class DatabaseManager {
                 }
             }
             
-            /*
-            self?.db.perform(query, inZoneWith: nil) { (records, error) in
-                if let error = error { print(#line, error.localizedDescription); return}
-                completion(records, error)
-            }
-            */
         }
-
+        
         
     }
     
@@ -222,13 +216,7 @@ class DatabaseManager {
 
 
 
-// alert view upon errors saving to cloud database
-/*
- else {
- let ac = UIAlertController(title: "Error", message: "There was a problem submitting your suggestion: \(error!.localizedDescription)", preferredStyle: .alert)
- ac.addAction(UIAlertAction(title: "OK", style: .default))
- self.present(ac, animated: true)
- */
+
 
 extension DatabaseManager {
     func fetchAllSubscriptions() {
@@ -238,11 +226,11 @@ extension DatabaseManager {
         db.add(privateFetchSubcriptions)
         publicFetchSubcriptions.fetchSubscriptionCompletionBlock = {dict, error in
             print(#line, dict ?? "no public subscriptions")
-//            self.deleteSubscriptions(dict: dict, isPublic: true)
+            //            self.deleteSubscriptions(dict: dict, isPublic: true)
         }
         privateFetchSubcriptions.fetchSubscriptionCompletionBlock = {dict, error in
             print(#line, dict ?? "no private subscriptions")
-//            self.deleteSubscriptions(dict: dict, isPublic: false)
+            //            self.deleteSubscriptions(dict: dict, isPublic: false)
         }
     }
     
