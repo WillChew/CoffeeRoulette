@@ -248,7 +248,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
         makeOwnButton.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor, constant: 0).isActive = true
         makeOwnButton.topAnchor.constraint(equalTo: mapView.bottomAnchor, constant: 20).isActive = true
-        makeOwnButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        makeOwnButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
         
         
         makeOwnButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
