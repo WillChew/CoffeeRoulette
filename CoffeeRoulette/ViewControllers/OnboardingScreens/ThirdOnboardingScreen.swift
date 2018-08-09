@@ -22,7 +22,7 @@ class ThirdOnboardingScreen: UIViewController, CLLocationManagerDelegate {
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
         getStartedButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        getStartedButton.setTitleColor(UIColor(red:0.27, green:0.22, blue:0.14, alpha:1.0), for: .normal)
+        getStartedButton.setTitleColor(UIColor.black, for: .normal)
         
         getStartedButton.layer.borderWidth = 2.5
         

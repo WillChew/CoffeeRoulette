@@ -328,7 +328,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="xLm-jV-Qdk"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="24"/>
                                 <state key="normal" title="Let's Get Started!">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -352,8 +352,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wait until your event is over" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0s-KH-KXp">
-                                <rect key="frame" x="32" y="412" width="343" height="34"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wait until your event is over" textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0s-KH-KXp">
+                                <rect key="frame" x="10" y="412" width="355" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -362,20 +362,20 @@
                         <color key="backgroundColor" red="0.66666666666666663" green="0.47450980392156861" blue="0.25882352941176467" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="EBt-rB-xcG" firstAttribute="top" secondItem="c0s-KH-KXp" secondAttribute="bottom" constant="15" id="1gv-SP-d4C"/>
+                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="c0s-KH-KXp" secondAttribute="trailing" constant="10" id="3lx-fv-1Tc"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="EBt-rB-xcG" secondAttribute="trailing" constant="21" id="7dE-ax-376"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="VUN-Sj-tSE" secondAttribute="trailing" constant="16" id="92r-f9-Ax0"/>
                             <constraint firstItem="EBt-rB-xcG" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="19" id="AAe-Es-EKW"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="zBx-fv-Xma" secondAttribute="trailing" constant="54" id="F3q-Ww-mW2"/>
-                            <constraint firstItem="c0s-KH-KXp" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="32" id="Jil-ao-AGw"/>
-                            <constraint firstItem="c0s-KH-KXp" firstAttribute="top" secondItem="zBx-fv-Xma" secondAttribute="bottom" constant="68" id="Se0-NS-qF3"/>
+                            <constraint firstItem="c0s-KH-KXp" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="10" id="Jil-ao-AGw"/>
+                            <constraint firstItem="uuQ-0O-59Y" firstAttribute="top" secondItem="EBt-rB-xcG" secondAttribute="bottom" constant="25.5" id="QJA-Ju-xaO"/>
                             <constraint firstItem="uuQ-0O-59Y" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="19" id="UuB-Pv-hyc"/>
-                            <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="c0s-KH-KXp" secondAttribute="trailing" id="a4O-6V-u1D"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="trailing" secondItem="uuQ-0O-59Y" secondAttribute="trailing" constant="20" id="eAk-Of-Fo4"/>
                             <constraint firstItem="Lxo-cP-MdO" firstAttribute="bottom" secondItem="VUN-Sj-tSE" secondAttribute="bottom" constant="10" id="fTi-lz-ElN"/>
                             <constraint firstItem="VUN-Sj-tSE" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="16" id="iZv-Yk-0Ok"/>
+                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="top" secondItem="uuQ-0O-59Y" secondAttribute="bottom" constant="15" id="lWY-SB-p7g"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="leading" secondItem="Lxo-cP-MdO" secondAttribute="leading" constant="53" id="qgh-mm-nTm"/>
                             <constraint firstItem="zBx-fv-Xma" firstAttribute="top" secondItem="Lxo-cP-MdO" secondAttribute="top" constant="68" id="vzM-Jr-kqy"/>
-                            <constraint firstItem="VUN-Sj-tSE" firstAttribute="top" secondItem="uuQ-0O-59Y" secondAttribute="bottom" constant="15" id="xQJ-Ph-4VV"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Lxo-cP-MdO"/>
                     </view>
