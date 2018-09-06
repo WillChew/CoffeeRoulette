@@ -210,7 +210,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             let detailViewController = segue.destination as! EventDetailsViewController
             let eventRecord = eventRecords![recordIndex]
             detailViewController.event = eventRecord
-            detailViewController.guestStatus = "Your are a confirmed guest!"
+            detailViewController.guestStatus = "You are a confirmed guest!"
             detailViewController.catchPhrase = "Your catchphrase is: \(catchPhrase!)"
             detailViewController.cafePicture = cafePhoto
             detailViewController.databaseManager = databaseManager
@@ -242,7 +242,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         makeOwnButton.setTitle("Make Your Own!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
+        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 20)
+        makeOwnButton.titleLabel?.lineBreakMode = .byTruncatingMiddle
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
         makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true

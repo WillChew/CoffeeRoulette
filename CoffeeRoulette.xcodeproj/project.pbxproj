@@ -11,7 +11,6 @@
 		0368AE092118C39F00FFC1AC /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0368AE082118C39F00FFC1AC /* StyleManager.swift */; };
 		0380E6A72110C35F007935DE /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A62110C35F007935DE /* DatabaseManager.swift */; };
 		0380E6A92110C373007935DE /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0380E6A82110C373007935DE /* Event.swift */; };
-		03AB432D2111027900AFD149 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 03AB432C2111027900AFD149 /* CloudKit.framework */; };
 		03AB432F211117E100AFD149 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AB432E211117E100AFD149 /* Extensions.swift */; };
 		0E732C6E3DF88F8ADD9AA431 /* Pods_CoffeeRoulette.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53A569FE4D4ED88939B635D /* Pods_CoffeeRoulette.framework */; };
 		211FAD37210F85E50043C6C5 /* MapRequestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 211FAD36210F85E50043C6C5 /* MapRequestManager.swift */; };
@@ -21,6 +20,7 @@
 		218B5CE421120EA000FF4362 /* ThirdOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE321120EA000FF4362 /* ThirdOnboardingScreen.swift */; };
 		218B5CE721120EE200FF4362 /* FirstOnboardingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE621120EE200FF4362 /* FirstOnboardingScreen.swift */; };
 		218B5CE921120F6E00FF4362 /* OnboardingPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218B5CE821120F6E00FF4362 /* OnboardingPager.swift */; };
+		21A4AEB02140F5A1008BE0C7 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 21A4AEAF2140F5A1008BE0C7 /* CloudKit.framework */; };
 		21ED40C5210A3B7200B9F654 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C4210A3B7200B9F654 /* AppDelegate.swift */; };
 		21ED40C7210A3B7200B9F654 /* CoffeeRouletteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */; };
 		21ED40CC210A3B7500B9F654 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21ED40CB210A3B7500B9F654 /* Assets.xcassets */; };
@@ -35,8 +35,6 @@
 		0368AE082118C39F00FFC1AC /* StyleManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 		0380E6A62110C35F007935DE /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		0380E6A82110C373007935DE /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		03AB432B2111027600AFD149 /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
-		03AB432C2111027900AFD149 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		03AB432E211117E100AFD149 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		211FAD36210F85E50043C6C5 /* MapRequestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapRequestManager.swift; sourceTree = "<group>"; };
 		211FAD38210F88210043C6C5 /* Cafe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cafe.swift; sourceTree = "<group>"; };
@@ -45,6 +43,8 @@
 		218B5CE321120EA000FF4362 /* ThirdOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThirdOnboardingScreen.swift; sourceTree = "<group>"; };
 		218B5CE621120EE200FF4362 /* FirstOnboardingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirstOnboardingScreen.swift; path = ../../ViewControllers/FirstOnboardingScreen.swift; sourceTree = "<group>"; };
 		218B5CE821120F6E00FF4362 /* OnboardingPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingPager.swift; sourceTree = "<group>"; };
+		21A4AEAE2140F59B008BE0C7 /* CoffeeRoulette.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoffeeRoulette.entitlements; sourceTree = "<group>"; };
+		21A4AEAF2140F5A1008BE0C7 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		21ED40C1210A3B7200B9F654 /* CoffeeRoulette.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoffeeRoulette.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		21ED40C4210A3B7200B9F654 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		21ED40C6210A3B7200B9F654 /* CoffeeRouletteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoffeeRouletteViewController.swift; sourceTree = "<group>"; };
@@ -64,8 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03AB432D2111027900AFD149 /* CloudKit.framework in Frameworks */,
 				0E732C6E3DF88F8ADD9AA431 /* Pods_CoffeeRoulette.framework in Frameworks */,
+				21A4AEB02140F5A1008BE0C7 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,7 +75,7 @@
 		0380E6962110BBEB007935DE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				03AB432C2111027900AFD149 /* CloudKit.framework */,
+				21A4AEAF2140F5A1008BE0C7 /* CloudKit.framework */,
 				B53A569FE4D4ED88939B635D /* Pods_CoffeeRoulette.framework */,
 			);
 			name = Frameworks;
@@ -154,7 +154,7 @@
 		21ED40C3210A3B7200B9F654 /* CoffeeRoulette */ = {
 			isa = PBXGroup;
 			children = (
-				03AB432B2111027600AFD149 /* CoffeeRoulette.entitlements */,
+				21A4AEAE2140F59B008BE0C7 /* CoffeeRoulette.entitlements */,
 				21ED40C4210A3B7200B9F654 /* AppDelegate.swift */,
 				03AB432E211117E100AFD149 /* Extensions.swift */,
 				03A945252110F70B006E3805 /* ViewControllers */,
@@ -454,17 +454,17 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 9XHB48LCU8;
+				DEVELOPMENT_TEAM = 475GYSBZB3;
 				INFOPLIST_FILE = CoffeeRoulette/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.willchew.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ae8773e7-19d4-4a41-9b86-85dbf6c6d69e";
-				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioningAugust2;
+				PROVISIONING_PROFILE = "ae28e7e8-c50c-4f0d-ae2d-2c558f8f2dd8";
+				PROVISIONING_PROFILE_SPECIFIER = "coffee roulette";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -478,17 +478,17 @@
 				CODE_SIGN_ENTITLEMENTS = CoffeeRoulette/CoffeeRoulette.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = 9XHB48LCU8;
+				DEVELOPMENT_TEAM = 475GYSBZB3;
 				INFOPLIST_FILE = CoffeeRoulette/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.erazure.CoffeeRouletteMaster;
+				PRODUCT_BUNDLE_IDENTIFIER = com.willchew.CoffeeRouletteMaster;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "ae8773e7-19d4-4a41-9b86-85dbf6c6d69e";
-				PROVISIONING_PROFILE_SPECIFIER = CoffeeRouletteMasterProvisioningAugust2;
+				PROVISIONING_PROFILE = "ae28e7e8-c50c-4f0d-ae2d-2c558f8f2dd8";
+				PROVISIONING_PROFILE_SPECIFIER = "coffee roulette";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
