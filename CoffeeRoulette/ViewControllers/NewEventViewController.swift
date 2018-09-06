@@ -240,12 +240,22 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                     
                     let subscription = CKQuerySubscription(recordType: "Event", predicate: predicate, options: [.firesOnRecordUpdate, .firesOnce])
                     
+                    let subscriptionDelete = CKQuerySubscription(recordType: "Event", predicate: predicate, options: [.firesOnRecordDeletion, .firesOnce])
+                    
+                    
+                    
                     let info = CKNotificationInfo()
                     let title = record["title"] as! String
                     info.title = title
                     info.alertBody = "Guest confirmed"
                     info.soundName = "default"
                     subscription.notificationInfo = info
+                    
+                    let infoDelete = CKNotificationInfo()
+                    infoDelete.title = title
+                    infoDelete.alertBody = "Guest Cancelled"
+                    infoDelete.soundName = "default"
+                    subscriptionDelete.notificationInfo = infoDelete
                     
                     self?.databaseManager.save(subscription: subscription) { [weak self] (subscription, error) in
                         if ((error == nil) && (subscription != nil)) {
@@ -258,6 +268,9 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                             }
                         }
                     }
+                    self?.databaseManager.save(subscription: subscriptionDelete, completion: { [weak self](subscription, error) in
+                        NSLog("subscription saved", subscription!.subscriptionID)
+                    })
                 }
             }
         }

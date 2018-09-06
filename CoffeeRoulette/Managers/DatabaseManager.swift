@@ -36,6 +36,8 @@ class DatabaseManager {
         }
     }
     
+    
+    
     func getEvent(recordID: CKRecordID, completion: @escaping ((CKRecord?, Error?)->()) ) {
         
         let predicate = NSPredicate(format: "recordID = %@", recordID)

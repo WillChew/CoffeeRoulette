@@ -18,8 +18,6 @@ class EventDetailsViewController: UIViewController {
     var event: CKRecord?
     
     var cafe: Cafe?
-    //var eventTime: Date?
-    //var eventLocation: String?
     var cafePicture: UIImage?
     
     var guestStatus: String!
@@ -140,8 +138,8 @@ class EventDetailsViewController: UIViewController {
         
         
         databaseManager.getEvent(recordID: event!.recordID) { (record, error) in
-            
-            let word = record!["catchPhrase"] as! String
+            guard let record = record!["catchPhrase"] else { return }
+            let word = record as! String
             self.catchPhrase = "Your catchphrase is: \(word)"
             self.guestStatus = ""
             
@@ -159,7 +157,7 @@ class EventDetailsViewController: UIViewController {
                 
             }
         }
-        
+         NotificationCenter.default.removeObserver(self)
     }
     
     deinit {
@@ -178,6 +176,27 @@ class EventDetailsViewController: UIViewController {
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         
+        let alert = UIAlertController(title: "Cancelling the Event", message: "Are you sure you want to let down your coffee buddy?", preferredStyle: .alert)
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+            self.databaseManager.delete(event: self.event!) { (record, error) in
+                if error == nil {
+                    print("Event deleted successfully")
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "unwindToRoulette", sender: nil)
+                    }
+                } else {
+                    print("Error deleting event: \(error?.localizedDescription)")
+                }
+            }
+
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in
+            print("nevermind")
+        }
+        
+        alert.addAction(deleteAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
     }
     
     
