@@ -32,6 +32,7 @@ class EventDetailsViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var cafeImageView: UIImageView!
     
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var guestStatusLabel: UILabel!
     @IBOutlet weak var catchPhraseLabel: UILabel!
     
@@ -59,7 +60,7 @@ class EventDetailsViewController: UIViewController {
         titleLabel.text = event["title"] as? String
         timeLabel.text = formatter.string(from: date!)
         locationLabel.text = event["cafeAddress"] as? String
-        //        titleLabel
+        
         
         
         
@@ -75,7 +76,7 @@ class EventDetailsViewController: UIViewController {
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
         
-        // LABEL STYLING
+        
         titleLabel.textColor = UIColor.white
         titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         timeLabel.textColor = UIColor.white
@@ -100,7 +101,13 @@ class EventDetailsViewController: UIViewController {
         catchPhraseLabel.numberOfLines = 0
         
         
-        // BUTTON STYLING
+        cancelButton.backgroundColor = .red
+        cancelButton.layer.masksToBounds = true
+        cancelButton.layer.cornerRadius = 15
+        cancelButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        cancelButton.layer.borderWidth = 2.5
+        
+        
         getDirectionsButton.layer.masksToBounds = true
         getDirectionsButton.layer.cornerRadius = 15
         getDirectionsButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
@@ -173,7 +180,7 @@ class EventDetailsViewController: UIViewController {
         
     }
     
-    //Get directions
+    
     @IBAction func directionsButtonPressed(_ sender: UIButton) {
         let eventLocation = event!["location"] as? CLLocation
         let cafeName = event!["cafeName"] as? String
@@ -192,7 +199,6 @@ class EventDetailsViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "unwindToRoulette" {
-            // do i need anything here?
         }
     }
     
