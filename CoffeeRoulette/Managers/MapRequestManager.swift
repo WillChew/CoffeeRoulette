@@ -10,32 +10,37 @@ import UIKit
 import CoreLocation
 
 enum Constants {
-    static let key = "key"
-    static let api = "AIzaSyCI7-MJIjcLdatZXcA54cVIWNXCl5VN5DU"
-    static let location = "location"
+    
+    static let authorization = "Authorization"
+    static let key = "Bearer QCsxzDpQvN4jHRQjPxszCt55RVndyUZI6sOQZ1xF_sHk_ewwXItiHEOxV3IoKOcsdbfNbnrBZbew8a2PLjf2qe0VRBou758RWt5PYJ5iQz8u3amGTSgQokeug1MtW3Yx"
     static let radius = "radius"
-    static let keyword = "keyword"
-    static let coffee = "coffee"
+    static let term = "term"
+    static let coffee = "cafe"
+    static let latitude = "latitude"
+    static let longitude = "longitude"
+
 }
 class MapRequestManager {
     
     
-    func getLocations(_ currentLocation: CLLocationCoordinate2D, radius: Float, completion: @escaping([Cafe]) -> () ) {
+    func getLocations(_ currentLocation: CLLocationCoordinate2D, radius: Int, completion: @escaping([Cafe]) -> () ) {
         var cafeArray = [Cafe]()
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
-        let url = URL(string: "https://maps.googleapis.com")!
+        let url = URL(string: "https://api.yelp.com")!
         
         
         var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path = "/maps/api/place/nearbysearch/json"
-        let keyQueryItem = URLQueryItem(name: Constants.key, value: Constants.api)
-        let locationQueryItem = URLQueryItem(name: Constants.location, value: "\(currentLocation.latitude),\(currentLocation.longitude)")
+        components.path = "/v3/businesses/search"
+
+        let latitudeQueryItem = URLQueryItem(name: Constants.latitude, value: "\(currentLocation.latitude)")
+        let longitudeQueryItem = URLQueryItem(name: Constants.longitude, value: "\(currentLocation.longitude)")
         let radiusQueryItem = URLQueryItem(name: Constants.radius, value: "\(radius)")
-        let keywordQueryItem = URLQueryItem(name: Constants.keyword, value: Constants.coffee)
-        components.queryItems = [keyQueryItem, locationQueryItem, radiusQueryItem, keywordQueryItem]
+        let keywordQueryItem = URLQueryItem(name: Constants.term, value: Constants.coffee)
+        components.queryItems = [latitudeQueryItem, longitudeQueryItem, radiusQueryItem, keywordQueryItem]
         var request = URLRequest(url: components.url!)
         request.httpMethod = "GET"
+        request.addValue(Constants.key, forHTTPHeaderField: Constants.authorization)
         
         let task = session.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if (error == nil) {
@@ -49,21 +54,23 @@ class MapRequestManager {
             
             guard let data = data else { return }
             guard let jsonResult = try! JSONSerialization.jsonObject(with: data) as? Dictionary<String,Any?> else { return }
-            let cafes = jsonResult["results"] as! Array<Dictionary<String,Any?>>
+            let cafes = jsonResult["businesses"] as! Array<Dictionary<String,Any?>>
             
             for cafe in cafes {
-                guard let geometry = cafe["geometry"] as? Dictionary<String,Any?>, let location = geometry["location"] as? Dictionary<String,Any?>, let name = cafe["name"], let photosArray = cafe["photos"] as? Array<Dictionary<String,Any?>> else { return }
+
+                guard let coordinates = cafe["coordinates"] as? Dictionary<String,Any?>, let name = cafe["name"], let location = cafe["location"] as? Dictionary<String,Any?> else { return }
                 let rating = cafe["rating"] as? Double
-                let address = cafe["vicinity"] as? String
-                let photoDict = photosArray[0]
-                let photoRef = photoDict["photo_reference"] as? String
-                let latitude = location["lat"] as! CLLocationDegrees
-                let longitude = location["lng"] as! CLLocationDegrees
-                let newCafe = Cafe(cafeName: name as! String, location:CLLocationCoordinate2DMake(latitude, longitude))
-                newCafe.photoRef = photoRef
+                let lat = coordinates["latitude"] as! CLLocationDegrees
+                let lng = coordinates["longitude"] as! CLLocationDegrees
+                let photo = cafe["image_url"] as? String
+                let address = location["address1"] as? String
+                let cafeCoordinates = CLLocationCoordinate2DMake(lat, lng)
+                let newCafe = Cafe(cafeName: name as! String, location: cafeCoordinates)
+                newCafe.photoRef = photo
                 newCafe.rating = rating
                 newCafe.address = address
                 cafeArray.append(newCafe)
+                
                 
             }
             completion(cafeArray)
@@ -82,38 +89,17 @@ class MapRequestManager {
             completion(cup!)
             return
         }
+
+//            guard let data = data, let image = UIImage(data: data, scale: 1.0) else { return }
+        guard let imageURL = URL(string: photoRef), let imageData = try? Data(contentsOf: imageURL), let image = UIImage(data: imageData) else { return }
         
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
-        let url = URL(string: "https://maps.googleapis.com")!
-        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)!
-        components.path = "/maps/api/place/photo"
         
-        let maxWidthQueryItem = URLQueryItem(name: "maxwidth", value: "400")
-        let photoReferenceQueryItem = URLQueryItem(name: "photoreference", value: photoRef)
-        let keyQueryItem = URLQueryItem(name: "key", value: Constants.api)
-        components.queryItems = [maxWidthQueryItem, photoReferenceQueryItem, keyQueryItem]
-        var request = URLRequest(url: components.url!)
-        request.httpMethod = "GET"
-        
-        let task = session.dataTask(with: request) { (data, response, error) in
-            if error == nil {
-                //success
-                let statusCode = (response as! HTTPURLResponse).statusCode
-                print(#line, "Get photo request success: \(statusCode)")
-            } else if let error = error {
-                //fail
-                print(error.localizedDescription)
-            }
-            guard let data = data, let image = UIImage(data: data, scale: 1.0) else { return }
-            
             
             
             completion(image)
         }
-        task.resume()
-        session.finishTasksAndInvalidate()
+
     }
     
-}
+
 
