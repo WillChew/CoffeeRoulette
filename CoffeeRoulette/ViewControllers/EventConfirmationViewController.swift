@@ -186,8 +186,19 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                 
                 self.databaseManager.save(eventRecord: eventRecord) { [weak self] (record, error) in
                     if (error == nil) && (record != nil) {
-                        //print(record!["guest"] as! NSString)
+                        let predicate = NSPredicate(format: "recordID = %@", (record?.recordID)!)
+                        let subscription = CKQuerySubscription(recordType: "Event", predicate: predicate, options: [.firesOnRecordDeletion, .firesOnce])
                         
+                        let info = CKNotificationInfo()
+                        let title = record!["title"] as! String
+                        info.title = title
+                        info.alertBody = "Host Cancelled"
+                        info.soundName = "default"
+                        subscription.notificationInfo = info
+                        
+                        self?.databaseManager.save(subscription: subscription, completion: { (subscription, error) in
+                            print("Subscription saved")
+                        })
                         // guest requests cafe photo
                         let photoRef = record!["cafePhotoRef"]
                         
