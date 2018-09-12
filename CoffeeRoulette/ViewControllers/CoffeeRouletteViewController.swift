@@ -264,7 +264,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             print(#line, "number of cafes found on map request", mapArray.count)
             for point in mapArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
+                guard let address = point.address else { return }
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Location: \(address)")
                 annotation.photoRef = point.photoRef
                 DispatchQueue.main.async {
                     self.mapView.addAnnotation(annotation)

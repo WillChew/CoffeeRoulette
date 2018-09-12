@@ -311,7 +311,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapRequestManager.getLocations(coordinates, radius: 500) { (mapArray) in
             
             for point in mapArray {
-                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Rating: \(String(format:"%.1f", point.rating!))")
+                guard let address = point.address else { return }
+                let annotation = Annotations(title: point.cafeName, coordinate: CLLocationCoordinate2D(latitude: point.location.latitude, longitude: point.location.longitude), subtitle: "Location: \(address)")
                 annotation.photoRef = point.photoRef
                 annotation.address = point.address
                 DispatchQueue.main.async {
