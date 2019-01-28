@@ -22,13 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     var databaseManager = DatabaseManager()
     var navigationController: UINavigationController!
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //GLOBAL THEMING, SEE EXTENSION AT BOTTOM
-        UIApplication.shared.statusBarStyle = .lightContent
+        //        UIApplication.shared.statusBarStyle = .lightContent
         UINavigationBar.appearance().barTintColor = UIColor.black
         UINavigationBar.appearance().tintColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)]
         configureTheme()
         
         // REMOTE NOTIFICATIONS
@@ -74,8 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         return true
     }
+    
+    func configureTheme() {
+        StyleManager.setUpTheme()
+    }
 }
-
 
 
 //MARK - Handle Remote Notifications
@@ -108,10 +111,3 @@ extension AppDelegate  {
     
 }
 
-extension AppDelegate {
-    
-    func configureTheme() {
-        StyleManager.setUpTheme()
-        
-    }
-}

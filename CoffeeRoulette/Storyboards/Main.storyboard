@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l2V-aT-dWv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="l2V-aT-dWv">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -200,7 +200,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapWithMarker" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-nZ-Eb3">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapWithMarker" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-nZ-Eb3">
                                 <rect key="frame" x="53" y="112" width="278" height="262"/>
                                 <variation key="heightClass=regular-widthClass=regular" insetsLayoutMarginsFromSafeArea="YES"/>
                             </imageView>
@@ -263,7 +263,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coffee512" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-6A-k7E">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coffee512" translatesAutoresizingMaskIntoConstraints="NO" id="Ufd-6A-k7E">
                                 <rect key="frame" x="59.666666666666657" y="112" width="254.99999999999997" height="256"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="When you arrive at the venue, be sure to let the other user know you're from Coffee Roulette." textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGl-oD-xQv">
@@ -273,7 +273,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You'll be given a prompt to start the conversation off, but where you take it from there is completely up to you" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cuV-0G-NHc">
-                                <rect key="frame" x="20" y="567.33333333333337" width="335" height="64.666666666666629"/>
+                                <rect key="frame" x="20" y="567" width="335" height="64.666666666666629"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -331,7 +331,7 @@
                                     <segue destination="zCC-1z-nkY" kind="show" identifier="goToMainAppSegue" id="6bI-P6-sFh"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock (2)" translatesAutoresizingMaskIntoConstraints="NO" id="zBx-fv-Xma">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock (2)" translatesAutoresizingMaskIntoConstraints="NO" id="zBx-fv-Xma">
                                 <rect key="frame" x="53" y="112" width="268" height="256"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair up randomly with another user as a guest or select a venue as a host your own event immediately after!" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-rB-xcG">
@@ -618,10 +618,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Roulette_Wheel" width="159" height="159"/>
-        <image name="clock (2)" width="256" height="256"/>
+        <image name="Roulette_Wheel" width="318" height="318"/>
+        <image name="clock (2)" width="409.60000610351562" height="409.60000610351562"/>
         <image name="coffee" width="1000" height="563"/>
-        <image name="coffee512" width="256" height="256"/>
+        <image name="coffee512" width="201.442626953125" height="201.442626953125"/>
         <image name="mapWithMarker" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>

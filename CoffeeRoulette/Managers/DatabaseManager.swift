@@ -38,7 +38,7 @@ class DatabaseManager {
     
     
     
-    func getEvent(recordID: CKRecordID, completion: @escaping ((CKRecord?, Error?)->()) ) {
+    func getEvent(recordID: CKRecord.ID, completion: @escaping ((CKRecord?, Error?)->()) ) {
         
         let predicate = NSPredicate(format: "recordID = %@", recordID)
         
@@ -118,7 +118,7 @@ class DatabaseManager {
         }
     }
     
-    func getUserID(completion: @escaping ((CKRecordID?, Error?)->Void)) {
+    func getUserID(completion: @escaping ((CKRecord.ID?, Error?)->Void)) {
         if (accountStatus == .available) {
             container.fetchUserRecordID() { (recordID, error) in
                 completion(recordID, error)
@@ -139,7 +139,7 @@ class DatabaseManager {
         }
     }
     
-    func delete(event: CKRecord, completion: @escaping ((CKRecordID?, Error?) -> ())) {
+    func delete(event: CKRecord, completion: @escaping ((CKRecord.ID?, Error?) -> ())) {
         db.delete(withRecordID: event.recordID) { (recordID, error) in
             completion(recordID, error)
         }
@@ -154,7 +154,7 @@ class DatabaseManager {
             
             guard let userRecordID = recordID, error == nil else { return }
             
-            let userReference = CKReference(recordID: userRecordID, action: .none)
+            let userReference = CKRecord.Reference(recordID: userRecordID, action: .none)
             
             let nowMinus5Minutes = Calendar.current.date(byAdding: .minute, value: 5, to: Date())!
             

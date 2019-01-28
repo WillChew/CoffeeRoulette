@@ -37,9 +37,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tryAgainButton.layer.cornerRadius = 15
-        confirmButton.layer.cornerRadius = 15
-        confirmButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+
         
         mapView.delegate = self
         
@@ -48,10 +46,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
         }
-        
-        formatter.timeStyle = .short
-        formatter.dateStyle = .medium
-        
+
         mapView.showsUserLocation = true
         
         guard eventRecords.count > 0 else {
@@ -90,49 +85,18 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         addAnnotation()
     }
     
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let nav = self.navigationController?.navigationBar
-        nav?.tintColor = UIColor.white
-        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
-        
-        titleLabel.textColor = UIColor.white
-        titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
-        timeLabel.textColor = UIColor.white
-        timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
-        
-        tryAgainButton.layer.masksToBounds = true
-        tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 4
-        tryAgainButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        tryAgainButton.layer.borderWidth = 2.5
-        tryAgainButton.setTitleColor(UIColor.black, for: .normal)
-        tryAgainButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
-        tryAgainButton.alpha = 0.0
-        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
-            self.tryAgainButton.alpha = 1.0
-        }, completion: nil)
-        
-        confirmButton.layer.masksToBounds = true
-        confirmButton.layer.cornerRadius = confirmButton.frame.height / 4
-        confirmButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        confirmButton.layer.borderWidth = 2.5
-        confirmButton.setTitleColor(UIColor.black, for: .normal)
-        confirmButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        confirmButton.alpha = 0.0
-        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
-            self.confirmButton.alpha = 1.0
-        }, completion: nil)
-        
-        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        mapView.layer.borderWidth = 2.5
+        setupView()
     }
     
     func addAnnotation() {
         let eventRecord = eventRecords[recordIndex]
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
-        coordinates = eventRecord["location"] as! CLLocation
+        coordinates = eventRecord["location"] as? CLLocation
         createAnnotations(coordinates.coordinate)
     }
     
@@ -155,7 +119,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = manager.location?.coordinate
         
-        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(0.01, 0.01))
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpan.init(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(coordinateRegion, animated: true)
         locationManager.stopUpdatingLocation()
     }
@@ -178,9 +142,9 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         databaseManager.getUserID { (recordID, error) in
             if (error == nil) && (recordID != nil) {
                 
-                let guest = CKReference(recordID: recordID!, action: .none)
+                let guest = CKRecord.Reference(recordID: recordID!, action: .none)
                 
-                eventRecord["guest"] = guest as CKReference
+                eventRecord["guest"] = guest as CKRecord.Reference
                 
                 eventRecord["catchPhrase"] = self.catchPhrase as NSString
                 
@@ -189,7 +153,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
                         let predicate = NSPredicate(format: "recordID = %@", (record?.recordID)!)
                         let subscription = CKQuerySubscription(recordType: "Event", predicate: predicate, options: [.firesOnRecordDeletion, .firesOnce])
                         
-                        let info = CKNotificationInfo()
+                        let info = CKSubscription.NotificationInfo()
                         let title = record!["title"] as! String
                         info.title = title
                         info.alertBody = "Host Cancelled"
@@ -269,6 +233,33 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         
         
+        tryAgainButton.layer.cornerRadius = 15
+        confirmButton.layer.cornerRadius = 15
+        confirmButton.backgroundColor = UIColor(red:0.10, green:0.74, blue:0.61, alpha:1.0)
+
+        tryAgainButton.layer.masksToBounds = true
+        tryAgainButton.layer.cornerRadius = tryAgainButton.frame.height / 4
+        tryAgainButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        tryAgainButton.layer.borderWidth = 2.5
+        tryAgainButton.setTitleColor(UIColor.black, for: .normal)
+        tryAgainButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+        tryAgainButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
+            self.tryAgainButton.alpha = 1.0
+        }, completion: nil)
+        
+        confirmButton.layer.masksToBounds = true
+        confirmButton.layer.cornerRadius = confirmButton.frame.height / 4
+        confirmButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        confirmButton.layer.borderWidth = 2.5
+        confirmButton.setTitleColor(UIColor.black, for: .normal)
+        confirmButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        confirmButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
+            self.confirmButton.alpha = 1.0
+        }, completion: nil)
+        
+        
     }
     
     @objc func customButtonAction(sender: UIButton!){
@@ -277,5 +268,26 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         
     }
+    
+    fileprivate func setupView() {
+        let nav = self.navigationController?.navigationBar
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+        
+        titleLabel.textColor = UIColor.white
+        titleLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        timeLabel.textColor = UIColor.white
+        timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
+        
+       
+        
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderWidth = 2.5
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+    }
+    
+ 
     
 }

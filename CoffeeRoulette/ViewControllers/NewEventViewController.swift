@@ -30,7 +30,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     var eventRecord: CKRecord?
     var userID: String?
     var longPressGesture: UILongPressGestureRecognizer!
-    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    var activityIndicator = UIActivityIndicatorView(style: .gray)
     
     
     @IBOutlet weak var saveButton: UIButton!
@@ -49,44 +49,23 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let nav = self.navigationController?.navigationBar
-        nav?.tintColor = UIColor.white
-        nav?.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
         
-        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
-        
+        setupView()
         locationManager = CLLocationManager()
         if databaseManager == nil {
             databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
         }
         
+        
         timeTextField.delegate = self
         mapView.delegate = self
-        datePickerView = UIDatePicker.init()
-        timeTextField.inputView = datePickerView
+        
         self.timeTextField.delegate = self
         datePickerView.datePickerMode = .time
         locationManager.delegate = self
         
-        timeTextField.layer.masksToBounds = true
-        timeTextField.layer.cornerRadius = timeTextField.frame.height / 4
-        timeTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        timeTextField.layer.borderWidth = 2.0
         
-        
-        titleTextField.layer.masksToBounds = true
-        titleTextField.layer.cornerRadius = titleTextField.frame.height / 4
-        titleTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        titleTextField.layer.borderWidth = 2.0
-        
-        
-        saveButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        saveButton.layer.cornerRadius = saveButton.frame.height / 4
-        saveButton.layer.borderWidth = 2.5
-        saveButton.setTitleColor(UIColor.black, for: .normal)
-        saveButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        mapView.layer.borderWidth = 2.5
+       
         
         
         mapRequestManager = MapRequestManager()
@@ -96,23 +75,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
             locationManager.startUpdatingLocation()
             currentLocation = locationManager.location?.coordinate
             
-            self.mapView.region = MKCoordinateRegionMake(currentLocation, MKCoordinateSpanMake(delta, delta))
+            self.mapView.region = MKCoordinateRegion.init(center: currentLocation, span: MKCoordinateSpan.init(latitudeDelta: delta, longitudeDelta: delta))
             
         }
         
         mapRequest(currentLocation)
-        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
-        view.addGestureRecognizer(gestureRecognizer)
-        
-        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
-        longPressGesture.minimumPressDuration = 0.5
-        
-        
-        mapView.addGestureRecognizer(longPressGesture)
-        
-        cafeLabel.isHidden = true
-        saveButton.isEnabled = false
-        formatter.timeStyle = .short
+       
         
         databaseManager.getUserID { (recordID, error) in
             if (error == nil), let recordID = recordID {
@@ -121,6 +89,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         }
         
     }
+    
+    
     
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -132,7 +102,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         currentLocation = manager.location?.coordinate
         
-        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpan.init(latitudeDelta: delta, longitudeDelta: delta))
         mapView.setRegion(coordinateRegion, animated: true)
         
     }
@@ -175,33 +145,12 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         
         datePickerView.minuteInterval = 5
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(NewEventViewController.datePickerValueChanged), for: UIControl.Event.valueChanged)
     }
     
+
     
-    @objc func datePickerValueChanged(sender:UIDatePicker) {
-        timeTextField.text = formatter.string(from: sender.date)
-        time = sender.date
-        print(#line, time)
-    }
-    
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // Segues
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToDetailScreenSegue" {
-            let detailViewController = segue.destination as! EventDetailsViewController
-            detailViewController.cafe = selectedCafe
-            detailViewController.event = eventRecord
-            detailViewController.guestStatus = "No guest yet"
-            detailViewController.catchPhrase = ""
-            detailViewController.databaseManager = databaseManager
-        }
-    }
+
     
     
     @IBAction func saveButtonPressed(_ sender: UIButton!) {
@@ -244,16 +193,16 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                     
                     
                     
-                    let info = CKNotificationInfo()
+                    let info = CKSubscription.NotificationInfo()
                     let title = record["title"] as! String
                     info.title = title
-                    info.alertBody = "Guest confirmed"
+                    info.alertBody = "Guest Confirmed. Open app for more info"
                     info.soundName = "default"
                     subscription.notificationInfo = info
                     
-                    let infoDelete = CKNotificationInfo()
+                    let infoDelete = CKSubscription.NotificationInfo()
                     infoDelete.title = title
-                    infoDelete.alertBody = "Guest Cancelled"
+                    infoDelete.alertBody = "Guest Cancelled. Open app to create new event. Press Cancel on old event if necessary"
                     infoDelete.soundName = "default"
                     subscriptionDelete.notificationInfo = infoDelete
                     
@@ -268,7 +217,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                             }
                         }
                     }
-                    self?.databaseManager.save(subscription: subscriptionDelete, completion: { [weak self](subscription, error) in
+                    self?.databaseManager.save(subscription: subscriptionDelete, completion: { (subscription, error) in
                         NSLog("subscription saved", subscription!.subscriptionID)
                     })
                 }
@@ -277,7 +226,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     }
     
     
-    // Gestures
+    //MARK: Gestures
     @objc func addAnnotation(gestureRecognizer: UILongPressGestureRecognizer) {
         mapView.removeAnnotations(mapView.annotations)
         let touchPoint = gestureRecognizer.location(in: mapView)
@@ -299,7 +248,58 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         mapView.isHidden = false
     }
     
-    // Other Functions
+    //MARK: Other Functions
+    
+    @objc func datePickerValueChanged(sender:UIDatePicker) {
+        timeTextField.text = formatter.string(from: sender.date)
+        time = sender.date
+        print(#line, time)
+    }
+    
+    func setupView(){
+        datePickerView = UIDatePicker.init()
+        timeTextField.inputView = datePickerView
+        let nav = self.navigationController?.navigationBar
+        nav?.tintColor = UIColor.white
+        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+        
+        timeTextField.layer.masksToBounds = true
+        timeTextField.layer.cornerRadius = timeTextField.frame.height / 4
+        timeTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        timeTextField.layer.borderWidth = 2.0
+        
+        
+        titleTextField.layer.masksToBounds = true
+        titleTextField.layer.cornerRadius = titleTextField.frame.height / 4
+        titleTextField.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        titleTextField.layer.borderWidth = 2.0
+        
+        
+        saveButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        saveButton.layer.cornerRadius = saveButton.frame.height / 4
+        saveButton.layer.borderWidth = 2.5
+        saveButton.setTitleColor(UIColor.black, for: .normal)
+        saveButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        mapView.layer.borderWidth = 2.5
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundTap(gesture:)))
+        view.addGestureRecognizer(gestureRecognizer)
+        
+        longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addAnnotation(gestureRecognizer:)))
+        longPressGesture.minimumPressDuration = 0.5
+        
+        
+        mapView.addGestureRecognizer(longPressGesture)
+        
+        cafeLabel.isHidden = true
+        saveButton.isEnabled = false
+        formatter.timeStyle = .short
+    }
+    
+    
     func changeSaveButton() {
         if timeTextField.text != "" && titleTextField.text != "" && selectedCafe != nil {
             saveButton.isEnabled = true
@@ -365,6 +365,23 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
     @objc func centerMap() {
         self.mapView.userTrackingMode = .follow
         mapRequest(currentLocation)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    //MARK: Segues
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToDetailScreenSegue" {
+            let detailViewController = segue.destination as! EventDetailsViewController
+            detailViewController.cafe = selectedCafe
+            detailViewController.event = eventRecord
+            detailViewController.guestStatus = "No guest yet"
+            detailViewController.catchPhrase = ""
+            detailViewController.databaseManager = databaseManager
+        }
     }
     
 }

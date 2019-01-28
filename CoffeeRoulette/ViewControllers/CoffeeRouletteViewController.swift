@@ -25,68 +25,47 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var event: CKRecord!
     var cafePhoto: UIImage!
     var centerMapButton: UIButton!
-    
+    let splashScreen = UIView()
+     let spinner = UIActivityIndicatorView()
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
     @IBOutlet weak var mapView: MKMapView!
-    
-    let splashScreen = UIView()
-    
     @IBOutlet weak var rouletteButtonImage: UIImageView!
     @IBOutlet weak var coffeeButtonImage: UIImageView!
     @IBOutlet weak var createEventButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     
-    let spinner = UIActivityIndicatorView()
+   
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         databaseManager.fetchAllSubscriptions()
-        
-        
-        spinner.hidesWhenStopped = true
-        splashScreen.frame = view.frame
-        splashScreen.backgroundColor = .black
-        view.addSubview(splashScreen)
-        splashScreen.addSubview(spinner)
-        spinner.startAnimating()
-        spinner.center = splashScreen.center
-        splashScreen.alpha = 0.75
+        setupView()
+
         
         
     }
+    
+
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         createCenterButton()
+        ConfigureButtonViews()
         
-        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         
-        let nav = self.navigationController!.navigationBar
-        nav.backgroundColor = UIColor.black
-        nav.tintColor = UIColor.white
-        nav.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        
-        goButton.alpha = 0.0
-        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
-            self.goButton.alpha = 1.0
-        }, completion: nil)
-        
-        createEventButton.alpha = 0.0
-        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
-            self.createEventButton.alpha = 1.0
-        }, completion: nil)
         
         
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
-        databaseManager.isUserInEvent { [weak self] (record, error) in
+        databaseManager.isUserInEvent { (record, error) in
             
             if let record = record {
                 print(#line, #function, "we are in an event")
-                self?.event = record
+                self.event = record
                 
                 // guest must request cafe photo
                 let photoRef = record["cafePhotoRef"]
@@ -104,33 +83,12 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
                 print(#line, #function, "we are not in an event")
                 // stay put!
                 DispatchQueue.main.async {
-                    self?.spinner.stopAnimating()
-                    self?.splashScreen.isHidden = true
+                    self.spinner.stopAnimating()
+                    self.splashScreen.isHidden = true
                 }
             }
             
         }
-        
-        createEventButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
-        
-        
-        createEventButton.layer.borderWidth = 2.5
-        createEventButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        createEventButton.setTitleColor(UIColor.black, for: .normal)
-        
-        
-        
-        
-        
-        createEventButton.setTitleColor(UIColor.black, for: .normal)
-        createEventButton.layer.cornerRadius = goButton.frame.height / 4
-        goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
-        goButton.setTitleColor(UIColor.black, for: .normal)
-        goButton.layer.cornerRadius = goButton.frame.height / 4
-        goButton.layer.borderWidth = 2.5
-        goButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
-        mapView.layer.borderWidth = 2.5
-        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         
         
         //check if user is in an event
@@ -157,10 +115,11 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
             
             
         }
+        
         mapView.removeOverlays(mapView.overlays)
         circle = MKCircle(center: currentLocation, radius: 500)
         
-        mapView.add(circle)
+        mapView.addOverlay(circle)
         
         mapRequest(currentLocation)
         
@@ -186,18 +145,13 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         currentLocation = manager.location?.coordinate
         
-        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpanMake(delta, delta))
+        let coordinateRegion = MKCoordinateRegion(center: currentLocation, span: MKCoordinateSpan.init(latitudeDelta: delta, longitudeDelta: delta))
         mapView.setRegion(coordinateRegion, animated: true)
         
         
         
     }
-    
-    
-    
-    
-    
-    
+
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? Annotations
         
@@ -343,12 +297,55 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         self.mapView.userTrackingMode = .follow
         mapRequest(currentLocation)
     }
+    func setupView(){
+        
+        spinner.hidesWhenStopped = true
+        splashScreen.frame = view.frame
+        splashScreen.backgroundColor = .black
+        view.addSubview(splashScreen)
+        splashScreen.addSubview(spinner)
+        spinner.startAnimating()
+        spinner.center = splashScreen.center
+        splashScreen.alpha = 0.75
+        
+        self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
+        
+        let nav = self.navigationController!.navigationBar
+        nav.backgroundColor = UIColor.black
+        nav.tintColor = UIColor.white
+        nav.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        
+        goButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
+            self.goButton.alpha = 1.0
+        }, completion: nil)
+        
+        createEventButton.alpha = 0.0
+        UIView.animate(withDuration: 1.2, delay: 0.1, options: [], animations: {
+            self.createEventButton.alpha = 1.0
+        }, completion: nil)
+        
+        mapView.layer.borderWidth = 2.5
+        mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+    }
     
+    fileprivate func ConfigureButtonViews() {
+        createEventButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
+        
+        
+        createEventButton.layer.borderWidth = 2.5
+        createEventButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+        createEventButton.setTitleColor(UIColor.black, for: .normal)
+        createEventButton.setTitleColor(UIColor.black, for: .normal)
+        createEventButton.layer.cornerRadius = goButton.frame.height / 4
+        
+        goButton.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        goButton.setTitleColor(UIColor.black, for: .normal)
+        goButton.layer.cornerRadius = goButton.frame.height / 4
+        goButton.layer.borderWidth = 2.5
+        goButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+    }
     
-}
-
-
-extension CoffeeRouletteViewController {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         guard let circleOverlay = overlay as? MKCircle else { return MKOverlayRenderer() }
         let circleRenderer = MKCircleRenderer(circle: circleOverlay)
