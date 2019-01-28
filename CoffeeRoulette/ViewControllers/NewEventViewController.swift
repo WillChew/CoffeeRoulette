@@ -261,7 +261,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         timeTextField.inputView = datePickerView
         let nav = self.navigationController?.navigationBar
         nav?.tintColor = UIColor.white
-        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        nav?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name:"HelveticaNeue", size: 21)!]
         
         self.view.backgroundColor = UIColor(gradientStyle: UIGradientStyle.topToBottom, withFrame: self.view.frame, andColors: [UIColor.black, UIColor(red:0.3, green:0.3, blue:0.3, alpha:1.0)])
         

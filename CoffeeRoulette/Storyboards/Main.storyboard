@@ -222,11 +222,18 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" text="Coffee Roulette requires you to be logged into your Apple ID!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4re-11-wno">
+                                <rect key="frame" x="16" y="642" width="343" height="67"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.47450980390000003" blue="0.25882352939999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="tintColor" red="1" green="0.84313725490196079" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="EdG-AZ-Wvf" secondAttribute="trailing" constant="16" id="0LN-SE-Ipa"/>
+                            <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="4re-11-wno" secondAttribute="trailing" constant="16" id="5WV-6F-FAG"/>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="TuK-nZ-Eb3" secondAttribute="trailing" constant="44" id="Kel-Pd-dlV"/>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="bottom" secondItem="TuK-nZ-Eb3" secondAttribute="bottom" constant="404" id="UUB-Qj-zNe"/>
                             <constraint firstItem="foL-cG-LRz" firstAttribute="trailing" secondItem="AiW-M6-vMn" secondAttribute="trailing" constant="20" id="Ydw-EK-cl2"/>
@@ -235,10 +242,13 @@
                             <constraint firstItem="WgM-Ft-7bS" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="16" id="f3k-27-8jb"/>
                             <constraint firstItem="EdG-AZ-Wvf" firstAttribute="top" secondItem="WgM-Ft-7bS" secondAttribute="bottom" constant="30" id="i9L-m2-Wg7"/>
                             <constraint firstItem="TuK-nZ-Eb3" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="53" id="lfC-ey-PEx"/>
+                            <constraint firstItem="4re-11-wno" firstAttribute="top" secondItem="AiW-M6-vMn" secondAttribute="bottom" constant="21.329999999999998" id="mDN-kD-t7s"/>
+                            <constraint firstItem="foL-cG-LRz" firstAttribute="bottom" secondItem="4re-11-wno" secondAttribute="bottom" constant="69" id="mfo-GK-wGX"/>
                             <constraint firstItem="AiW-M6-vMn" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="20" id="sLq-zu-FRG"/>
                             <constraint firstItem="AiW-M6-vMn" firstAttribute="top" secondItem="EdG-AZ-Wvf" secondAttribute="bottom" constant="17.666666666666742" id="t8p-T2-eeX"/>
                             <constraint firstItem="EdG-AZ-Wvf" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="24" id="tqh-UV-D9C"/>
                             <constraint firstItem="WgM-Ft-7bS" firstAttribute="top" secondItem="TuK-nZ-Eb3" secondAttribute="bottom" constant="55" id="vee-yM-9s9"/>
+                            <constraint firstItem="4re-11-wno" firstAttribute="leading" secondItem="foL-cG-LRz" secondAttribute="leading" constant="16" id="xrH-TN-vGW"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="foL-cG-LRz"/>
                     </view>
@@ -334,7 +344,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clock (2)" translatesAutoresizingMaskIntoConstraints="NO" id="zBx-fv-Xma">
                                 <rect key="frame" x="53" y="112" width="268" height="256"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair up randomly with another user as a guest or select a venue as a host your own event immediately after!" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-rB-xcG">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pair up randomly with another user as a guest or host a meet up at the cafe of your choosing!" textAlignment="center" lineBreakMode="clip" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EBt-rB-xcG">
                                 <rect key="frame" x="19" y="496.00000000000006" width="335" height="66.666666666666686"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="19"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -526,7 +536,7 @@
             </objects>
             <point key="canvasLocation" x="2868" y="-146.30541871921181"/>
         </scene>
-        <!--Select Your Venue-->
+        <!--Select A Venue-->
         <scene sceneID="rLs-fe-ouW">
             <objects>
                 <viewController storyboardIdentifier="NewEventViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fNL-rD-Uxt" customClass="NewEventViewController" customModule="CoffeeRoulette" customModuleProvider="target" sceneMemberID="viewController">
@@ -600,7 +610,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="iBL-5x-IhJ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Select Your Venue" largeTitleDisplayMode="always" id="TEI-cO-aht">
+                    <navigationItem key="navigationItem" title="Select A Venue" largeTitleDisplayMode="always" id="TEI-cO-aht">
                         <barButtonItem key="backBarButtonItem" title="Back" id="lss-gV-yTb"/>
                     </navigationItem>
                     <connections>
@@ -625,7 +635,7 @@
         <image name="mapWithMarker" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="dcR-Xq-pp7"/>
+        <segue reference="iTW-sc-jz1"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

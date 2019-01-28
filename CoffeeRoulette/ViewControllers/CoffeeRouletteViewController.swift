@@ -313,7 +313,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         let nav = self.navigationController!.navigationBar
         nav.backgroundColor = UIColor.black
         nav.tintColor = UIColor.white
-        nav.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        nav.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont(name:"HelveticaNeue", size: 22)!]
+        
         
         goButton.alpha = 0.0
         UIView.animate(withDuration: 1.2, delay: 0.3, options: [], animations: {
