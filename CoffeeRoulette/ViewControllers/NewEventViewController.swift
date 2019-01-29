@@ -140,7 +140,8 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
         datePickerView.maximumDate = todayEnd
         datePickerView.minimumDate = todayNow
         sender.inputView? = datePickerView
-        datePickerView.backgroundColor = UIColor(red:0.75, green:0.63, blue:0.45, alpha:1.0)
+        datePickerView.backgroundColor = UIColor(red:0.04, green:0.73, blue:0.71, alpha:1)
+        datePickerView.tintColor = .white
         
         
         datePickerView.minuteInterval = 5

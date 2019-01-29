@@ -22,12 +22,11 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     var coordinates:CLLocation!
     var cafePhoto: UIImage!
     var catchPhrase: String!
-    
     var makeOwnButton: UIButton!
+    var selectedCafe: CKRecord!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
-    
     @IBOutlet weak var tryAgainButton: UIButton!
     @IBOutlet weak var confirmButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
@@ -46,7 +45,8 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
             locationManager.startUpdatingLocation()
         }
-
+        
+        
         mapView.showsUserLocation = true
         
         guard eventRecords.count > 0 else {
@@ -69,6 +69,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         for record in eventRecords {
             print(record["title"] as! String)
+            selectedCafe = record
         }
         
         if eventRecords.count == 1 {
@@ -82,6 +83,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         eventRecords.shuffle()
         
+
         addAnnotation()
     }
     
@@ -90,18 +92,25 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupView()
+        
     }
     
     func addAnnotation() {
+        formatter.timeStyle = .short
+        formatter.dateStyle = .medium
+
         let eventRecord = eventRecords[recordIndex]
         titleLabel.text = eventRecord["title"] as? String
         timeLabel.text = formatter.string(from: eventRecord["time"] as! Date)
+        print(formatter.string(from: eventRecord["time"] as! Date))
         coordinates = eventRecord["location"] as? CLLocation
         createAnnotations(coordinates.coordinate)
+        
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
+        
         let identifier = "pin"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKMarkerAnnotationView
         if annotationView == nil {
@@ -109,8 +118,13 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
             annotationView?.markerTintColor = .brown
+            
+            
+            
+            
         } else {
             annotationView?.annotation = annotation
+            
         }
         return annotationView
     }
@@ -198,6 +212,9 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinates
         mapView.addAnnotation(annotation)
+        annotation.title = selectedCafe["cafeName"]
+        annotation.subtitle = selectedCafe["cafeAddress"]
+        
     }
     
     
@@ -217,8 +234,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         
         makeOwnButton.setTitle("Make Your Own!", for: .normal)
         makeOwnButton.addTarget(self, action: #selector(customButtonAction), for: .touchUpInside)
-        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 24)
-        makeOwnButton.titleLabel?.lineBreakMode = .byTruncatingMiddle
+        makeOwnButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Bold", size: 21)
+        makeOwnButton.setTitleColor(.black, for: .normal)
+        
+        
         makeOwnButton.translatesAutoresizingMaskIntoConstraints = false
         makeOwnButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
         makeOwnButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20).isActive = true
@@ -280,12 +299,10 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
         timeLabel.textColor = UIColor.white
         timeLabel.font = UIFont(name: "HelveticaNeue", size: 20)
         
-       
+        
         
         mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
         mapView.layer.borderWidth = 2.5
-        formatter.timeStyle = .short
-        formatter.dateStyle = .medium
     }
     
  
