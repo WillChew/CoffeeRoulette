@@ -117,7 +117,7 @@ class EventConfirmationViewController: UIViewController, MKMapViewDelegate, CLLo
             annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             annotationView?.canShowCallout = true
             annotationView?.rightCalloutAccessoryView = UIView()
-            annotationView?.markerTintColor = .brown
+            annotationView?.markerTintColor = UIColor(red:0.04, green:0.73, blue:0.71, alpha:1)
             
             
             

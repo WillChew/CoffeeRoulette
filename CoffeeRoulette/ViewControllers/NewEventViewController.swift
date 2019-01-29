@@ -197,7 +197,7 @@ class NewEventViewController: UIViewController, CLLocationManagerDelegate, MKMap
                     let info = CKSubscription.NotificationInfo()
                     let title = record["title"] as! String
                     info.title = title
-                    info.alertBody = "Guest Confirmed. Open app for more info"
+                    info.alertBody = "Guest Confirmed. Open app for event details"
                     info.soundName = "default"
                     subscription.notificationInfo = info
                     
