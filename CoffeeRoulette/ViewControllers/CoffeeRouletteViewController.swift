@@ -50,7 +50,6 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     
 
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -58,7 +57,29 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         ConfigureButtonViews()
         
         
-        
+        databaseManager.iCloudUserIDASync { (recordID, error) in
+            if let userID = recordID?.recordName {
+                print("received iCloudID \(userID)")
+            } else {
+            
+                    let alert = UIAlertController(title: "Problem Connecting to iCloud", message: "Make sure you are connected to iCloud", preferredStyle: .alert)
+//                    let settingsAction = UIAlertAction(title: "Check Settings", style: .default, handler: { (_) in
+//                        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+//                        if UIApplication.shared.canOpenURL(settingsURL) {
+//                            UIApplication.shared.open(settingsURL, completionHandler: nil)
+//                        }
+//                        self.present(alert, animated: animated, completion: nil)
+//                    })
+                
+                let dismissAction = UIAlertAction(title: "Try Again", style: .cancel, handler: { (_) in
+                    self.view.layoutIfNeeded()
+                })
+                    alert.addAction(dismissAction)
+//                    alert.addAction(settingsAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+            
+        }
         
         // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
         databaseManager.isUserInEvent { (record, error) in

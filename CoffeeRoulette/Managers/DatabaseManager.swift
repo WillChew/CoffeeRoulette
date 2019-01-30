@@ -126,6 +126,31 @@ class DatabaseManager {
         }
     }
     
+    func iCloudUserIDASync(complete: @escaping(_ instance: CKRecord.ID?, _ error: NSError?) -> ()) {
+        let container = CKContainer.default()
+        container.fetchUserRecordID { (record, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+                complete(nil, error as NSError?)
+                
+            } else {
+                print("Fetched ID \(record?.recordName)")
+                complete(record, nil)
+            }
+        }
+    }
+    
+    func checkUserID(){
+        let container = CKContainer.default()
+        container.fetchUserRecordID { (record, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print(record?.recordName)
+            }
+        }
+    }
+    
     func save(subscription: CKSubscription, completion: @escaping ((CKSubscription?, Error?)->())){
         db.save(subscription) { (subscription, error) in
             completion(subscription, error)
