@@ -26,7 +26,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     var cafePhoto: UIImage!
     var centerMapButton: UIButton!
     let splashScreen = UIView()
-     let spinner = UIActivityIndicatorView()
+    let spinner = UIActivityIndicatorView()
     var databaseManager = (UIApplication.shared.delegate as! AppDelegate).databaseManager
     
     @IBOutlet weak var mapView: MKMapView!
@@ -35,91 +35,85 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var createEventButton: UIButton!
     @IBOutlet weak var goButton: UIButton!
     
-   
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        databaseManager.fetchAllSubscriptions()
         setupView()
-
-        
+        createCenterButton()
+        ConfigureButtonViews()
         
     }
     
 
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        createCenterButton()
-        ConfigureButtonViews()
-        
-        
-        databaseManager.iCloudUserIDASync { (recordID, error) in
-            if let userID = recordID?.recordName {
-                print("received iCloudID \(userID)")
-            } else {
+    func checkIfLogged() -> Bool {
+        if let currentToken = FileManager.default.ubiquityIdentityToken {
             
-                    let alert = UIAlertController(title: "Problem Connecting to iCloud", message: "Make sure you are connected to iCloud", preferredStyle: .alert)
-//                    let settingsAction = UIAlertAction(title: "Check Settings", style: .default, handler: { (_) in
-//                        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
-//                        if UIApplication.shared.canOpenURL(settingsURL) {
-//                            UIApplication.shared.open(settingsURL, completionHandler: nil)
-//                        }
-//                        self.present(alert, animated: animated, completion: nil)
-//                    })
-                
-                let dismissAction = UIAlertAction(title: "Try Again", style: .cancel, handler: { (_) in
-                    self.view.layoutIfNeeded()
-                })
-                    alert.addAction(dismissAction)
-//                    alert.addAction(settingsAction)
-                    self.present(alert, animated: true, completion: nil)
-                }
-            
+            return true
         }
-        
-        // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
-        databaseManager.isUserInEvent { (record, error) in
+        else {
             
-            if let record = record {
-                print(#line, #function, "we are in an event")
-                self.event = record
+            return false
+        }
+    }
+    
+    func check() {
+        if checkIfLogged() == false {
+            DispatchQueue.main.async {
                 
-                // guest must request cafe photo
-                let photoRef = record["cafePhotoRef"]
-                
-                let mapRequestManager = MapRequestManager()
-                
-                mapRequestManager.getPictureRequest(photoRef as? String) { [weak self] (photo) in
-                    DispatchQueue.main.async {
-                        self?.cafePhoto = photo
-                        self?.performSegue(withIdentifier: "goToDetailSegue", sender: self)
-                    }
+                let alert = UIAlertController(title: "Unable to connect to iCloud", message: "Please connect to iCloud and reopen the app", preferredStyle: .alert)
+                let dismissAction = UIAlertAction(title: "Close app", style: .default) { (_) in
+                   exit(0)
+                    
                 }
-                
-            } else {
-                print(#line, #function, "we are not in an event")
-                // stay put!
-                DispatchQueue.main.async {
-                    self.spinner.stopAnimating()
-                    self.splashScreen.isHidden = true
-                }
+                alert.addAction(dismissAction)
+                self.present(alert, animated: true, completion: nil)
             }
             
         }
-        
-        
-        //check if user is in an event
-        UserDefaults.standard.set(false, forKey: "isInEvent")
-        let inEvent = UserDefaults.standard.bool(forKey: "isInEvent")
-        if inEvent {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailsViewController")
-            self.present(eventDetailViewController, animated: false, completion: nil)
+        if checkIfLogged() == true {
+
+            data()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        check()
+        
+        
+        databaseManager.fetchAllSubscriptions()
+        
+        
+        //        databaseManager.iCloudUserIDASync { (recordID, error) in
+        //            if let userID = recordID?.recordName {
+        //                print("received iCloudID \(userID)")
+        //            } else {
+        //
+        //                    let alert = UIAlertController(title: "Problem Connecting to iCloud", message: "Make sure you are connected to iCloud", preferredStyle: .alert)
+        ////                    let settingsAction = UIAlertAction(title: "Check Settings", style: .default, handler: { (_) in
+        ////                        guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+        ////                        if UIApplication.shared.canOpenURL(settingsURL) {
+        ////                            UIApplication.shared.open(settingsURL, completionHandler: nil)
+        ////                        }
+        ////                        self.present(alert, animated: animated, completion: nil)
+        ////                    })
+        //
+        //                let dismissAction = UIAlertAction(title: "Try Again", style: .cancel, handler: { (_) in
+        //
+        //                    if self.databaseManager.get
+        //                })
+        //                    alert.addAction(dismissAction)
+        ////                    alert.addAction(settingsAction)
+        //                    self.present(alert, animated: true, completion: nil)
+        //                }
+        //
+        //        }
+        
+        
         
         mapRequestManager = MapRequestManager()
         locationManager = CLLocationManager()
@@ -148,8 +142,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         longPressGesture.minimumPressDuration = 0.5
         mapView.addGestureRecognizer(longPressGesture)
         
+        
     }
-    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         spinner.stopAnimating()
@@ -172,7 +166,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         
         
     }
-
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         self.selectedAnnotation = view.annotation as? Annotations
         
@@ -318,6 +312,7 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         self.mapView.userTrackingMode = .follow
         mapRequest(currentLocation)
     }
+    
     func setupView(){
         
         spinner.hidesWhenStopped = true
@@ -351,6 +346,8 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         mapView.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
     }
     
+    
+    
     fileprivate func ConfigureButtonViews() {
         createEventButton.backgroundColor = UIColor(red:0.96, green:0.96, blue:0.86, alpha:1.0)
         
@@ -366,6 +363,50 @@ class CoffeeRouletteViewController: UIViewController, CLLocationManagerDelegate,
         goButton.layer.cornerRadius = goButton.frame.height / 4
         goButton.layer.borderWidth = 2.5
         goButton.layer.borderColor = UIColor(red:0.15, green:0.15, blue:0.15, alpha:1.0).cgColor
+    }
+    
+    func data(){
+        // CHECK IF USER IS SCHEDULED FOR AN UPCOMING EVENT
+        databaseManager.isUserInEvent { (record, error) in
+            DispatchQueue.main.async {
+                
+            if let record = record {
+                print(#line, #function, "we are in an event")
+                self.event = record
+                
+                // guest must request cafe photo
+                let photoRef = record["cafePhotoRef"]
+                
+                let mapRequestManager = MapRequestManager()
+                
+                mapRequestManager.getPictureRequest(photoRef as? String) { [weak self] (photo) in
+                    DispatchQueue.main.async {
+                        self?.cafePhoto = photo
+                        self?.performSegue(withIdentifier: "goToDetailSegue", sender: self)
+                    }
+                }
+                
+            } else {
+                print(#line, #function, "we are not in an event")
+                // stay put!
+                DispatchQueue.main.async {
+                    self.spinner.stopAnimating()
+                    self.splashScreen.isHidden = true
+                }
+            }
+            
+        }
+        
+        
+        //check if user is in an event
+        UserDefaults.standard.set(false, forKey: "isInEvent")
+        let inEvent = UserDefaults.standard.bool(forKey: "isInEvent")
+        if inEvent {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let eventDetailViewController = storyboard.instantiateViewController(withIdentifier: "EventDetailsViewController")
+            self.present(eventDetailViewController, animated: false, completion: nil)
+        }
+    }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {

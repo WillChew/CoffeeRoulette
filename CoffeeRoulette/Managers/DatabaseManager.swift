@@ -140,15 +140,20 @@ class DatabaseManager {
         }
     }
     
-    func checkUserID(){
+    func checkUserID(completion: @escaping(String) -> ()) {
         let container = CKContainer.default()
-        container.fetchUserRecordID { (record, error) in
+        var name:String = ""
+        container.fetchUserRecordID { (recordID, error) in
             if error != nil {
                 print(error!.localizedDescription)
+                completion(name)
             } else {
-                print(record?.recordName)
+                print(recordID?.recordName)
+                name = (recordID?.recordName)!
+                completion(name)
             }
         }
+        
     }
     
     func save(subscription: CKSubscription, completion: @escaping ((CKSubscription?, Error?)->())){
